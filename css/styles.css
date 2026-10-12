@@ -523,8 +523,8 @@ main:focus { outline: none; }
   z-index: 1;
 }
 
+.journey .journey-index { order: 2; }
 .journey-index {
-  order: 2;
   display: block;
   margin-bottom: 4px;
   color: var(--copper-text);
@@ -942,7 +942,7 @@ main:focus { outline: none; }
     padding: 10px 0 10px 4px;
   }
   .journey-node { grid-area: node; margin: 4px 0 0; }
-  .journey-index { grid-area: index; }
+  .journey .journey-index { grid-area: index; }
   .journey h3 { grid-area: title; }
   .journey::before {
     display: block;
