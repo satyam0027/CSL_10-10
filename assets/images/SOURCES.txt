@@ -3,13 +3,24 @@ Replaceable photography. These are temporary landscape stand-ins, not photograph
 hero-landscape.jpg — Unsplash photo-1464822759023-fed622ff2c3b — mountain valley and forest
 question-forest.jpg — Unsplash photo-1441974231531-c6227db76b6e — sunlit forest path
 institutional-hills.jpg — Unsplash photo-1470071459604-3b5ec3a7fe05 — misted green hills
+The Global Network page uses this same landscape. It is not a CureSoulLife centre, office, or gathering.
 closing-horizon.jpg — Unsplash photo-1469474968028-56623f02e42e — ridge in warm light, distant figure
-eco-knowledge.jpg — Unsplash photo-1500530855697-b586d89ba3ee
-eco-research.jpg — Unsplash photo-1447752875215-b2761acb3c5d
-eco-experiences.jpg — Unsplash photo-1433086966358-54859d0ed716 — waterfall in forest
-eco-community.jpg — Unsplash photo-1470770841072-f978cf4d019e
-eco-network.jpg — Unsplash photo-1500534314209-a25ddb2bd429
+WebP and 960px derivatives of closing-horizon are generated from that same file for the Life Decoding page and the About page. It is not a portrait of a CureSoulLife person, and it is not a campus or facility.
+eco-knowledge.jpg — Unsplash photo-1500530855697-b586d89ba3ee — road through red rock toward a distant mountain
+WebP and 960px derivatives of eco-knowledge are generated from that same file for the Knowledge page. It is not a library, a reading room, or a CureSoulLife place.
+eco-research.jpg — Unsplash photo-1447752875215-b2761acb3c5d — footbridge through dense forest
+WebP and 960px derivatives of eco-research are generated from that same file for the Research page. It is not a laboratory, a campus, or a CureSoulLife place.
+eco-experiences.jpg — Unsplash photo-1433086966358-54859d0ed716 — waterfall and footbridge in dense forest
+WebP and 960px derivatives of eco-experiences are generated from that same file for the Experiences page. It is not a CureSoulLife venue, event, or group of participants.
+eco-community.jpg — Unsplash photo-1470770841072-f978cf4d019e — mountain lake, wooden boathouse, forested slopes
+WebP and 960px derivatives of eco-community are generated from that same file for the Retreats page. It is not a CureSoulLife venue, retreat centre, or group of participants.
+eco-network.jpg — Unsplash photo-1500534314209-a25ddb2bd429 — layered mountain ridges in warm light
+WebP and 960px derivatives of eco-network are generated from that same file for the Community page. It is not a CureSoulLife gathering, centre, chapter, or group of members.
 page-landscape.jpg — Unsplash photo-1501785888041-af3ef285b470
+WebP and 960px derivatives of page-landscape are generated from that same file for the institutional overview.
+
+WebP and 960px derivatives of hero-landscape, question-forest, and institutional-hills are generated from those same files for the homepage.
 
 Founder portrait: not included. The layout uses a labelled placeholder until an approved photograph is supplied.
+An approved photograph of a person in a landscape, and an approved urban reflection photograph, are not in the project. The homepage does not substitute a stock portrait.
 No social profile URLs are stored here.
