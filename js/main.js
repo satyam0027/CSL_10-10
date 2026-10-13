@@ -102,7 +102,7 @@
   }
 
   var dimButtons = document.querySelectorAll("[data-dimension]");
-  var dimDesktop = window.matchMedia("(min-width: 1200px)");
+  var dimDesktop = window.matchMedia("(min-width: 1100px)");
   function showDimension(id, shouldFocus) {
     var desktop = dimDesktop.matches;
     dimButtons.forEach(function (button) {
@@ -140,6 +140,17 @@
     dimDesktop.addEventListener("change", function () {
       var current = document.querySelector("[data-dimension][aria-pressed='true']");
       showDimension(current ? current.getAttribute("data-dimension") : "body", false);
+    });
+    document.querySelectorAll("[data-dimension-step]").forEach(function (control) {
+      control.addEventListener("click", function () {
+        var buttons = Array.prototype.slice.call(dimButtons);
+        var current = buttons.findIndex(function (button) {
+          return button.getAttribute("aria-pressed") === "true";
+        });
+        var step = Number(control.getAttribute("data-dimension-step"));
+        var next = buttons[(current + step + buttons.length) % buttons.length];
+        if (next) showDimension(next.getAttribute("data-dimension"), true);
+      });
     });
   }
 
@@ -211,5 +222,107 @@
     reveals.forEach(function (el) { observer.observe(el); });
   } else {
     reveals.forEach(function (el) { el.classList.add("is-in"); });
+  }
+
+  var animated = document.querySelectorAll(".about-orbit, .home-hos-orbit, .journey-block, .lens-diagram, .hos-figure, .hos-orbit, .ht-arc, .ht-finale-orbit");
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    var animObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-animated");
+        animObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.25 });
+    animated.forEach(function (el) { animObserver.observe(el); });
+  } else {
+    animated.forEach(function (el) { el.classList.add("is-animated"); });
+  }
+
+  var enquiryForm = document.getElementById("enquiry-form");
+  if (enquiryForm) {
+    var allowed = ["general_enquiry", "media_press", "institutional_collaboration", "global_network", "experiences_retreats", "speaking_content", "feedback", "other"];
+    var typeField = document.getElementById("enquiry-type");
+    var cards = Array.prototype.slice.call(document.querySelectorAll("[data-enquiry]"));
+    var message = document.getElementById("message");
+    var counter = document.getElementById("message-count");
+    var status = document.getElementById("enquiry-status");
+
+    function setEnquiry(value) {
+      if (allowed.indexOf(value) === -1) value = "";
+      typeField.value = value;
+      cards.forEach(function (card) {
+        card.setAttribute("aria-pressed", card.getAttribute("data-enquiry") === value ? "true" : "false");
+      });
+    }
+
+    function showError(id, text) {
+      var node = document.getElementById(id);
+      var field = document.getElementById(id.replace("-error", ""));
+      if (!node) return;
+      node.hidden = !text;
+      node.textContent = text || "";
+      if (field) {
+        if (text) field.setAttribute("aria-invalid", "true");
+        else field.removeAttribute("aria-invalid");
+      }
+    }
+
+    cards.forEach(function (card) {
+      card.addEventListener("click", function () {
+        setEnquiry(card.getAttribute("data-enquiry"));
+      });
+    });
+    typeField.addEventListener("change", function () {
+      setEnquiry(typeField.value);
+    });
+    document.querySelectorAll("[data-select-enquiry]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        setEnquiry(button.getAttribute("data-select-enquiry"));
+        document.getElementById("contact-form").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+        typeField.focus();
+      });
+    });
+    if (message && counter) {
+      message.addEventListener("input", function () {
+        counter.textContent = message.value.length + " / 3000";
+      });
+    }
+    var requested = new URLSearchParams(window.location.search).get("enquiry");
+    if (requested && allowed.indexOf(requested) !== -1) setEnquiry(requested);
+
+    enquiryForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var name = document.getElementById("full-name");
+      var email = document.getElementById("email");
+      var subject = document.getElementById("subject");
+      var first = null;
+      function fail(input, errorId, text) {
+        showError(errorId, text);
+        if (!first) first = input;
+      }
+      showError("full-name-error", "");
+      showError("email-error", "");
+      showError("enquiry-type-error", "");
+      showError("subject-error", "");
+      showError("message-error", "");
+      showError("privacy-error", "");
+      status.hidden = true;
+      status.textContent = "";
+      if (!name.value.trim()) fail(name, "full-name-error", "Enter your full name.");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) fail(email, "email-error", "Enter an email address in the form name@example.com. This check does not verify that the address exists.");
+      if (allowed.indexOf(typeField.value) === -1) fail(typeField, "enquiry-type-error", "Select an enquiry type.");
+      if (!subject.value.trim()) fail(subject, "subject-error", "Enter a subject.");
+      if (!message.value.trim()) fail(message, "message-error", "Enter a message.");
+      else if (message.value.length > 3000) fail(message, "message-error", "Use 3,000 characters or fewer.");
+      showError("privacy-error", "The Privacy Policy is not published, so this acknowledgement cannot be completed.");
+      if (!first) first = document.getElementById("privacy");
+      if (name.value.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()) && allowed.indexOf(typeField.value) !== -1 && subject.value.trim() && message.value.trim() && message.value.length <= 3000) {
+        status.hidden = false;
+        status.textContent = "This enquiry could not be submitted. No verified delivery channel is connected. Nothing was received. Your details are still in the form.";
+        status.focus();
+        return;
+      }
+      if (first && first.focus) first.focus();
+    });
   }
 })();

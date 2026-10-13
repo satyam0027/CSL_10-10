@@ -29,7 +29,8 @@ const NAV = [
   ["research/index.html", "Research", "research"],
   ["experiences/index.html", "Experiences", "experiences"],
   ["community/index.html", "Community", "community"],
-  ["about/index.html", "About", "about"]
+  ["about/index.html", "About", "about"],
+  ["contact/index.html", "Contact", "contact"]
 ];
 
 const footerCols = [
@@ -119,9 +120,9 @@ ${body}
         <p class="footer-tag">A Human Transformation Institution. Ancient wisdom, modern science, human experience, and practical application.</p>
       </div>
       ${cols}
-    </div>
-    <div class="container footer-bottom">
-      <p class="footer-statement">Human transformation is a lifelong journey.</p>
+      <div class="footer-quote">
+        <p class="footer-statement">“Human transformation is a lifelong journey.”</p>
+      </div>
     </div>
   </footer>
   <script src="${p}js/main.js" defer></script>
@@ -181,24 +182,17 @@ function home() {
               <span class="journey-node" aria-hidden="true"></span>
               <h3>${name}</h3>
             </li>`).join("");
-  const hosNodes = [
-    [600, 150, "Body", "middle", 600, 118],
-    [819, 208, "Mind", "start", 838, 208],
-    [935, 357, "Emotion", "start", 954, 357],
-    [894, 525, "Energy", "start", 912, 525],
-    [716, 635, "Relationships", "start", 734, 635],
-    [484, 635, "Purpose", "end", 466, 635],
-    [306, 525, "Work &amp; Wealth", "end", 288, 525],
-    [265, 357, "Consciousness", "end", 246, 357],
-    [381, 208, "Legacy", "end", 362, 208]
-  ];
-  const hosSpokes = hosNodes.map(([x, y], i) => `<line class="hos-spoke" style="animation-delay:${i * 70}ms" x1="600" y1="400" x2="${x}" y2="${y}"/>`).join("");
-  const hosMarks = hosNodes.map(([x, y]) => `<circle class="hos-node" cx="${x}" cy="${y}" r="5.5"/>`).join("");
-  const hosLabels = hosNodes.map(([, , name, anchor, x, y]) => `<text x="${x}" y="${y}" text-anchor="${anchor}" dominant-baseline="middle">${name}</text>`).join("");
   const hosList = dimensions.map(([, name, label]) => `<li><h3>${name}</h3><p>${label}</p></li>`).join("");
+  const hosOrbit = dimensions.map(([key, name, label], i) => `<li class="tone-${i % 5}" style="--i:${i}"><span class="home-hos-icon">${icons[key]}</span><strong>${name}</strong><small>${label}</small></li>`).join("");
+  const perspectives = [
+    ["Ancient Wisdom", icons.wisdom, "Explore philosophical traditions, contemplative practices and inherited ways of understanding human life.", "eco-network", 1200, 1800, "center 30%"],
+    ["Modern Science", icons.science, "Explore relevant scientific research and evolving knowledge about human behaviour, development and wellbeing.", "eco-research", 1200, 800, "center 45%"],
+    ["Human Experience", icons.experience, "Learn from lived experience, reflection and the questions people encounter in everyday life.", "closing-horizon", 1800, 1196, "78% 40%"],
+    ["Practical Application", icons.practice, "Connect understanding with responsible practices, everyday choices and continued reflection.", "page-landscape", 1600, 1067, "center 70%"]
+  ];
 
   return `
-    <section class="hero" aria-labelledby="hero-title">
+    <section class="hero home-hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         ${eyebrow("CureSoulLife")}
         <h1 id="hero-title">A deeper way to understand being human.</h1>
@@ -207,9 +201,12 @@ function home() {
           ${cta(d, "human-transformation/index.html", "Explore Human Transformation")}
           ${cta(d, "curesoullife/index.html", "Discover CureSoulLife", "btn btn-secondary")}
         </div>
+        <ul class="home-pillars">
+          ${perspectives.map(([title, icon]) => `<li><span class="home-pillar-icon">${icon}</span>${title}</li>`).join("")}
+        </ul>
       </div>
       <div class="hero-media">
-        ${picture("hero-landscape", 1800, 1200, "Mountain valley and evergreen forest in daylight", { priority: true, lazy: false })}
+        ${picture("closing-horizon", 1800, 1196, "A person on a rocky ridge above misty valleys in warm light", { priority: true, lazy: false })}
       </div>
     </section>
 
@@ -227,7 +224,7 @@ function home() {
       </div>
     </section>
 
-    <section class="section section-white" aria-labelledby="question-title">
+    <section class="section section-white home-question" aria-labelledby="question-title">
       <div class="container split">
         <div class="reveal">
           ${eyebrow("The human question")}
@@ -241,126 +238,143 @@ function home() {
       </div>
     </section>
 
-    <section class="section section-sand" aria-labelledby="about-title">
+    <section class="section section-sand home-institution" aria-labelledby="about-title">
       <div class="container">
-        <div class="split who-intro">
-          <div class="reveal">
+        <div class="home-intro reveal">
+          <div>
             ${eyebrow("CureSoulLife")}
             <h2 id="about-title">A Human Transformation Institution.</h2>
             <p class="support">A living ecosystem for human transformation. CureSoulLife brings together Ancient Wisdom, Modern Science, Human Experience and Practical Application to explore how people can understand themselves more deeply and live with greater awareness, balance, meaning and possibility.</p>
             <p class="support">Our purpose is not to tell people who to become. It is to create conditions in which deeper understanding and meaningful transformation become possible.</p>
-            <blockquote class="pull quote"><p>A modern institution born from timeless wisdom.</p></blockquote>
           </div>
-          <figure class="split-media reveal">
-            ${picture("institutional-hills", 1800, 1072, "Misted green hills in soft light")}
-          </figure>
+          <blockquote class="pull quote"><p>A modern institution born from timeless wisdom.</p></blockquote>
         </div>
         <p class="approach-kicker reveal">Four perspectives. A more integrated understanding.</p>
-        <div class="approach-grid reveal">
-          <article class="approach-card"><div class="dim-icon">${icons.wisdom}</div><h3>Ancient Wisdom</h3><p>Explore philosophical traditions, contemplative practices and inherited ways of understanding human life.</p></article>
-          <article class="approach-card"><div class="dim-icon">${icons.science}</div><h3>Modern Science</h3><p>Explore relevant scientific research and evolving knowledge about human behaviour, development and wellbeing.</p></article>
-          <article class="approach-card"><div class="dim-icon">${icons.experience}</div><h3>Human Experience</h3><p>Learn from lived experience, reflection and the questions people encounter in everyday life.</p></article>
-          <article class="approach-card"><div class="dim-icon">${icons.practice}</div><h3>Practical Application</h3><p>Connect understanding with responsible practices, everyday choices and continued reflection.</p></article>
+        <div class="home-perspectives reveal">
+          ${perspectives.map(([title, , copy, stem, w, h, pos]) => `<article class="home-photo-card">
+            <figure class="home-photo-card-media" style="--pos:${pos}">${picture(stem, w, h, "")}</figure>
+            <div class="home-photo-card-body"><h3>${title}</h3><p>${copy}</p></div>
+          </article>`).join("")}
         </div>
         <p class="section-note">These perspectives are held with equal weight. Traditional understanding and scientific evidence are not treated as interchangeable.</p>
         <div class="cta-row">${cta(d, "curesoullife/index.html", "Discover CureSoulLife")}</div>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="journey-title">
-      <div class="container">
-        <div class="section-head section-header reveal">
-          ${eyebrow("From understanding to transformation")}
-          <h2 id="journey-title">Transformation is a lifelong journey.</h2>
-          <p class="support">Meaningful change can begin with awareness, deepen through understanding, and take shape through practice, integration and contribution.</p>
+    <section class="section home-journey" aria-labelledby="journey-title">
+      <div class="container home-journey-grid">
+        <div class="home-journey-main">
+          <div class="section-head section-header reveal">
+            ${eyebrow("From understanding to transformation")}
+            <h2 id="journey-title">Transformation is a lifelong journey.</h2>
+            <p class="support">Meaningful change can begin with awareness, deepen through understanding, and take shape through practice, integration and contribution.</p>
+          </div>
+          <div class="journey-block timeline diagram reveal">
+            <ol class="journey">${stageItems}</ol>
+            <svg class="journey-arc" viewBox="0 0 1000 64" preserveAspectRatio="xMidYMin meet" aria-hidden="true" focusable="false">
+              <path class="journey-return" d="M929 6C929 58 71 58 71 6" fill="none" stroke="currentColor" stroke-width="1.25"/>
+              <path d="M63 16 71 6l8 10" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="journey-note">These stages are not strictly linear. People may revisit different stages throughout life. They are a conceptual framework, not a validated psychological model, a fixed ranking, or a guaranteed sequence.</p>
+          </div>
+          <div class="cta-row">${cta(d, "human-transformation/index.html", "Explore Human Transformation")}</div>
         </div>
-        <div class="journey-block timeline diagram reveal">
-          <ol class="journey">${stageItems}</ol>
-          <svg class="journey-arc" viewBox="0 0 1000 64" preserveAspectRatio="xMidYMin meet" aria-hidden="true" focusable="false">
-            <path class="journey-return" d="M929 6C929 58 71 58 71 6" fill="none" stroke="currentColor" stroke-width="1.25"/>
-            <path d="M63 16 71 6l8 10" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <p class="journey-note">These stages are not strictly linear. People may revisit different stages throughout life. They are a conceptual framework, not a validated psychological model, a fixed ranking, or a guaranteed sequence.</p>
-        </div>
-        <div class="cta-row">${cta(d, "human-transformation/index.html", "Explore Human Transformation")}</div>
+        <figure class="home-journey-media reveal">
+          ${picture("institutional-hills", 1800, 1072, "A winding road through green hills at sunrise")}
+        </figure>
       </div>
     </section>
 
-    <section class="section section-white" aria-labelledby="hos-title">
-      <div class="container">
-        <div class="section-head section-header reveal">
+    <section class="section section-white home-hos" aria-labelledby="hos-title">
+      <div class="container home-hos-grid">
+        <div class="home-hos-text reveal">
           ${eyebrow("The Human Operating System™")}
           <h2 id="hos-title">Nine interconnected dimensions of human life.</h2>
           <p class="support">A holistic framework for exploring the different dimensions of human life and how they relate to everyday experience, choices and development.</p>
+          <div class="cta-row">${cta(d, "human-operating-system/index.html", "Explore Human Operating System™")}</div>
         </div>
-        <div class="hos reveal">
-          <div class="hos-diagram" aria-hidden="true">
-            <svg viewBox="0 0 1200 780" focusable="false">
-              <ellipse cx="600" cy="400" rx="340" ry="250" fill="none" stroke="#D7D2C8" stroke-width="1"/>
-              ${hosSpokes}
-              <circle cx="600" cy="400" r="58" fill="#F7F4ED" stroke="#173A32" stroke-width="1.4"/>
-              <g transform="translate(584 384)" fill="none" stroke="#173A32" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
-                <circle cx="16" cy="16" r="11"/>
-                <path d="M8 19.5h16M11.5 19.5 16 13l4.5 6.5"/>
-              </g>
-              ${hosMarks}
-              ${hosLabels}
-            </svg>
+        <div class="home-hos-figure reveal">
+          <div class="home-hos-orbit" aria-hidden="true">
+            <div class="home-hos-core">${mark}</div>
+            <ul>${hosOrbit}</ul>
           </div>
           <ul class="hos-list">${hosList}</ul>
         </div>
-        <p class="section-note">The Human Operating System™ is a conceptual framework for exploring interconnected dimensions of human life. It is not a clinically validated diagnostic instrument.</p>
-        <div class="cta-row">${cta(d, "human-operating-system/index.html", "Explore Human Operating System™")}</div>
+        <p class="section-note home-hos-note">The Human Operating System™ is a conceptual framework for exploring interconnected dimensions of human life. It is not a clinically validated diagnostic instrument.</p>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="knowledge-title">
-      <div class="container reading-block reveal">
-        ${eyebrow("Knowledge")}
-        <h2 id="knowledge-title">Ideas for understanding human life.</h2>
-        <p class="support">Ideas, insights and practical resources for understanding human life and transformation. Knowledge is a pathway from curiosity toward a more careful understanding.</p>
-        <div class="quiet-panel">
-          <h3>Published work will appear here.</h3>
-          <p>Essays, guides and learning series are not listed until they are actually published. This page does not display article counts, authors, or borrowed media.</p>
-        </div>
-        <div class="cta-row">${cta(d, "knowledge/index.html", "Explore Knowledge")}</div>
+    <div class="section section-sand home-paths">
+      <div class="container home-paths-grid">
+        <section class="home-path reveal" aria-labelledby="knowledge-title">
+          <figure class="home-path-media" style="--pos:center 62%">${picture("eco-knowledge", 1200, 1800, "")}</figure>
+          <div class="home-path-body">
+            ${eyebrow("Knowledge")}
+            <h2 id="knowledge-title">Ideas for understanding human life.</h2>
+            <p class="support">Ideas, insights and practical resources for understanding human life and transformation. Knowledge is a pathway from curiosity toward a more careful understanding.</p>
+            <div class="home-path-note">
+              <h3>Published work will appear here.</h3>
+              <p>Essays, guides and learning series are not listed until they are actually published. This page does not display article counts, authors, or borrowed media.</p>
+            </div>
+            ${textLink(d, "knowledge/index.html", "Explore Knowledge")}
+          </div>
+        </section>
+        <section class="home-path reveal" aria-labelledby="research-title">
+          <figure class="home-path-media" style="--pos:72% 40%">${picture("hero-landscape", 1800, 1200, "")}</figure>
+          <div class="home-path-body">
+            ${eyebrow("Research")}
+            <h2 id="research-title">Questions held with intellectual honesty.</h2>
+            <p class="support">Explore questions, evidence, traditional perspectives and emerging understanding with intellectual honesty. Scientific research and traditional understanding are not treated as interchangeable, and neither is offered as proof of personal transformation.</p>
+            <div class="home-path-note">
+              <h3>No publication list is invented here.</h3>
+              <p>Studies, papers and reviews will be cited only when they exist and can be read. This page does not display research counts, validation badges, or partner institutions.</p>
+            </div>
+            ${textLink(d, "research/index.html", "Explore Research")}
+          </div>
+        </section>
+        <section class="home-path reveal" aria-labelledby="experiences-title">
+          <figure class="home-path-media" style="--pos:center 40%">${picture("eco-experiences", 1200, 800, "")}</figure>
+          <div class="home-path-body">
+            ${eyebrow("Experiences")}
+            <h2 id="experiences-title">Practice, programmes and immersive learning.</h2>
+            <p class="support">Experiences are where understanding can meet application: guided practices, workshops, programmes and immersive learning, alongside continued reflection.</p>
+            <ul class="format-list">
+              <li>Guided practices</li>
+              <li>Workshops</li>
+              <li>Structured programmes</li>
+              <li>Retreats and immersions</li>
+              <li>Events and shared learning</li>
+            </ul>
+            <div class="home-path-note">
+              <h3>Programmes are listed only when they are real.</h3>
+              <p>No dates, places, teachers or prices are shown until a programme is actually offered. This page does not take bookings or payments.</p>
+            </div>
+            ${textLink(d, "experiences/index.html", "Explore Experiences")}
+          </div>
+        </section>
+        <section class="home-path reveal" aria-labelledby="community-title">
+          <figure class="home-path-media" style="--pos:center 55%">${picture("eco-community", 1200, 800, "")}</figure>
+          <div class="home-path-body">
+            ${eyebrow("Community")}
+            <h2 id="community-title">Learn together. Contribute with care.</h2>
+            <p class="support">Community is where people can learn with one another and find responsible ways to contribute. The Global Network is a related vision. The two are not the same thing.</p>
+            <div class="home-path-note">
+              <h3>Community</h3>
+              <p>Learn together, share perspectives and discover meaningful ways to contribute.</p>
+              ${textLink(d, "community/index.html", "Explore Community")}
+            </div>
+            <div class="home-path-note">
+              <h3>Global Network</h3>
+              <p>Explore the vision for responsible collaboration across people, knowledge and communities.</p>
+              <p class="pair-note">The Global Network is a developing institutional vision. It does not represent active offices, centres, or partnerships.</p>
+              ${textLink(d, "community/global-network/index.html", "Explore Global Network")}
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
+    </div>
 
-    <section class="section section-midnight" aria-labelledby="research-title">
-      <div class="container reading-block reveal">
-        <p class="eyebrow eyebrow-on-dark"><span class="eyebrow-rule" aria-hidden="true"></span>Research</p>
-        <h2 id="research-title">Questions held with intellectual honesty.</h2>
-        <p class="support">Explore questions, evidence, traditional perspectives and emerging understanding with intellectual honesty. Scientific research and traditional understanding are not treated as interchangeable, and neither is offered as proof of personal transformation.</p>
-        <div class="quiet-panel">
-          <h3>No publication list is invented here.</h3>
-          <p>Studies, papers and reviews will be cited only when they exist and can be read. This page does not display research counts, validation badges, or partner institutions.</p>
-        </div>
-        <div class="cta-row">${cta(d, "research/index.html", "Explore Research")}</div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="experiences-title">
-      <div class="container reading-block reveal">
-        ${eyebrow("Experiences")}
-        <h2 id="experiences-title">Practice, programmes and immersive learning.</h2>
-        <p class="support">Experiences are where understanding can meet application: guided practices, workshops, programmes and immersive learning, alongside continued reflection.</p>
-        <ul class="format-list">
-          <li>Guided practices</li>
-          <li>Workshops</li>
-          <li>Structured programmes</li>
-          <li>Retreats and immersions</li>
-          <li>Events and shared learning</li>
-        </ul>
-        <div class="quiet-panel">
-          <h3>Programmes are listed only when they are real.</h3>
-          <p>No dates, places, teachers or prices are shown until a programme is actually offered. This page does not take bookings or payments.</p>
-        </div>
-        <div class="cta-row">${cta(d, "experiences/index.html", "Explore Experiences")}</div>
-      </div>
-    </section>
-
-    <section class="section section-white" aria-labelledby="stories-title">
+    <section class="section" aria-labelledby="stories-title">
       <div class="container reading-block reveal">
         ${eyebrow("Human stories")}
         <h2 id="stories-title">Learning from lived experience.</h2>
@@ -373,37 +387,8 @@ function home() {
       </div>
     </section>
 
-    <section class="section section-sand" aria-labelledby="community-title">
-      <div class="container">
-        <div class="section-head section-header reveal">
-          ${eyebrow("Community")}
-          <h2 id="community-title">Learn together. Contribute with care.</h2>
-          <p class="support">Community is where people can learn with one another and find responsible ways to contribute. The Global Network is a related vision. The two are not the same thing.</p>
-        </div>
-        <div class="pair-grid reveal">
-          <article class="pair-panel">
-            <h3>Community</h3>
-            <p>Learn together, share perspectives and discover meaningful ways to contribute.</p>
-            ${textLink(d, "community/index.html", "Explore Community")}
-          </article>
-          <article class="pair-panel">
-            <h3>Global Network</h3>
-            <p>Explore the vision for responsible collaboration across people, knowledge and communities.</p>
-            <p class="pair-note">The Global Network is a developing institutional vision. It does not represent active offices, centres, or partnerships.</p>
-            ${textLink(d, "community/global-network/index.html", "Explore Global Network")}
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-white" aria-labelledby="founder-name">
+    <section class="section section-white home-founder" aria-labelledby="founder-name">
       <div class="container founder-grid">
-        <figure class="founder-figure reveal">
-          <div class="portrait-placeholder" role="img" aria-label="Placeholder for an approved photograph of Sarvesh Mishra. No portrait is shown.">
-            <span class="portrait-mark" aria-hidden="true">SM</span>
-            <p>Approved photograph to be placed here. This space is reserved for a verified portrait.</p>
-          </div>
-        </figure>
         <div class="founder-copy reveal">
           ${eyebrow("The founder")}
           <h2 class="founder-name" id="founder-name">Sarvesh Mishra</h2>
@@ -412,10 +397,19 @@ function home() {
           <p class="support">CureSoulLife is shaped by a continuing exploration of human behaviour, ancient wisdom, modern knowledge, personal understanding and the possibilities of human transformation.</p>
           <div class="cta-row">${cta(d, "about/founder/index.html", "Meet the Founder")}</div>
         </div>
+        <figure class="founder-figure reveal">
+          <div class="portrait-placeholder" role="img" aria-label="Placeholder for an approved photograph of Sarvesh Mishra. No portrait is shown.">
+            <span class="portrait-mark" aria-hidden="true">SM</span>
+            <p>Approved photograph to be placed here. This space is reserved for a verified portrait.</p>
+          </div>
+        </figure>
       </div>
     </section>
 
-    <section class="finale finale-plain cta-section cta-forest" aria-labelledby="finale-title">
+    <section class="finale finale-plain cta-section cta-forest home-finale" aria-labelledby="finale-title">
+      <figure class="finale-media" aria-hidden="true">
+        ${picture("question-forest", 1600, 1066, "")}
+      </figure>
       <div class="finale-inner">
         <p class="eyebrow eyebrow-on-dark"><span class="eyebrow-rule" aria-hidden="true"></span>Your journey begins with a question</p>
         <h2 id="finale-title">What would become possible if you understood yourself more deeply?</h2>
@@ -783,21 +777,43 @@ function institutionPage(depth) {
 function humanTransformationPage(depth) {
   const p = "../".repeat(depth);
   const anchor = (id, label, variant = "btn btn-primary") => `<a class="${variant}" href="#${id}">${label}${variant.includes("btn-primary") || variant.includes("btn-light") ? arrow : ""}</a>`;
-  const stageMarks = transformationStages.map((stage, i) => `
-            <li>
-              <span class="journey-index">${String(i + 1).padStart(2, "0")}</span>
-              <span class="journey-node" aria-hidden="true"></span>
-              <h3>${stage.name}</h3>
+  const stageMedia = [
+    ["institutional-hills", 1800, 1072, "center 62%"],
+    ["question-forest", 1600, 1066, "center 55%"],
+    ["page-landscape", 1600, 1067, "center 48%"],
+    ["eco-experiences", 1200, 800, "68% 42%"],
+    ["hero-landscape", 1800, 1200, "center 42%"],
+    ["eco-community", 1200, 800, "center 58%"],
+    ["eco-network", 1200, 1800, "center 40%"]
+  ];
+  const arcIcons = [
+    glyph(`<path d="M16 27V13"/><path d="M16 21c-6.2-.6-10.4-5.4-11.2-11.6 7.2.8 11.2 5.6 11.2 11.6z"/><path d="M16 17.5c5.4-1.6 9.2-6.4 10-12.2-6.4 1-10 5.8-10 12.2z"/>`),
+    icons.science,
+    glyph(`<circle cx="16" cy="16" r="6.5"/><path d="M18.6 12.4 16.6 16.4 13 17.8 15.2 13.6z"/>`),
+    glyph(`<circle cx="16" cy="16" r="2.3"/><path d="M16 9.2v2M16 20.8v2M9.2 16h2M20.8 16h2M11.2 11.2l1.4 1.4M19.4 19.4l1.4 1.4M20.8 11.2l-1.4 1.4M12.6 19.4l-1.4 1.4"/>`),
+    glyph(`<path d="M5 22 11.5 12l4 6 3.2-4.2L27 22z"/>`),
+    icons.relationships,
+    glyph(`<path d="M11.2 16c0-2.2 1.6-3.8 3.4-3.8 2 0 3 1.5 4.2 3.8s2.2 3.8 4.2 3.8c1.8 0 3.4-1.6 3.4-3.8s-1.6-3.8-3.4-3.8c-2 0-3 1.5-4.2 3.8s-2.2 3.8-4.2 3.8c-1.8 0-3.4-1.6-3.4-3.8z"/>`)
+  ];
+  const stageArc = transformationStages.map((stage, i) => `
+            <li style="--i:${i}">
+              <span class="ht-arc-num">${String(i + 1).padStart(2, "0")}</span>
+              <span class="ht-arc-icon">${arcIcons[i]}</span>
+              <strong>${stage.name}</strong>
             </li>`).join("");
-  const stageDetails = transformationStages.map((stage, i) => `
+  const stageCards = transformationStages.map((stage, i) => {
+    const [stem, w, h, pos] = stageMedia[i];
+    return `
             <li>
-              <span class="pathway-index">${String(i + 1).padStart(2, "0")}</span>
+              <figure style="--pos:${pos}">${picture(stem, w, h, "", { prefix: p })}</figure>
               <div>
+                <p class="domain-index">${String(i + 1).padStart(2, "0")}</p>
                 <h3>${stage.name}</h3>
                 <p class="stage-question">${stage.question}</p>
                 <p>${stage.description}</p>
               </div>
-            </li>`).join("");
+            </li>`;
+  }).join("");
   const dimensionNames = dimensions.map(([, name]) => `<li>${name}</li>`).join("");
   return `
     <header class="page-hero institution-hero ht-hero" id="ht-hero">
@@ -813,12 +829,83 @@ function humanTransformationPage(depth) {
           </div>
         </div>
         <figure class="page-hero-media">
-          ${picture("question-forest", 1600, 1066, "A sunlit path through tall trees", { priority: true, lazy: false, prefix: p })}
+          ${picture("closing-horizon", 1800, 1196, "A person standing on a ridge above forested mountains", { priority: true, lazy: false, prefix: p })}
         </figure>
       </div>
     </header>
 
-    <section class="section section-white" id="human-experience" aria-labelledby="experience-title">
+<section class="section" id="transformation-framework" aria-labelledby="framework-title">
+      <div class="container">
+        <div class="ht-framework">
+          <div>
+            <div class="section-head section-header">
+              ${eyebrow("The transformation framework")}
+              <h2 id="framework-title">A framework for understanding the journey.</h2>
+              <p class="support">Transformation rarely happens through a single insight or decision. It involves noticing, understanding, aligning, practising, integrating what we learn and finding ways to contribute.</p>
+              <p class="support">CureSoulLife uses seven connected stages as a framework for exploring this process. They are perspectives that can help organise reflection—not fixed steps that every person must complete in the same order.</p>
+            </div>
+            <p class="status-note">The seven stages are a conceptual framework for reflection, not a diagnostic tool, validated measure of human development or universal sequence. People may revisit stages, move between them or explore several at once. They are not ranks, and no stage makes one person more valuable than another.</p>
+          </div>
+          <div class="ht-arc" aria-hidden="true">
+            <svg viewBox="0 0 1000 180" preserveAspectRatio="none" focusable="false">
+              <path d="M36 150C150 150 190 28 340 34c150 6 170 10 300 28 140 20 190 62 324 96" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+            <ol>${stageArc}</ol>
+          </div>
+        </div>
+        <ol class="ht-stage-cards">${stageCards}</ol>
+        <div class="cta-row">${cta(depth, "human-transformation/life-decoding/index.html", "Explore Life Decoding")}</div>
+      </div>
+    </section>
+
+<section class="section section-white ht-nonlinear" id="non-linear-transformation" aria-labelledby="nonlinear-title">
+      <div class="container about-duo about-duo-wide">
+        <figure class="ht-nonlinear-media">
+          ${picture("question-forest", 1600, 1066, "A sunlit path through tall trees", { prefix: p })}
+        </figure>
+        <div>
+          <h2 id="nonlinear-title">Growth does not follow a single straight line.</h2>
+          <p class="support">Human life changes with circumstances, relationships, responsibilities, opportunities and challenges.</p>
+          <p class="support">An insight may take time to understand. A practice may need to be adapted. Something that once felt clear may need to be reconsidered as life changes.</p>
+          <p class="support">The seven stages offer a way to explore the process, not a schedule for personal progress.</p>
+          <p class="support">Returning to an earlier question is not failure. It may simply be part of learning more deeply.</p>
+          <p class="statement">Transformation is better understood as an ongoing process of exploration and integration than as a race towards a final state.</p>
+        </div>
+      </div>
+    </section>
+
+<section class="section section-white" id="curesoullife-perspective" aria-labelledby="perspective-title">
+      <div class="container">
+        <div class="section-head section-header">
+          ${eyebrow("The CureSoulLife perspective")}
+          <h2 id="perspective-title">Transformation is a lifelong human journey.</h2>
+          <p class="support">CureSoulLife explores transformation not as a temporary self-improvement project, but as a lifelong process of learning, reflection, practice and contribution.</p>
+          <p class="support">We bring different perspectives into conversation to explore how people understand themselves, how they live and relate, and how greater awareness may inform more intentional choices.</p>
+        </div>
+        <div class="ht-lens-grid">
+          <article class="ht-lens">
+            <figure style="--pos:center 62%">${picture("eco-knowledge", 1200, 1800, "", { prefix: p })}</figure>
+            <div><span class="about-icon">${icons.wisdom}</span><h3>Ancient Wisdom</h3><p>Explore philosophical traditions and contemplative approaches that have examined human experience, awareness, meaning and ways of living.</p>${textLink(depth, "knowledge/index.html", "Explore Knowledge")}</div>
+          </article>
+          <article class="ht-lens">
+            <figure style="--pos:center 50%">${picture("eco-research", 1200, 800, "", { prefix: p })}</figure>
+            <div><span class="about-icon">${icons.science}</span><h3>Modern Science</h3><p>Engage with relevant scientific research and contemporary understanding while respecting the limits, context and uncertainty of available evidence.</p>${textLink(depth, "research/index.html", "Explore Research")}</div>
+          </article>
+          <article class="ht-lens">
+            <figure style="--pos:70% 58%">${picture("hero-landscape", 1800, 1200, "", { prefix: p })}</figure>
+            <div><span class="about-icon">${icons.experience}</span><h3>Human Experience</h3><p>Take lived experience, personal context and reflective learning seriously without assuming that an individual experience proves a universal claim.</p></div>
+          </article>
+          <article class="ht-lens">
+            <figure style="--pos:center 70%">${picture("page-landscape", 1600, 1067, "", { prefix: p })}</figure>
+            <div><span class="about-icon">${icons.practice}</span><h3>Practical Application</h3><p>Explore how knowledge and reflection may inform everyday habits, decisions, relationships and ways of living.</p></div>
+          </article>
+        </div>
+        <p class="section-note">These perspectives can contribute in different ways. They do not always use the same methods or standards of evidence. CureSoulLife’s approach is to explore their usefulness with curiosity, context and intellectual honesty.</p>
+        <div class="cta-row">${cta(depth, "curesoullife/index.html", "Understand CureSoulLife")}</div>
+      </div>
+    </section>
+
+<section class="section section-white" id="human-experience" aria-labelledby="experience-title">
       <div class="container reading-block">
         ${eyebrow("The human experience")}
         <h2 id="experience-title">We can know a great deal about life and still struggle to live the way we want.</h2>
@@ -831,7 +918,7 @@ function humanTransformationPage(depth) {
       </div>
     </section>
 
-    <section class="section section-sand" id="different-possibility" aria-labelledby="possibility-title">
+<section class="section section-sand" id="different-possibility" aria-labelledby="possibility-title">
       <div class="container split">
         <div>
           <h2 id="possibility-title">Perhaps transformation begins differently.</h2>
@@ -851,57 +938,6 @@ function humanTransformationPage(depth) {
         <figure class="split-media">
           ${picture("institutional-hills", 1800, 1072, "Misted green hills in soft light", { prefix: p })}
         </figure>
-      </div>
-    </section>
-
-    <section class="section section-white" id="curesoullife-perspective" aria-labelledby="perspective-title">
-      <div class="container">
-        <div class="section-head section-header">
-          ${eyebrow("The CureSoulLife perspective")}
-          <h2 id="perspective-title">Transformation is a lifelong human journey.</h2>
-          <p class="support">CureSoulLife explores transformation not as a temporary self-improvement project, but as a lifelong process of learning, reflection, practice and contribution.</p>
-          <p class="support">We bring different perspectives into conversation to explore how people understand themselves, how they live and relate, and how greater awareness may inform more intentional choices.</p>
-        </div>
-        <div class="approach-grid">
-          <article class="approach-card"><h3>Ancient Wisdom</h3><p>Explore philosophical traditions and contemplative approaches that have examined human experience, awareness, meaning and ways of living.</p>${textLink(depth, "knowledge/index.html", "Explore Knowledge")}</article>
-          <article class="approach-card"><h3>Modern Science</h3><p>Engage with relevant scientific research and contemporary understanding while respecting the limits, context and uncertainty of available evidence.</p>${textLink(depth, "research/index.html", "Explore Research")}</article>
-          <article class="approach-card"><h3>Human Experience</h3><p>Take lived experience, personal context and reflective learning seriously without assuming that an individual experience proves a universal claim.</p></article>
-          <article class="approach-card"><h3>Practical Application</h3><p>Explore how knowledge and reflection may inform everyday habits, decisions, relationships and ways of living.</p></article>
-        </div>
-        <p class="section-note">These perspectives can contribute in different ways. They do not always use the same methods or standards of evidence. CureSoulLife’s approach is to explore their usefulness with curiosity, context and intellectual honesty.</p>
-        <div class="cta-row">${cta(depth, "curesoullife/index.html", "Understand CureSoulLife")}</div>
-      </div>
-    </section>
-
-    <section class="section" id="transformation-framework" aria-labelledby="framework-title">
-      <div class="container">
-        <div class="section-head section-header">
-          ${eyebrow("The transformation framework")}
-          <h2 id="framework-title">A framework for understanding the journey.</h2>
-          <p class="support">Transformation rarely happens through a single insight or decision. It involves noticing, understanding, aligning, practising, integrating what we learn and finding ways to contribute.</p>
-          <p class="support">CureSoulLife uses seven connected stages as a framework for exploring this process. They are perspectives that can help organise reflection—not fixed steps that every person must complete in the same order.</p>
-        </div>
-        <div class="journey-block timeline diagram ht-journey" aria-hidden="true">
-          <ol class="journey">${stageMarks}</ol>
-          <svg class="journey-arc" viewBox="0 0 1000 64" preserveAspectRatio="xMidYMin meet" focusable="false">
-            <path class="journey-return" d="M929 6C929 58 71 58 71 6" fill="none" stroke="currentColor" stroke-width="1.25"/>
-            <path d="M63 16 71 6l8 10" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <ol class="stage-detail">${stageDetails}</ol>
-        <p class="status-note">The seven stages are a conceptual framework for reflection, not a diagnostic tool, validated measure of human development or universal sequence. People may revisit stages, move between them or explore several at once. They are not ranks, and no stage makes one person more valuable than another.</p>
-        <div class="cta-row">${cta(depth, "human-transformation/life-decoding/index.html", "Explore Life Decoding")}</div>
-      </div>
-    </section>
-
-    <section class="section section-white" id="non-linear-transformation" aria-labelledby="nonlinear-title">
-      <div class="container reading-block">
-        <h2 id="nonlinear-title">Growth does not follow a single straight line.</h2>
-        <p class="support">Human life changes with circumstances, relationships, responsibilities, opportunities and challenges.</p>
-        <p class="support">An insight may take time to understand. A practice may need to be adapted. Something that once felt clear may need to be reconsidered as life changes.</p>
-        <p class="support">The seven stages offer a way to explore the process, not a schedule for personal progress.</p>
-        <p class="support">Returning to an earlier question is not failure. It may simply be part of learning more deeply.</p>
-        <p class="statement">Transformation is better understood as an ongoing process of exploration and integration than as a race towards a final state.</p>
       </div>
     </section>
 
@@ -995,8 +1031,22 @@ function humanTransformationPage(depth) {
       </div>
     </section>
 
-    <section class="finale finale-plain cta-section cta-forest" id="final-invitation" aria-labelledby="invitation-title">
-      <div class="finale-inner">
+    <section class="finale finale-plain cta-section cta-forest ht-finale" id="final-invitation" aria-labelledby="invitation-title">
+      <figure class="ht-finale-media" aria-hidden="true">
+        ${picture("institutional-hills", 1800, 1072, "", { lazy: true, prefix: p })}
+      </figure>
+      <svg class="ht-finale-orbit" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1">
+          <circle class="ring-dash" cx="300" cy="190" r="190" stroke-dasharray="2 6"/>
+          <circle cx="300" cy="190" r="128"/>
+          <circle class="ring-mid" cx="300" cy="190" r="72" stroke-dasharray="40 12"/>
+          <circle class="ring-core" cx="300" cy="190" r="34"/>
+          <path d="M282 199h36M287 199l13-17 13 17"/>
+        </g>
+        <circle class="ring-dot ring-dot-a" cx="173" cy="150" r="5" fill="currentColor"/>
+        <circle class="ring-dot ring-dot-b" cx="124" cy="36" r="3" fill="currentColor"/>
+      </svg>
+      <div class="container ht-finale-inner">
         <p class="eyebrow eyebrow-on-dark"><span class="eyebrow-rule" aria-hidden="true"></span>Your journey, your starting point</p>
         <h2 id="invitation-title">Understanding yourself more deeply can begin with a single question.</h2>
         <div class="finale-copy">
@@ -1022,7 +1072,7 @@ function lifeDecodingPage(depth) {
     ["consciousness", "Consciousness", "मैं अपने अनुभवों को कैसे देखता हूँ, और उनमें अपनी जागरूकता की क्या भूमिका है?", ["Consciousness dimension में awareness, attention, subjective experience और स्वयं को देखने की क्षमता जैसे प्रश्नों को explore किया जा सकता है।", "दार्शनिक परंपराएँ और आधुनिक scientific disciplines consciousness को अलग-अलग तरीकों से समझने का प्रयास करती हैं। इन दृष्टिकोणों को स्पष्ट रूप से अलग रखते हुए प्रस्तुत करना चाहिए।"], ["क्या मैं अपनी प्रतिक्रिया को होते हुए पहचान पाता हूँ?", "क्या मैं अपने विचारों और भावनाओं को बिना तुरंत उन पर कार्रवाई किए observe कर सकता हूँ?", "क्या reflection या contemplative practice मुझे अपने अनुभव को अधिक स्पष्टता से देखने में मदद करती है?"], "human-transformation/index.html", "Explore Human Transformation"]
   ];
   const lensButtons = lenses.map(([id, name]) => `<button type="button" data-lens aria-pressed="false" aria-controls="dimension-${id}">${name}</button>`).join("");
-  const lensNodes = lenses.map(([, name]) => `<li>${name}</li>`).join("");
+  const lensNodes = lenses.map(([, name], i) => `<li style="--i:${i}">${name}</li>`).join("");
   const lensPanels = lenses.map(([id, name, question, paragraphs, prompts, route, label]) => `
           <article class="lens-panel" id="dimension-${id}">
             <h3 tabindex="-1">${name}</h3>
@@ -1067,7 +1117,15 @@ function lifeDecodingPage(depth) {
   ].map((item) => `<li lang="hi">${item}</li>`).join("");
   return `
     <header class="page-hero institution-hero" id="life-decoding-hero">
-      <div class="container page-hero-grid">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="${url(depth, "index.html")}">Home</a></li>
+            <li><a href="${url(depth, "human-transformation/index.html")}">Human Transformation</a></li>
+            <li aria-current="page">Life Decoding</li>
+          </ol>
+        </nav>
+        <div class="page-hero-grid">
         <div>
           ${eyebrow("Life Decoding")}
           <h1>Understand the patterns shaping your life.</h1>
@@ -1081,6 +1139,7 @@ function lifeDecodingPage(depth) {
         <figure class="page-hero-media">
           ${picture("closing-horizon", 1800, 1196, "A ridge in warm light", { priority: true, lazy: false, prefix: p })}
         </figure>
+        </div>
       </div>
     </header>
 
@@ -1093,6 +1152,9 @@ function lifeDecodingPage(depth) {
         <p class="support" lang="hi">इन अनुभवों के कई संभावित कारण हो सकते हैं—परिस्थितियाँ, सीखे हुए व्यवहार, सामाजिक संदर्भ, स्वास्थ्य, भावनाएँ, संसाधनों की उपलब्धता और व्यक्तिगत इतिहास।</p>
         <p class="support" lang="hi">Life Decoding इन अनुभवों को किसी एक कारण से समझाने के बजाय उन्हें ध्यानपूर्वक explore करने का निमंत्रण है।</p>
         <p class="statement" lang="hi">जो pattern हम पहचान पाते हैं, उसके बारे में नए प्रश्न पूछना और नए विकल्प तलाशना आसान हो सकता है।</p>
+        <figure class="decode-path">
+          ${picture("question-forest", 1600, 1066, "A sunlit path through tall trees", { lazy: true, prefix: p })}
+        </figure>
       </div>
     </section>
 
@@ -1107,9 +1169,9 @@ function lifeDecodingPage(depth) {
         <ul class="format-list">${questions}</ul>
         <p class="section-note" lang="hi">इन प्रश्नों के उत्तर हमेशा तुरंत नहीं मिलते। कभी नया दृष्टिकोण उपयोगी होता है; कभी अधिक जानकारी चाहिए; कभी यह स्वीकार करना पड़ता है कि अभी हमें पर्याप्त जानकारी नहीं है।</p>
         <div class="trio">
-          <article class="approach-card"><h3>Observe before concluding.</h3><p lang="hi">पहले अनुभव को देखें, फिर उसकी व्याख्या करें।</p></article>
-          <article class="approach-card"><h3>Explore before assuming.</h3><p lang="hi">किसी एक explanation को अंतिम सत्य मानने से पहले दूसरे संभावित कारणों पर भी विचार करें।</p></article>
-          <article class="approach-card"><h3>Choose before repeating automatically.</h3><p lang="hi">जहाँ संभव हो, पुरानी प्रतिक्रिया के अतिरिक्त दूसरे विकल्पों को भी पहचानें।</p></article>
+          <article class="approach-card"><p class="domain-index">01</p><h3>Observe before concluding.</h3><p lang="hi">पहले अनुभव को देखें, फिर उसकी व्याख्या करें।</p></article>
+          <article class="approach-card"><p class="domain-index">02</p><h3>Explore before assuming.</h3><p lang="hi">किसी एक explanation को अंतिम सत्य मानने से पहले दूसरे संभावित कारणों पर भी विचार करें।</p></article>
+          <article class="approach-card"><p class="domain-index">03</p><h3>Choose before repeating automatically.</h3><p lang="hi">जहाँ संभव हो, पुरानी प्रतिक्रिया के अतिरिक्त दूसरे विकल्पों को भी पहचानें।</p></article>
         </div>
         <p class="statement" lang="hi">Life Decoding का उद्देश्य जीवन को किसी formula में सीमित करना नहीं, बल्कि उसे अधिक स्पष्टता और जिम्मेदारी के साथ समझने की क्षमता विकसित करना है।</p>
       </div>
@@ -1124,6 +1186,15 @@ function lifeDecodingPage(depth) {
           <p class="support" lang="hi">इन dimensions को जीवन के बारे में प्रश्न पूछने और अलग-अलग पहलुओं पर ध्यान देने के lenses की तरह प्रस्तुत किया जाना चाहिए। इन्हें पूर्ण वैज्ञानिक taxonomy, स्वतंत्र diagnostic categories या हर अनुभव के प्रमाणित कारणों के रूप में प्रस्तुत न करें।</p>
         </div>
         <div class="lens-diagram" aria-hidden="true">
+          <svg viewBox="0 0 720 640" focusable="false">
+            <g fill="none" stroke="#879A82" stroke-width="1.25">
+              <line x1="360" y1="320" x2="360" y2="92"/>
+              <line x1="360" y1="320" x2="577" y2="250"/>
+              <line x1="360" y1="320" x2="494" y2="504"/>
+              <line x1="360" y1="320" x2="226" y2="504"/>
+              <line x1="360" y1="320" x2="143" y2="250"/>
+            </g>
+          </svg>
           <p>Human Experience</p>
           <ul>${lensNodes}</ul>
         </div>
@@ -1333,37 +1404,30 @@ function hosPage(depth) {
     ["Seva / Service", "Explore appropriate ways of contributing to others while respecting personal capacity and boundaries."]
   ];
   const linkRow = (pairs) => `<p class="link-row">${pairs.map(([route, label]) => textLink(depth, route, label)).join("")}</p>`;
-  const cx = 400;
-  const cy = 318;
-  const rx = 176;
-  const ry = 142;
-  const heroNodes = dims.map(([, name], i) => {
-    const a = -Math.PI / 2 + (i * 2 * Math.PI) / 9;
-    const x = cx + Math.cos(a) * rx;
-    const y = cy + Math.sin(a) * ry;
-    const c = Math.cos(a);
-    const s = Math.sin(a);
-    let anchor = c > 0.45 ? "start" : c < -0.45 ? "end" : "middle";
-    let lx = x + (anchor === "start" ? 16 : anchor === "end" ? -16 : 0);
-    let ly = y + (anchor === "middle" ? (s < 0 ? -24 : 28) : 5);
-    if (i === 4) { anchor = "start"; lx = x + 18; ly = y + 30; }
-    if (i === 5) { anchor = "end"; lx = x - 18; ly = y + 30; }
-    return { name, x, y, lx, ly, anchor };
-  });
-  const heroSvg = `<svg viewBox="0 0 800 640" focusable="false">
-    <ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="none" stroke="#D7D2C8" stroke-width="1.25"/>
-    ${heroNodes.map((n) => `<line x1="${cx}" y1="${cy}" x2="${n.x.toFixed(1)}" y2="${n.y.toFixed(1)}" stroke="#879A82" stroke-width="1.25"/>`).join("")}
-    <circle cx="${cx}" cy="${cy}" r="58" fill="#F7F4ED"/>
-    <g transform="translate(${cx} ${cy - 6})" fill="#173A32">
-      <circle cx="0" cy="-18" r="13"/>
-      <path d="M-20 40c1-26 9-34 20-34s19 8 20 34c-7 5-13 7-20 7s-13-2-20-7z"/>
-    </g>
-    ${heroNodes.map((n) => `<circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="6" fill="#F7F4ED" stroke="#173A32" stroke-width="1.6"/>`).join("")}
-    ${heroNodes.map((n) => `<text x="${n.lx.toFixed(1)}" y="${n.ly.toFixed(1)}" text-anchor="${n.anchor}" dominant-baseline="middle">${n.name}</text>`).join("")}
-  </svg>`;
-  const dimButtons = dims.map(([id, name], i) => `<button type="button" data-dimension="${id}" aria-pressed="false" aria-controls="dimension-${id}" style="--i:${i}">${name}</button>`).join("");
-  const dimPanels = dims.map(([id, name, question, definition, areas, prompts, direction, links]) => `
+  const principleIcons = {
+    Holistic: uiGlyphs.globe,
+    Balanced: icons.energy,
+    Integrated: icons.relationships,
+    Conscious: icons.consciousness,
+    Disciplined: uiGlyphs.gear,
+    Surrendered: uiGlyphs.heart,
+    Evolved: icons.legacy
+  };
+  const pathwayIcons = [
+    glyph(`<path d="M19.4 11.2 16.6 17.2 11.4 19.2 14.4 13z"/>`),
+    glyph(`<circle cx="16" cy="16" r="2.5"/><path d="M16 9.4v2M16 20.6v2M9.4 16h2M20.6 16h2M11.3 11.3l1.4 1.4M19.3 19.3l1.4 1.4M20.7 11.3 19.3 12.7M12.7 19.3 11.3 20.7"/>`),
+    glyph(`<circle cx="16" cy="10.2" r="2.1"/><path d="M11 16.2c1.4-1.5 3-2.3 5-2.3s3.6.8 5 2.3M16 15.8v6.2"/>`),
+    glyph(`<circle cx="16" cy="10.4" r="2.3"/><path d="M16 12.8V22M12 22h8"/>`),
+    glyph(`<path d="M16 21.6s-5.2-3.2-5.2-6.7a2.8 2.8 0 0 1 5.2-1.4 2.8 2.8 0 0 1 5.2 1.4c0 3.5-5.2 6.7-5.2 6.7z"/>`)
+  ];
+  const heroOrbit = `<div class="hos-hero-orbit">
+      <div class="hos-hero-core">${icons.experience}</div>
+      <ul>${dims.map(([id, name], i) => `<li style="--i:${i}"><span class="hos-hero-icon">${icons[id]}</span><strong>${name}</strong></li>`).join("")}</ul>
+    </div>`;
+  const dimButtons = dims.map(([id, name], i) => `<button type="button" data-dimension="${id}" aria-pressed="false" aria-controls="dimension-${id}" style="--i:${i}"><span class="hos-node-icon">${icons[id]}</span><span>${name}</span></button>`).join("");
+  const dimPanels = dims.map(([id, name, question, definition, areas, prompts, direction, links], i) => `
           <article class="hos-panel" id="dimension-${id}">
+            <p class="domain-index">${String(i + 1).padStart(2, "0")}</p>
             <h3 tabindex="-1">${name}</h3>
             <p class="hos-state" hidden>Selected</p>
             <p class="stage-question">${question}</p>
@@ -1378,13 +1442,15 @@ function hosPage(depth) {
           </article>`).join("");
   const principleCards = principles.map(([name, meaning, detail, question]) => `
           <article class="approach-card">
+            <span class="about-icon">${principleIcons[name]}</span>
             <h3>${name}</h3>
             <p>${meaning}</p>
             <p>${detail}</p>
             <p class="principle-question">${question}</p>
           </article>`).join("");
-  const formulaCards = formula.map(([name, lead, detail]) => `
+  const formulaCards = formula.map(([name, lead, detail], i) => `
           <article class="formula-card">
+            <p class="domain-index">${String(i + 1).padStart(2, "0")}</p>
             <h3>${name}</h3>
             <p class="formula-lead">${lead}</p>
             <p>${detail}</p>
@@ -1423,80 +1489,108 @@ function hosPage(depth) {
             </div>
           </div>
         </div>
-        <figure class="hos-figure" aria-hidden="true">${heroSvg}</figure>
+        <figure class="hos-figure" aria-hidden="true">${heroOrbit}</figure>
       </div>
     </header>
 
-    <section class="section section-white" id="hos-why" aria-labelledby="why-hos-title">
-      <div class="container reading-block">
-        ${eyebrow("Seeing the whole person")}
-        <h2 id="why-hos-title">We often try to improve one part of life without understanding the wider picture.</h2>
-        <p class="support" lang="hi">हम स्वास्थ्य पर ध्यान देते हैं, लेकिन अपनी दिनचर्या और आराम को नज़रअंदाज़ कर सकते हैं।</p>
-        <p class="support" lang="hi">हम अपने काम में आगे बढ़ना चाहते हैं, लेकिन यह नहीं देख पाते कि हमारी प्राथमिकताएँ, रिश्ते और ऊर्जा उस लक्ष्य से कैसे जुड़े हैं।</p>
-        <p class="support" lang="hi">हम किसी भावना को बदलना चाहते हैं, लेकिन उस परिस्थिति को समझने के लिए समय नहीं निकालते जिसमें वह भावना उभरती है।</p>
-        <p class="support" lang="hi">ऐसी स्थितियों में केवल एक dimension पर ध्यान देना पर्याप्त नहीं हो सकता।</p>
-        <p class="statement" lang="hi">मेरे जीवन के अलग-अलग हिस्से एक-दूसरे से किस तरह जुड़े हैं?</p>
-        <p class="support" lang="hi">इसका अर्थ यह नहीं कि हर समस्या के कई कारण होंगे या हर dimension हमेशा दूसरे को प्रभावित करेगा। इसका अर्थ है कि हम किसी अनुभव को समझते समय उसके संदर्भ और संभावित संबंधों के लिए जगह रखें।</p>
-        <p class="statement">The whole person is more than the sum of separate parts.</p>
-      </div>
-    </section>
-
-    <section class="section section-forest" id="nine-dimensions" aria-labelledby="dimensions-title">
-      <div class="container">
-        <div class="section-head">
+    <section class="section section-forest hos-arch" id="nine-dimensions" aria-labelledby="dimensions-title">
+      ${leaf("about-leaf-left")}
+      ${leaf("about-leaf-right")}
+      <div class="container hos-arch-grid">
+        <div class="hos-arch-copy">
           ${eyebrow("The architecture of human life")}
           <h2 id="dimensions-title">Nine dimensions. One interconnected human experience.</h2>
           <p class="support">The Human Operating System™ explores nine dimensions of human life. Each offers a different perspective on how we live, relate, work, learn and develop.</p>
           <p class="support">These dimensions are not isolated compartments. Nor are they a ranking of human worth. They are a structured way to examine different aspects of life while recognising that their relationships vary across individuals and circumstances.</p>
         </div>
-        <p class="hos-text-alt">The nine dimensions, with no rank, are Body, Mind, Emotion, Energy, Relationships, Purpose, Work &amp; Wealth, Consciousness and Legacy. Choosing a name shows that dimension. On a smaller screen, every dimension remains listed in full.</p>
-        <div class="hos-framework">
-          <div class="hos-orbit" role="group" aria-label="Nine dimensions">
-            <p class="hos-core">Human life</p>
-            ${dimButtons}
-          </div>
-          <div class="hos-panels">${dimPanels}</div>
+        <div class="hos-orbit" role="group" aria-label="Nine dimensions">
+          <p class="hos-core">Human life</p>
+          ${dimButtons}
         </div>
+        <div class="hos-card-wrap">
+          <button type="button" class="hos-nav hos-nav-prev" data-dimension-step="-1" aria-label="Previous dimension">${arrow}</button>
+          <div class="hos-panels">${dimPanels}</div>
+          <button type="button" class="hos-nav hos-nav-next" data-dimension-step="1" aria-label="Next dimension">${arrow}</button>
+        </div>
+      </div>
+      <div class="container">
+        <p class="hos-text-alt">The nine dimensions, with no rank, are Body, Mind, Emotion, Energy, Relationships, Purpose, Work &amp; Wealth, Consciousness and Legacy. Choosing a name shows that dimension. On a smaller screen, every dimension remains listed in full.</p>
         <p class="section-note">You do not need to optimise all nine dimensions at once. Begin by understanding what matters in your life, what needs attention and what is realistic in your circumstances.</p>
       </div>
     </section>
 
-    <section class="section" id="alignment-principles" aria-labelledby="principles-title">
+    <section class="section hos-formula" id="transformation-formula" aria-labelledby="formula-title">
       <div class="container">
-        <div class="section-head reading-block">
-          ${eyebrow("Core Alignment Principles")}
-          <h2 id="principles-title">Principles for approaching human development with intention.</h2>
-          <p class="support">The nine dimensions help us explore different aspects of human life. The Core Alignment Principles describe the attitude and approach with which we engage them.</p>
-          <p class="support">These principles are not a clinical checklist or a test of whether someone is living correctly. They are guiding ideas for reflection, learning and practice.</p>
+        <div class="exp-formats-head">
+          <div>
+            ${eyebrow("The Transformation Formula")}
+            <h2 id="formula-title">From awareness to meaningful action.</h2>
+            <p class="formula-line">Awareness + Acceptance + Alignment + Action + Discipline + Devotion = Transformation</p>
+          </div>
+          <div>
+            <p class="support">The CureSoulLife Transformation Formula expresses six complementary qualities that can support a person's efforts to learn, change and live more intentionally.</p>
+            <p class="support">It is a conceptual framework—not a mathematical equation or a scientifically validated prediction of transformation.</p>
+          </div>
+        </div>
+        <div class="formula-grid">${formulaCards}</div>
+        <p class="section-note">The plus signs represent complementary qualities, not quantities that can be measured and added together. The equals sign expresses an intended relationship: when these qualities work together, they may support meaningful change. No fixed outcome is guaranteed. Personal circumstances, health, relationships, resources and external conditions also matter.</p>
+        <div class="cta-row">${cta(depth, "human-transformation/index.html", "Explore the Human Transformation Framework")}</div>
+      </div>
+    </section>
+
+    <section class="section section-forest hos-whole" id="hos-why" aria-labelledby="why-hos-title">
+      ${leaf("about-leaf-left")}
+      ${leaf("about-leaf-right")}
+      <div class="container about-duo about-duo-wide">
+        <div>
+          ${eyebrow("Seeing the whole person")}
+          <h2 id="why-hos-title">We often try to improve one part of life without understanding the wider picture.</h2>
+          <p class="support" lang="hi">हम स्वास्थ्य पर ध्यान देते हैं, लेकिन अपनी दिनचर्या और आराम को नज़रअंदाज़ कर सकते हैं।</p>
+          <p class="support" lang="hi">हम अपने काम में आगे बढ़ना चाहते हैं, लेकिन यह नहीं देख पाते कि हमारी प्राथमिकताएँ, रिश्ते और ऊर्जा उस लक्ष्य से कैसे जुड़े हैं।</p>
+          <p class="support" lang="hi">हम किसी भावना को बदलना चाहते हैं, लेकिन उस परिस्थिति को समझने के लिए समय नहीं निकालते जिसमें वह भावना उभरती है।</p>
+          <p class="support" lang="hi">ऐसी स्थितियों में केवल एक dimension पर ध्यान देना पर्याप्त नहीं हो सकता।</p>
+          <p class="statement" lang="hi">मेरे जीवन के अलग-अलग हिस्से एक-दूसरे से किस तरह जुड़े हैं?</p>
+          <p class="support" lang="hi">इसका अर्थ यह नहीं कि हर समस्या के कई कारण होंगे या हर dimension हमेशा दूसरे को प्रभावित करेगा। इसका अर्थ है कि हम किसी अनुभव को समझते समय उसके संदर्भ और संभावित संबंधों के लिए जगह रखें।</p>
+          <blockquote class="hos-quote">
+            <span class="hos-quote-mark" aria-hidden="true">“</span>
+            <p>The whole person is more than the sum of separate parts.</p>
+          </blockquote>
+        </div>
+        <figure class="hos-whole-media">
+          ${picture("question-forest", 1600, 1066, "Sunlight through a forest", { prefix: pfx(depth) })}
+        </figure>
+      </div>
+    </section>
+
+    <section class="section hos-principles" id="alignment-principles" aria-labelledby="principles-title">
+      <div class="container">
+        <div class="hos-principle-head">
+          <div>
+            ${eyebrow("Core Alignment Principles")}
+            <h2 id="principles-title">Principles for approaching human development with intention.</h2>
+          </div>
+          <div>
+            <p class="support">The nine dimensions help us explore different aspects of human life. The Core Alignment Principles describe the attitude and approach with which we engage them.</p>
+            <p class="support">These principles are not a clinical checklist or a test of whether someone is living correctly. They are guiding ideas for reflection, learning and practice.</p>
+          </div>
         </div>
         <div class="principle-grid">${principleCards}</div>
       </div>
     </section>
 
-    <section class="section section-forest" id="transformation-formula" aria-labelledby="formula-title">
-      <div class="container">
-        <div class="section-head">
-          ${eyebrow("The Transformation Formula")}
-          <h2 id="formula-title">From awareness to meaningful action.</h2>
-          <p class="formula-line">Awareness + Acceptance + Alignment + Action + Discipline + Devotion = Transformation</p>
-          <p class="support">The CureSoulLife Transformation Formula expresses six complementary qualities that can support a person's efforts to learn, change and live more intentionally.</p>
-          <p class="support">It is a conceptual framework—not a mathematical equation or a scientifically validated prediction of transformation.</p>
-        </div>
-        <div class="formula-grid">${formulaCards}</div>
-        <p class="section-note">The plus signs represent complementary qualities, not quantities that can be measured and added together. The equals sign expresses an intended relationship: when these qualities work together, they may support meaningful change. No fixed outcome is guaranteed. Personal circumstances, health, relationships, resources and external conditions also matter.</p>
-        <div class="cta-row">${cta(depth, "human-transformation/index.html", "Explore the Human Transformation Framework", "btn btn-light")}</div>
-      </div>
-    </section>
-
-    <section class="section section-white" id="how-we-work" aria-labelledby="pathway-title">
-      <div class="container">
-        <div class="section-head reading-block">
+    <section class="section section-forest hos-apply" id="how-we-work" aria-labelledby="pathway-title">
+      ${leaf("about-leaf-left")}
+      ${leaf("about-leaf-right")}
+      <div class="container hos-apply-grid">
+        <div>
           ${eyebrow("From understanding to application")}
           <h2 id="pathway-title">A framework becomes useful when it informs what we do next.</h2>
           <p class="support">The HOS framework can help organise questions about human life. Turning those questions into useful action requires a process that respects the individual, their circumstances and the limits of what can be concluded.</p>
           <p class="support">The CureSoulLife blueprint proposes five operational steps.</p>
         </div>
-        <ol class="step-track" aria-hidden="true">${pathway.map(([name]) => `<li>${name}</li>`).join("")}</ol>
+        <ol class="step-track" aria-hidden="true">${pathway.map(([name], i) => `<li><span class="about-icon">${pathwayIcons[i]}</span><span>${name}</span></li>`).join("")}</ol>
+      </div>
+      <div class="container">
         <ol class="stage-detail">${steps}</ol>
         <p class="pathway-sequence">Assess → Design → Practice → Transform → Contribute</p>
         <p class="section-note">This is the proposed operational pathway for applying the HOS framework. It complements the seven-stage Human Transformation Framework rather than replacing it. The steps are not a score, and participation does not by itself produce transformation.</p>
@@ -1645,6 +1739,14 @@ function knowledgePage(depth) {
             <a class="link-arrow" href="?domain=${slug}#knowledge-library">${label}${arrow}</a>
           </article>`).join("");
   const steps = ["Explore an Idea", "Understand Its Context", "Reflect", "Apply", "Continue Learning"];
+  const formatIcons = {
+    Articles: icons.wisdom,
+    Guides: glyph(`<path d="M9 7h14v18H9z"/><path d="M13 12h6M13 16h6M13 20h4"/>`),
+    Videos: glyph(`<path d="M6 10h14v12H6z"/><path d="M20 14l6-2.5v9L20 18z"/>`),
+    Podcasts: glyph(`<path d="M10 17a6 6 0 0 1 12 0"/><path d="M13 17a3 3 0 0 1 6 0"/><path d="M16 17v6M13 23h6"/>`),
+    "Learning Series": glyph(`<path d="M7 11h18M7 16h18M7 21h18"/>`),
+    "Case Studies and Human Stories": icons.relationships
+  };
 
   return `
     <header class="page-hero institution-hero knowledge-hero" id="knowledge-hero">
@@ -1673,13 +1775,15 @@ function knowledgePage(depth) {
     </header>
 
     <section class="section section-white" id="knowledge-context" aria-labelledby="knowledge-context-title">
-      <div class="container reading-block">
-        ${eyebrow("Our approach")}
-        <h2 id="knowledge-context-title">Knowledge becomes more useful when it connects to life.</h2>
-        <p class="support">Information is everywhere. Understanding is harder to find.</p>
-        <p class="support">A useful idea should help us see something more clearly, ask better questions or make more thoughtful choices.</p>
-        <p class="support">At CureSoulLife, knowledge is not treated as an isolated collection of information. We connect ideas across disciplines, distinguish established evidence from philosophical interpretation, and explore how understanding can inform everyday life.</p>
-        <p class="support">Our aim is not to tell people what to believe. It is to make thoughtful exploration, informed reflection and practical learning more accessible.</p>
+      <div class="container">
+        <div class="reading-block">
+          ${eyebrow("Our approach")}
+          <h2 id="knowledge-context-title">Knowledge becomes more useful when it connects to life.</h2>
+          <p class="support">Information is everywhere. Understanding is harder to find.</p>
+          <p class="support">A useful idea should help us see something more clearly, ask better questions or make more thoughtful choices.</p>
+          <p class="support">At CureSoulLife, knowledge is not treated as an isolated collection of information. We connect ideas across disciplines, distinguish established evidence from philosophical interpretation, and explore how understanding can inform everyday life.</p>
+          <p class="support">Our aim is not to tell people what to believe. It is to make thoughtful exploration, informed reflection and practical learning more accessible.</p>
+        </div>
         <ol class="learn-sequence">${steps.map((step) => `<li>${step}</li>`).join("")}</ol>
         <p class="section-note">This sequence is an editorial illustration of learning. It is not a scientific formula, a validated model, or a guaranteed process. A published resource is not presented as scientifically validated unless that has been established for that resource.</p>
       </div>
@@ -1703,7 +1807,7 @@ function knowledgePage(depth) {
           <h2 id="formats-title">Explore ideas in the format that works for you.</h2>
           <p class="support">Read, watch, listen and explore. Different formats can offer different ways into the same subject.</p>
         </div>
-        <div class="format-grid">${formats.map(([name, description]) => `<article><h3>${name}</h3><p>${description}</p></article>`).join("")}</div>
+        <div class="format-grid">${formats.map(([name, description]) => `<article><span class="about-icon">${formatIcons[name]}</span><h3>${name}</h3><p>${description}</p></article>`).join("")}</div>
         <p class="section-note">These formats are descriptions of what the library can hold. None is a filter yet, because no resource in any format is published. Separate format pages are not linked.</p>
       </div>
     </section>
@@ -1802,7 +1906,9 @@ function knowledgePage(depth) {
       </div>
     </section>
 
-    <section class="finale finale-plain cta-section cta-forest" id="knowledge-closing" aria-labelledby="knowledge-close-title">
+    <section class="finale finale-plain cta-section cta-forest about-finale" id="knowledge-closing" aria-labelledby="knowledge-close-title">
+      ${leaf("about-leaf-left")}
+      ${leaf("about-leaf-right")}
       <div class="container">
         <div>
           ${eyebrow("Keep exploring")}
@@ -1864,6 +1970,30 @@ function researchPage(depth) {
     ["Review and Approve", "Complete appropriate editorial, evidence, accessibility, consent and legal reviews before publication."],
     ["Publish and Revisit", "Publish approved material and revise it when meaningful new information or corrections warrant a change."]
   ];
+  const refresh = glyph(`<path d="M8 16a8 8 0 0 1 13.2-6.1"/><path d="M21.2 6.2v4.2h-4.2"/><path d="M24 16a8 8 0 0 1-13.2 6.1"/><path d="M10.8 25.8v-4.2h4.2"/>`);
+  const principleIcons = [
+    glyph(`<path d="M16 6.5 23 9.2v6.4c0 4.6-2.8 7.6-7 9.9-4.2-2.3-7-5.3-7-9.9V9.2z"/>`),
+    icons.science,
+    refresh,
+    icons.experience,
+    refresh
+  ];
+  const whyIcons = [icons.wisdom, icons.science, refresh];
+  const areaIcons = [
+    glyph(`<circle cx="16" cy="11.5" r="3.4"/><path d="M9 24.5c1-3.8 3.6-5.8 7-5.8s6 2 7 5.8"/>`),
+    glyph(`<circle cx="9.5" cy="16" r="2.3"/><circle cx="22.5" cy="9.5" r="2.3"/><circle cx="22.5" cy="22.5" r="2.3"/><path d="M11.6 15.2 20.4 10.6M11.6 16.8l8.8 4.6"/>`),
+    glyph(`<path d="M16 26V14"/><path d="M16 20c-5-.4-8.4-4-9.2-9 6 .6 9.2 4.2 9.2 9z"/><path d="M16 17c4.2-1.2 7.2-4.8 8-9.4-5 .8-8 4.4-8 9.4z"/>`)
+  ];
+  const perspectiveIcons = [icons.science, icons.wisdom, icons.experience];
+  const stepIcons = [
+    glyph(`<circle cx="16" cy="16" r="8"/><path d="M13.2 13.2a2.8 2.8 0 1 1 3.6 2.6c-.8.4-1.3 1-1.3 1.8V18.4M16 21.2v.2"/>`),
+    icons.wisdom,
+    icons.science,
+    icons.experience,
+    glyph(`<path d="M10 7.5h8.5L23 12v12.5H10z"/><path d="M18.5 7.5V12H23M13 16.5h7M13 20h5"/>`),
+    glyph(`<circle cx="16" cy="16" r="8"/><path d="m12.2 16.2 2.5 2.5 5-5.2"/>`),
+    glyph(`<path d="M9 20.5V8.5h9l4 4v8z"/><path d="M16 12.5v6M13.6 16.2 16 18.6l2.4-2.4"/>`)
+  ];
   const publications = researchResources.length
     ? `<div class="resource-grid">${researchResources.map((item) => `<article><h3>${item.title}</h3><p>${item.summary}</p></article>`).join("")}</div>`
     : `<div class="quiet-panel"><h3>A growing body of work</h3><p>CureSoulLife is developing its approach to responsible knowledge and research communication. Publications will be presented here as they are prepared and reviewed.</p></div>`;
@@ -1896,17 +2026,19 @@ function researchPage(depth) {
 
     <section class="section section-white" id="research-why" aria-labelledby="research-why-title">
       <div class="container">
-        <div class="section-head reading-block">
-          ${eyebrow("The need for inquiry")}
-          <h2 id="research-why-title">Human questions deserve more than confident answers.</h2>
-          <p class="support">Questions about human life often sit at the intersection of biology, psychology, behaviour, philosophy, culture and personal experience.</p>
-          <p class="support">Some questions can be investigated through scientific methods. Others require historical understanding, philosophical inquiry or careful reflection on lived experience. Many benefit from more than one perspective, provided their differences are not overlooked.</p>
-          <p class="support">At CureSoulLife, inquiry begins with curiosity and proceeds with responsibility. We aim to make knowledge more understandable, identify its limitations and remain open to revision when better information becomes available.</p>
-        </div>
-        <div class="relation-grid">
-          <article><h3>Ask Better Questions</h3><p>Begin with meaningful human questions rather than predetermined conclusions.</p></article>
-          <article><h3>Examine the Context</h3><p>Understand where an idea comes from, what supports it and where its limitations lie.</p></article>
-          <article><h3>Remain Open to Revision</h3><p>Treat learning as an ongoing process rather than a search for unquestionable final answers.</p></article>
+        <div class="research-split">
+          <div class="section-head reading-block">
+            ${eyebrow("The need for inquiry")}
+            <h2 id="research-why-title">Human questions deserve more than confident answers.</h2>
+            <p class="support">Questions about human life often sit at the intersection of biology, psychology, behaviour, philosophy, culture and personal experience.</p>
+            <p class="support">Some questions can be investigated through scientific methods. Others require historical understanding, philosophical inquiry or careful reflection on lived experience. Many benefit from more than one perspective, provided their differences are not overlooked.</p>
+            <p class="support">At CureSoulLife, inquiry begins with curiosity and proceeds with responsibility. We aim to make knowledge more understandable, identify its limitations and remain open to revision when better information becomes available.</p>
+          </div>
+          <div class="relation-grid">
+            <article><span class="about-icon">${whyIcons[0]}</span><h3>Ask Better Questions</h3><p>Begin with meaningful human questions rather than predetermined conclusions.</p></article>
+            <article><span class="about-icon">${whyIcons[1]}</span><h3>Examine the Context</h3><p>Understand where an idea comes from, what supports it and where its limitations lie.</p></article>
+            <article><span class="about-icon">${whyIcons[2]}</span><h3>Remain Open to Revision</h3><p>Treat learning as an ongoing process rather than a search for unquestionable final answers.</p></article>
+          </div>
         </div>
         <p class="section-note">These three ideas explain an editorial attitude. They are not a validated research methodology.</p>
       </div>
@@ -1914,6 +2046,7 @@ function researchPage(depth) {
 
     <section class="section section-sand" id="research-philosophy" aria-labelledby="philosophy-title">
       <div class="container">
+        <div class="research-principles">
         <div class="section-head reading-block">
           <h2 id="philosophy-title">Respect knowledge. Examine claims. Keep learning.</h2>
           <p class="support">CureSoulLife recognises that humanity has developed many ways of exploring the nature of life and human experience.</p>
@@ -1921,43 +2054,78 @@ function researchPage(depth) {
           <p class="support">Our responsibility is to represent each perspective fairly, make its context understandable and avoid presenting an interpretation as established fact when the available evidence does not justify that conclusion.</p>
           <p class="support">We do not ask people to accept ideas merely because they are ancient, modern, popular or associated with an authority. We encourage thoughtful exploration, transparent reasoning and the freedom to ask further questions.</p>
         </div>
-        <div class="principle-grid">${principles.map(([name, detail], i) => `<article class="approach-card"><p class="domain-index">${String(i + 1).padStart(2, "0")}</p><h3>${name}</h3><p>${detail}</p></article>`).join("")}</div>
+        <div class="principle-grid">${principles.map(([name, detail], i) => `<article class="approach-card"><p class="domain-index">${String(i + 1).padStart(2, "0")}</p><span class="about-icon">${principleIcons[i]}</span><h3>${name}</h3><p>${detail}</p></article>`).join("")}</div>
+        </div>
         <p class="section-note">These principles are CureSoulLife's own editorial commitments. They are not an external accreditation or a formal certification.</p>
       </div>
     </section>
 
     <section class="section section-white" id="research-areas" aria-labelledby="areas-title">
       <div class="container">
+        <div class="research-split">
         <div class="section-head reading-block">
           <h2 id="areas-title">Exploring the interconnected dimensions of human life.</h2>
           <p class="support">Human life cannot always be understood through a single discipline. CureSoulLife's areas of inquiry reflect an interest in the connections between human biology, thought, emotion, behaviour, relationships, meaning and the environments in which people live.</p>
           <p class="support">The areas below describe our intellectual interests. They do not imply that every area currently has an active research project or a dedicated research team.</p>
         </div>
-        <div class="inquiry-grid">${areas.map(([name, detail, themes, boundary]) => `
+        <div class="inquiry-grid">${areas.map(([name, detail, themes, boundary], i) => `
           <article>
+            <span class="about-icon">${areaIcons[i]}</span>
             <h3>${name}</h3>
             <p>${detail}</p>
             <p class="domain-topics">${themes.join(" · ")}</p>
             ${boundary ? `<p class="claim-note">${boundary}</p>` : ""}
           </article>`).join("")}</div>
+        </div>
         <p class="section-note">A research area is an area of intellectual interest. It is not evidence of an active project, a dedicated research team, an established programme, or completed findings. No area links onward, because no dedicated research resource is published.</p>
       </div>
     </section>
 
     <section class="section" id="research-perspectives" aria-labelledby="perspectives-title">
       <div class="container">
+        <div class="research-split">
         <div class="section-head reading-block">
           <h2 id="perspectives-title">Different perspectives. Clear distinctions. Responsible interpretation.</h2>
           <p class="support">Some questions benefit from examining more than one perspective. Our approach seeks to preserve the integrity of each perspective while making connections where they are meaningful and appropriately supported.</p>
         </div>
-        <div class="relation-grid">${perspectives.map(([name, detail, materials, boundary]) => `
+        <div class="relation-grid">${perspectives.map(([name, detail, materials, boundary], i) => `
           <article>
+            <span class="about-icon">${perspectiveIcons[i]}</span>
             <h3>${name}</h3>
             <p>${detail}</p>
             <p class="domain-topics">${materials.join(" · ")}</p>
             <p class="claim-note">${boundary}</p>
           </article>`).join("")}</div>
+        </div>
         <p class="section-note">These perspectives can inform a question. They are not three equally validated forms of scientific evidence. Their relevance depends on the question being explored.</p>
+      </div>
+    </section>
+
+    <section class="section" id="research-publications" aria-labelledby="publications-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="publications-title">Explore the work. Follow the evidence.</h2>
+          <p class="support">Research becomes useful when its questions, sources, findings and limitations can be understood and examined. As CureSoulLife develops reviewed research summaries and publications, this space will make available material that meets the institution's publication standards.</p>
+        </div>
+        <div id="research-process" aria-labelledby="process-research-title">
+          <h2 id="process-research-title">A thoughtful process from question to publication.</h2>
+          <ol class="research-steps">${steps.map(([name, detail], i) => `<li><span class="journey-index">${String(i + 1).padStart(2, "0")}</span><span class="about-icon">${stepIcons[i]}</span><h3>${name}</h3><p>${detail}</p></li>`).join("")}</ol>
+          <p class="section-note">This sequence describes CureSoulLife's intended approach to developing research-informed educational resources. It does not imply that every stage is currently supported by a dedicated department or that every resource undergoes formal academic peer review.</p>
+        </div>
+        ${publications}
+      </div>
+    </section>
+
+    <section class="section section-white" id="research-collaboration" aria-labelledby="collaboration-title">
+      <div class="container research-split">
+        <h2 id="collaboration-title">Good questions can bring different disciplines together.</h2>
+        <div>
+          <p class="support">Understanding human life often requires more than one perspective. CureSoulLife welcomes thoughtful conversations with researchers, educators, practitioners and institutions whose work aligns with responsible inquiry, human dignity and a commitment to learning.</p>
+          <p class="support">Potential areas of collaboration may include educational research, evidence-informed content, historical and philosophical inquiry, responsible interpretation of traditional practices and interdisciplinary exploration of human experience.</p>
+          <p class="support">All proposed collaborations are subject to discussion, appropriate review and mutual agreement.</p>
+          <p class="section-note">This link opens contact with Institutional Collaboration selected. It does not send a message or create a partnership. No delivery channel is connected.</p>
+          <div class="cta-row">${cta(depth, "contact/index.html?enquiry=institutional_collaboration", "Discuss a Research Collaboration")}</div>
+        </div>
       </div>
     </section>
 
@@ -1973,14 +2141,6 @@ function researchPage(depth) {
       </div>
     </section>
 
-    <section class="section" id="research-publications" aria-labelledby="publications-title">
-      <div class="container reading-block">
-        <h2 id="publications-title">Explore the work. Follow the evidence.</h2>
-        <p class="support">Research becomes useful when its questions, sources, findings and limitations can be understood and examined. As CureSoulLife develops reviewed research summaries and publications, this space will make available material that meets the institution's publication standards.</p>
-        ${publications}
-      </div>
-    </section>
-
     <section class="section section-sand" id="research-ethics" aria-labelledby="ethics-title">
       <div class="container">
         <div class="section-head reading-block">
@@ -1990,27 +2150,6 @@ function researchPage(depth) {
         </div>
         <div class="ethics-grid">${ethics.map(([name, detail]) => `<article class="approach-card"><h3>${name}</h3><p>${detail}</p></article>`).join("")}</div>
         <p class="section-note">This page does not claim that CureSoulLife has an institutional ethics committee, clinical research approval, or formal research governance accreditation.</p>
-      </div>
-    </section>
-
-    <section class="section section-white" id="research-process" aria-labelledby="process-research-title">
-      <div class="container">
-        <div class="section-head reading-block">
-          <h2 id="process-research-title">A thoughtful process from question to publication.</h2>
-        </div>
-        <ol class="research-steps">${steps.map(([name, detail], i) => `<li><span class="journey-index">${String(i + 1).padStart(2, "0")}</span><h3>${name}</h3><p>${detail}</p></li>`).join("")}</ol>
-        <p class="section-note">This sequence describes CureSoulLife's intended approach to developing research-informed educational resources. It does not imply that every stage is currently supported by a dedicated department or that every resource undergoes formal academic peer review.</p>
-      </div>
-    </section>
-
-    <section class="section" id="research-collaboration" aria-labelledby="collaboration-title">
-      <div class="container reading-block">
-        <h2 id="collaboration-title">Good questions can bring different disciplines together.</h2>
-        <p class="support">Understanding human life often requires more than one perspective. CureSoulLife welcomes thoughtful conversations with researchers, educators, practitioners and institutions whose work aligns with responsible inquiry, human dignity and a commitment to learning.</p>
-        <p class="support">Potential areas of collaboration may include educational research, evidence-informed content, historical and philosophical inquiry, responsible interpretation of traditional practices and interdisciplinary exploration of human experience.</p>
-        <p class="support">All proposed collaborations are subject to discussion, appropriate review and mutual agreement.</p>
-        <p class="section-note">The contact page does not yet publish an address or an enquiry form, so a research subject cannot be preselected. Opening that page does not create a partnership.</p>
-        <div class="cta-row">${cta(depth, "contact/index.html", "Discuss a Research Collaboration")}</div>
       </div>
     </section>
 
@@ -2058,6 +2197,14 @@ function experiencesPage(depth) {
   ];
   const expects = ["Purpose and intended learning focus.", "Format and delivery mode.", "Duration.", "Date or schedule.", "Location or online participation details.", "Facilitator identity and relevant experience.", "Practical requirements.", "Accessibility considerations.", "Participation expectations and voluntary activities.", "Any important limitations or safety information.", "The appropriate enquiry or booking destination."];
   const sequence = ["Learn", "Explore", "Practise", "Reflect", "Integrate"];
+  const sequenceIcons = { Learn: icons.wisdom, Explore: uiGlyphs.compass, Practise: uiGlyphs.gear, Reflect: uiGlyphs.chat, Integrate: icons.legacy };
+  const formatMedia = {
+    "Guided Practices": ["question-forest", 1600, 1066, "center 55%"],
+    "Workshops": ["eco-research", 1200, 800, "center 50%"],
+    "Structured Programmes": ["institutional-hills", 1800, 1072, "80% 60%"],
+    "Retreats and Immersions": ["eco-community", 1200, 800, "65% 70%"],
+    "Events and Shared Learning": ["page-landscape", 1600, 1067, "center 70%"]
+  };
   const listings = experienceOfferings.length
     ? `<div class="resource-grid">${experienceOfferings.map((item) => `<article><h3>${item.title}</h3><p>${item.summary}</p></article>`).join("")}</div>`
     : `<div class="quiet-panel"><h3>New experiences will be shared here as they are confirmed.</h3><p>In the meantime, explore CureSoulLife's knowledge resources and human transformation framework.</p><div class="cta-row">${cta(depth, "knowledge/index.html", "Explore Knowledge")}${cta(depth, "human-transformation/index.html", "Discover Human Transformation", "btn btn-secondary")}</div></div>`;
@@ -2089,33 +2236,43 @@ function experiencesPage(depth) {
     </header>
 
     <section class="section section-white" id="experiences-why" aria-labelledby="experiences-why-title">
-      <div class="container reading-block">
-        ${eyebrow("From knowledge to experience")}
-        <h2 id="experiences-why-title">Understanding deepens when we engage with what we learn.</h2>
-        <p class="support">Reading an idea can open a new perspective. Practising it, reflecting on it and exploring it in the context of everyday life may help us understand its relevance more deeply.</p>
-        <p class="support">Experiences create opportunities to pause, ask questions, practise new approaches and learn alongside others. Their value lies not in promising a particular outcome, but in creating thoughtful conditions for exploration and learning.</p>
-        <p class="support">At CureSoulLife, experiences are intended to connect knowledge with application while respecting the different needs, circumstances and choices of each person.</p>
-        <ol class="learn-sequence">${sequence.map((step) => `<li>${step}</li>`).join("")}</ol>
-        <p class="section-note">This is an illustrative learning pathway, not a guaranteed sequence or a measure of personal progress. People may move between these activities in different ways. The seven-stage Human Transformation Framework is described on its own page.</p>
-        <div class="cta-row">${textLink(depth, "human-transformation/index.html", "Explore Human Transformation")}</div>
+      <div class="container about-duo about-duo-wide">
+        <div>
+          ${eyebrow("From knowledge to experience")}
+          <h2 id="experiences-why-title">Understanding deepens when we engage with what we learn.</h2>
+          <p class="support">Reading an idea can open a new perspective. Practising it, reflecting on it and exploring it in the context of everyday life may help us understand its relevance more deeply.</p>
+          <p class="support">Experiences create opportunities to pause, ask questions, practise new approaches and learn alongside others. Their value lies not in promising a particular outcome, but in creating thoughtful conditions for exploration and learning.</p>
+          <p class="support">At CureSoulLife, experiences are intended to connect knowledge with application while respecting the different needs, circumstances and choices of each person.</p>
+          <div class="cta-row">${textLink(depth, "human-transformation/index.html", "Explore Human Transformation")}</div>
+        </div>
+        <div>
+          <ol class="exp-steps">${sequence.map((step, i) => `<li style="--i:${i}"><span class="about-icon">${sequenceIcons[step]}</span><span class="exp-step-index">${String(i + 1).padStart(2, "0")}</span>${step}</li>`).join("")}</ol>
+          <p class="section-note">This is an illustrative learning pathway, not a guaranteed sequence or a measure of personal progress. People may move between these activities in different ways. The seven-stage Human Transformation Framework is described on its own page.</p>
+        </div>
       </div>
     </section>
 
     <section class="section section-sand" id="experience-formats" aria-labelledby="formats-experience-title">
       <div class="container">
-        <div class="section-head reading-block">
+        <div class="exp-formats-head">
           <h2 id="formats-experience-title">Different ways to learn, practise and explore.</h2>
           <p class="support">An experience may be a short guided practice, a structured learning programme, a shared workshop or an immersive retreat. The appropriate format depends on the purpose, context and needs of the participants.</p>
         </div>
-        <div class="experience-formats">${formats.map(([name, detail, themes, link, note], i) => `
-          <article>
-            <p class="domain-index">${String(i + 1).padStart(2, "0")}</p>
-            <h3>${name}</h3>
-            <p>${detail}</p>
-            <p class="domain-topics">${themes.join(" · ")}</p>
-            ${note ? `<p class="section-note">${note}</p>` : ""}
-            ${link ? textLink(depth, link[0], link[1]) : ""}
-          </article>`).join("")}</div>
+        <div class="exp-rows">${formats.map(([name, detail, themes, link, note], i) => {
+          const [stem, w, h, pos] = formatMedia[name];
+          return `
+          <article class="exp-row">
+            <div class="exp-row-text">
+              <p class="domain-index">${String(i + 1).padStart(2, "0")}</p>
+              <h3>${name}</h3>
+              <p>${detail}</p>
+              ${note ? `<p class="section-note">${note}</p>` : ""}
+              ${link ? `<div class="cta-row">${cta(depth, link[0], link[1])}</div>` : ""}
+            </div>
+            <figure class="exp-row-media" style="--pos:${pos}">${picture(stem, w, h, "", { prefix: p })}</figure>
+            <ul class="exp-row-list">${themes.map((theme) => `<li>${theme}</li>`).join("")}</ul>
+          </article>`;
+        }).join("")}</div>
         <p class="section-note">These formats explain kinds of experience. They are not a list of live sessions. A listed practice is not a current in-person service unless a published offering says so. Workshops and programmes have no action because no approved destination exists. No booking page on another site is linked.</p>
       </div>
     </section>
@@ -2178,7 +2335,8 @@ function experiencesPage(depth) {
       </div>
     </section>
 
-    <section class="finale finale-plain cta-section cta-forest" id="experiences-closing" aria-labelledby="experiences-close-title">
+    <section class="finale finale-plain cta-section cta-forest about-finale" id="experiences-closing" aria-labelledby="experiences-close-title">
+      ${leaf("about-leaf-left")}${leaf("about-leaf-right")}
       <div class="container">
         <div>
           ${eyebrow("Your next step")}
@@ -2428,6 +2586,17 @@ function retreatsPage(depth) {
     </section>`;
 }
 
+const glyph = (paths) => `<svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
+const leaf = (cls) => `<svg class="about-leaf ${cls}" viewBox="0 0 120 320" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M70 316C64 240 58 160 74 6"/><path d="M68 270c-20-6-34-20-38-40 20 4 34 18 38 40z"/><path d="M66 220c22-8 34-24 36-46-20 6-32 22-36 46z"/><path d="M64 172c-20-6-32-22-34-42 20 4 32 20 34 42z"/><path d="M66 122c20-8 30-22 32-42-18 6-30 20-32 42z"/><path d="M68 76c-16-6-26-18-28-34 16 4 26 16 28 34z"/></g></svg>`;
+const uiGlyphs = {
+  gear: glyph(`<circle cx="16" cy="16" r="3.6"/><path d="M16 6.5v3M16 22.5v3M6.5 16h3M22.5 16h3M9.3 9.3l2.1 2.1M20.6 20.6l2.1 2.1M22.7 9.3l-2.1 2.1M11.4 20.6l-2.1 2.1"/>`),
+  chat: glyph(`<path d="M6 8.5h14v9H12l-4 3.5v-3.5H6z"/><path d="M20 12.5h6v8.5h-2v3l-3.5-3H14v-3.5"/>`),
+  heart: glyph(`<path d="M16 25.5S6.5 19.6 6.5 12.8A4.8 4.8 0 0 1 16 10.4a4.8 4.8 0 0 1 9.5 2.4C25.5 19.6 16 25.5 16 25.5z"/>`),
+  compass: glyph(`<circle cx="16" cy="16" r="10"/><path d="M19.8 12.2 17.5 17.5l-5.3 2.3 2.3-5.3z"/>`),
+  globe: glyph(`<circle cx="16" cy="16" r="10"/><path d="M6 16h20M16 6c3 3 4.4 6.4 4.4 10S19 23 16 26c-3-3-4.4-6.4-4.4-10S13 9 16 6z"/>`),
+  mentor: glyph(`<circle cx="12" cy="10.5" r="3.2"/><circle cx="21.5" cy="13" r="2.4"/><path d="M5.5 25c.6-4.6 3.1-7.5 6.5-7.5s5.9 2.9 6.5 7.5M18.5 19.2c.9-.5 1.9-.7 3-.7 2.6 0 4.5 2.3 5 6"/>`)
+};
+
 const communityStories = [];
 
 function communityPage(depth) {
@@ -2464,12 +2633,17 @@ function communityPage(depth) {
     ["Safety and Boundaries", "Harassment, discrimination, coercion and exploitative behaviour are incompatible with the intended community culture."]
   ];
   const numbered = (items) => `<ol class="community-cards">${items.map(([title, copy]) => `<li><h3>${title}</h3><p>${copy}</p></li>`).join("")}</ol>`;
+  const pillarIcons = { "Learn Together": icons.wisdom, "Practise Together": uiGlyphs.gear, "Reflect Together": uiGlyphs.chat, "Serve Together": uiGlyphs.heart, "Grow Together": icons.legacy };
+  const modeIcons = { "Explorer": uiGlyphs.compass, "Learner": icons.wisdom, "Practitioner": uiGlyphs.gear, "Contributor": icons.relationships, "Facilitator or Mentor": uiGlyphs.mentor, "Community Partner": uiGlyphs.globe };
+  const pathIcons = { "Explore": uiGlyphs.compass, "Learn": icons.wisdom, "Experience": icons.legacy, "Contribute": uiGlyphs.heart, "Collaborate": icons.relationships };
+  const pathIcon = (title) => `<span class="community-tile-icon">${pathIcons[title]}</span>`;
   const stories = communityStories.length
     ? `<div class="community-cards">${communityStories.map((item) => `<article><h3>${item.title}</h3>${item.summary ? `<p>${item.summary}</p>` : ""}</article>`).join("")}</div>`
     : `<p class="support">No community story is published yet. Reflections, interviews and participant stories will appear here only when they are genuine, consented and editorially approved.</p>`;
 
   return `
     <header class="page-hero institution-hero community-hero" id="community-hero">
+      ${leaf("community-leaf-hero")}
       <div class="container">
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <ol>
@@ -2496,12 +2670,18 @@ function communityPage(depth) {
     </header>
 
     <section class="section section-white" id="community-why" aria-labelledby="community-why-title">
-      <div class="container reading-block">
-        ${eyebrow("Beyond individual learning")}
-        <h2 id="community-why-title">What we learn individually can gain new meaning when we learn with others.</h2>
-        <p class="support">Personal reflection and individual practice are important parts of human development. Yet many questions about life, relationships, work, meaning and responsibility are also explored through conversation, shared learning and different perspectives.</p>
-        <p class="support">A thoughtful community can create space to ask questions, exchange ideas, listen carefully and consider how learning relates to everyday life. It can also offer opportunities to contribute knowledge, time or skills to something beyond individual development.</p>
-        <p class="support">CureSoulLife approaches community as a shared purpose rather than a measure of popularity, membership size or social status. The emphasis is on how people learn, relate and contribute—not on how many people belong to a group.</p>
+      <div class="container about-duo">
+        <div>
+          ${eyebrow("Beyond individual learning")}
+          <h2 id="community-why-title">What we learn individually can gain new meaning when we learn with others.</h2>
+          <p class="support">Personal reflection and individual practice are important parts of human development. Yet many questions about life, relationships, work, meaning and responsibility are also explored through conversation, shared learning and different perspectives.</p>
+          <p class="support">A thoughtful community can create space to ask questions, exchange ideas, listen carefully and consider how learning relates to everyday life. It can also offer opportunities to contribute knowledge, time or skills to something beyond individual development.</p>
+          <p class="support">CureSoulLife approaches community as a shared purpose rather than a measure of popularity, membership size or social status. The emphasis is on how people learn, relate and contribute—not on how many people belong to a group.</p>
+        </div>
+        <div class="about-orbit community-orbit-art" aria-hidden="true">
+          <div class="about-orbit-core">${icons.relationships}<span>A thoughtful community</span></div>
+          <ul>${pillars.map(([title], index) => `<li style="--i:${index}"><span class="about-orbit-icon">${pillarIcons[title]}</span><strong>${title}</strong></li>`).join("")}</ul>
+        </div>
       </div>
     </section>
 
@@ -2517,14 +2697,16 @@ function communityPage(depth) {
       </div>
     </section>
 
-    <section class="section" id="community-practice" aria-labelledby="community-practice-title">
-      <div class="container">
-        <div class="section-head reading-block">
+    <section class="section section-sand" id="community-practice" aria-labelledby="community-practice-title">
+      <div class="container about-duo about-duo-wide">
+        <div>
           ${eyebrow("Community in practice")}
           <h2 id="community-practice-title">A community is built through what people do together.</h2>
           <p class="support">The following pillars describe the kinds of participation that may shape CureSoulLife community activities. They are guiding principles, not a claim that every activity is currently operating.</p>
         </div>
-        ${numbered(pillars).replace('class="community-cards"', 'class="community-cards community-five"')}
+        <ol class="community-tiles">
+          ${pillars.map(([title, copy]) => `<li><span class="community-tile-icon">${pillarIcons[title]}</span><h3>${title}</h3><p>${copy}</p></li>`).join("")}
+        </ol>
       </div>
     </section>
 
@@ -2536,32 +2718,37 @@ function communityPage(depth) {
           <p class="support">Not everyone participates in the same way. Some people begin by exploring knowledge. Others engage more deeply with a framework, attend an experience, share their skills or help create opportunities for learning.</p>
           <p class="support">CureSoulLife aims to support different forms of participation as the institution and its community develop. These pathways are not membership tiers.</p>
         </div>
-        <div class="community-cards community-five">
+        <div class="community-tiles community-paths">
           <article>
+            ${pathIcon("Explore")}
             <h3>Explore</h3>
             <p class="community-for">For people beginning their journey.</p>
             <p>Discover CureSoulLife through articles, educational resources, videos, podcasts and the ideas that inform human transformation. The Knowledge page does not yet list published resources.</p>
             ${textLink(depth, "knowledge/index.html", "Explore Knowledge")}
           </article>
           <article>
+            ${pathIcon("Learn")}
             <h3>Learn</h3>
             <p class="community-for">For people who want to understand more deeply.</p>
             <p>Explore frameworks, research perspectives and educational resources related to human life, behaviour, awareness and transformation.</p>
             ${textLink(depth, "human-transformation/index.html", "Explore Human Transformation")}
           </article>
           <article>
+            ${pathIcon("Experience")}
             <h3>Experience</h3>
             <p class="community-for">For people interested in guided participation.</p>
             <p>Explore confirmed retreats, workshops, programmes and other structured experiences where these opportunities are available. Nothing on this card is open for registration.</p>
             ${textLink(depth, "experiences/index.html", "Explore Experiences")}
           </article>
           <article>
+            ${pathIcon("Contribute")}
             <h3>Contribute</h3>
             <p class="community-for">For people who want to offer their time, knowledge or skills.</p>
             <p>Possible areas of contribution may include educational collaboration, translation, event support, research-related work, volunteering or other mission-aligned activities. This is an invitation to enquire, not a volunteer programme or a guaranteed role.</p>
             ${textLink(depth, "contact/index.html", "Explore Collaboration")}
           </article>
           <article>
+            ${pathIcon("Collaborate")}
             <h3>Collaborate</h3>
             <p class="community-for">For educators, researchers, facilitators and organisations.</p>
             <p>Explore the possibility of collaborating on knowledge, learning, research, responsible experiences or community initiatives that align with CureSoulLife's purpose. A partnership or accreditation relationship is not already in place.</p>
@@ -2573,36 +2760,32 @@ function communityPage(depth) {
     </section>
 
     <section class="section" id="community-modes" aria-labelledby="community-modes-title">
-      <div class="container">
-        <div class="section-head reading-block">
+      <div class="container about-duo about-duo-wide">
+        <div>
           ${eyebrow("Participation over time")}
           <h2 id="community-modes-title">From personal curiosity to shared responsibility.</h2>
           <p class="support">As people learn, practise and contribute, their relationship with a community may change. CureSoulLife's long-term vision allows space for different forms of participation without treating them as ranks or guarantees of status.</p>
           <p class="support">The modes below are illustrative. People may move between them, participate in more than one way, or remain with any mode that suits their circumstances. Reading this page does not qualify a person to become a facilitator, mentor, representative or community leader. These are not current appointments.</p>
+          <p class="section-note">Contribution depends on willingness, suitability, responsibility and an agreed opportunity. It does not depend on popularity, and not every mode is currently available.</p>
         </div>
-        <div class="community-orbit" aria-hidden="true">
-          <p>Participation</p>
-          <ul>
-            ${modes.map(([title], index) => `<li style="--i:${index}">${title}</li>`).join("")}
-          </ul>
-        </div>
-        <div class="community-cards community-wide">
-          ${modes.map(([title, copy]) => `<article><h3>${title}</h3><p>${copy}</p></article>`).join("")}
-        </div>
-        <p class="section-note">Contribution depends on willingness, suitability, responsibility and an agreed opportunity. It does not depend on popularity, and not every mode is currently available.</p>
+        <ul class="about-icon-cards about-philosophy community-modes">
+          ${modes.map(([title, copy]) => `<li><span class="about-icon">${modeIcons[title]}</span><h3>${title}</h3><p>${copy}</p></li>`).join("")}
+        </ul>
       </div>
     </section>
 
     <section class="section section-white" id="community-standards" aria-labelledby="community-standards-title">
-      <div class="container">
-        <div class="section-head reading-block">
+      <div class="container about-duo about-duo-wide">
+        <div>
           ${eyebrow("Respect, trust & responsibility")}
           <h2 id="community-standards-title">Belonging requires care and responsibility.</h2>
           <p class="support">A constructive community does not depend on everyone thinking alike. It depends on shared expectations about how people communicate, disagree, protect privacy and treat one another.</p>
           <p class="support">The following principles should guide CureSoulLife community activities and any future member spaces.</p>
+          <p class="section-note">A moderated online group, recurring member circle or formal community programme is not operating here. This page does not claim a staffed moderation or safeguarding team, and it has no reporting button.</p>
         </div>
-        ${numbered(standards).replace('class="community-cards"', 'class="community-cards community-wide"')}
-        <p class="section-note">A moderated online group, recurring member circle or formal community programme is not operating here. This page does not claim a staffed moderation or safeguarding team, and it has no reporting button.</p>
+        <ol class="about-values community-standards">
+          ${standards.map(([title, copy]) => `<li><h3>${title}</h3><p>${copy}</p></li>`).join("")}
+        </ol>
       </div>
     </section>
 
@@ -2661,7 +2844,8 @@ function communityPage(depth) {
       </div>
     </section>
 
-    <section class="finale finale-plain cta-section cta-forest" id="community-closing" aria-labelledby="community-close-title">
+    <section class="finale finale-plain cta-section cta-forest about-finale" id="community-closing" aria-labelledby="community-close-title">
+      ${leaf("about-leaf-left")}${leaf("about-leaf-right")}
       <div class="container">
         <div>
           ${eyebrow("Your place in the journey")}
@@ -2728,11 +2912,23 @@ function globalNetworkPage(depth) {
     ["Local Responsibility", "Review relevant legal, cultural, professional and operational requirements before beginning an activity in a new location."],
     ["Shared Value", "Seek relationships that create a genuine and understandable benefit for the people and organisations involved."]
   ];
+  const ideaMedia = [
+    ["eco-community", 1200, 800, "center 55%"],
+    ["page-landscape", 1600, 1067, "center 62%"],
+    ["eco-research", 1200, 800, "center 48%"]
+  ];
+  const relationIcons = [
+    icons.wisdom,
+    icons.relationships,
+    uiGlyphs.globe,
+    icons.experience,
+    glyph(`<path d="M16 6.5 23 9.2v6.4c0 4.6-2.8 7.6-7 9.9-4.2-2.3-7-5.3-7-9.9V9.2z"/>`)
+  ];
   const numbered = (items, extra = "") => `<ol class="community-cards${extra}">${items.map(([title, copy]) => `<li><h3>${esc(title)}</h3><p>${copy}</p></li>`).join("")}</ol>`;
   const plain = (items, extra = "") => `<div class="community-cards${extra}">${items.map(([title, copy]) => `<article><h3>${esc(title)}</h3><p>${copy}</p></article>`).join("")}</div>`;
   const presence = networkRecords.length
     ? `<div class="community-cards">${networkRecords.map((item) => `<article><h3>${esc(item.name)}</h3>${item.relationship ? `<p>${esc(item.relationship)}</p>` : ""}${item.summary ? `<p>${esc(item.summary)}</p>` : ""}</article>`).join("")}</div>`
-    : `<div class="quiet-panel"><h3>Our network will grow through meaningful relationships.</h3><p>CureSoulLife is developing its approach to responsible collaboration. Public listings will be shared when relationships, responsibilities and permissions have been appropriately established.</p><div class="cta-row">${cta(depth, "contact/index.html", "Discuss a Collaboration")}</div></div>`;
+    : `<div class="quiet-panel"><h3>Our network will grow through meaningful relationships.</h3><p>CureSoulLife is developing its approach to responsible collaboration. Public listings will be shared when relationships, responsibilities and permissions have been appropriately established.</p><div class="cta-row">${cta(depth, "contact/index.html?enquiry=global_network", "Discuss a Collaboration")}</div></div>`;
 
   return `
     <header class="page-hero institution-hero network-hero" id="network-hero">
@@ -2753,11 +2949,11 @@ function globalNetworkPage(depth) {
             <p class="support">This is a long-term institutional aspiration. The forms of participation described on this page represent possibilities for responsible development, not a claim of established global presence.</p>
             <div class="cta-row">
               <a class="btn btn-primary" href="#global-network-vision">Explore the Global Network Vision${arrow}</a>
-              <a class="btn btn-secondary" href="${url(depth, "contact/index.html")}">Discuss a Collaboration${arrow}</a>
+              <a class="btn btn-secondary" href="${url(depth, "contact/index.html?enquiry=global_network")}">Discuss a Collaboration${arrow}</a>
             </div>
           </div>
           <figure class="page-hero-media">
-            ${picture("institutional-hills", 1800, 1072, "Misted green hills in soft light", { priority: true, lazy: false, prefix: p })}
+            ${picture("closing-horizon", 1800, 1196, "A person standing on a ridge above forested mountains", { priority: true, lazy: false, prefix: p })}
           </figure>
         </div>
       </div>
@@ -2774,7 +2970,10 @@ function globalNetworkPage(depth) {
           <p class="support">We aim to create connections through which knowledge can be explored, perspectives can be exchanged, responsible practices can be shared and people can contribute to a broader human purpose.</p>
           <p class="support">A global institution should not impose a single cultural template on every community. It should establish clear values while allowing local contexts to shape how learning and participation take place.</p>
         </div>
-        ${plain(ideas, " community-wide")}
+        <div class="network-place-grid">${ideas.map(([title, copy], i) => {
+          const [stem, w, h, pos] = ideaMedia[i];
+          return `<article><figure style="--pos:${pos}">${picture(stem, w, h, "", { prefix: p })}</figure><div><h3>${esc(title)}</h3><p>${copy}</p></div></article>`;
+        }).join("")}</div>
       </div>
     </section>
 
@@ -2831,7 +3030,7 @@ function globalNetworkPage(depth) {
           <p class="support">Not every interested person or organisation needs the same relationship with CureSoulLife. A one-time event, a knowledge contribution, an ongoing collaboration and a formally recognised chapter are different arrangements.</p>
           <p class="support">The nature of each relationship should be clear to everyone involved.</p>
         </div>
-        ${plain(relationships, " community-five")}
+        <div class="community-cards network-roles">${relationships.map(([title, copy], i) => `<article><span class="about-icon">${relationIcons[i]}</span><h3>${esc(title)}</h3><p>${copy}</p></article>`).join("")}</div>
         <p class="section-note">These are proposed relationship types for future governance. They are not current membership categories, official titles or a partner accreditation system. Attending a programme, or having an informal conversation, does not mean CureSoulLife endorses a person's services.</p>
       </div>
     </section>
@@ -2870,8 +3069,8 @@ function globalNetworkPage(depth) {
         <p class="support">Potential areas of discussion may include education, research, responsible knowledge communication, human development, community learning, technology and institutional collaboration.</p>
         <p class="support">Every proposed relationship requires appropriate discussion, evaluation and mutual clarity. Submitting an enquiry does not establish a partnership or imply institutional endorsement.</p>
         <p class="support">An enquiry is an opportunity to understand a possible area of shared interest. It is not an application for a franchise, licence, chapter, accreditation or official representative status. No response timeframe is published.</p>
-        <div class="cta-row">${cta(depth, "contact/index.html", "Discuss a Collaboration")}</div>
-        <p class="section-note">The contact page does not yet publish an enquiry form, so this link cannot preselect a category or confirm that a message was received.</p>
+        <div class="cta-row">${cta(depth, "contact/index.html?enquiry=global_network", "Discuss a Collaboration")}</div>
+        <p class="section-note">This link opens contact with Global Network &amp; Community Collaboration selected. It does not send a message, create a partnership, or confirm that anything was received.</p>
       </div>
     </section>
 
@@ -2893,8 +3092,11 @@ function globalNetworkPage(depth) {
       </div>
     </section>
 
-    <section class="finale finale-plain cta-section cta-forest" id="network-closing" aria-labelledby="network-close-title">
-      <div class="container">
+    <section class="finale finale-plain cta-section cta-forest network-finale" id="network-closing" aria-labelledby="network-close-title">
+      <figure class="network-finale-media" aria-hidden="true">
+        ${picture("institutional-hills", 1800, 1072, "", { lazy: true, prefix: p })}
+      </figure>
+      <div class="container network-finale-inner">
         <div>
           ${eyebrow("Build through meaningful connection")}
           <h2 id="network-close-title">The strength of a network begins with the quality of its relationships.</h2>
@@ -2905,7 +3107,7 @@ function globalNetworkPage(depth) {
           </div>
         </div>
         <div class="cta-row">
-          ${cta(depth, "contact/index.html", "Discuss a Collaboration", "btn btn-light")}
+          ${cta(depth, "contact/index.html?enquiry=global_network", "Discuss a Collaboration", "btn btn-light")}
           ${cta(depth, "community/index.html", "Explore the CureSoulLife Community", "btn btn-ghost-light")}
         </div>
       </div>
@@ -2950,6 +3152,28 @@ function aboutPage(depth) {
     ["Communities & Institutions", "Organisations interested in educational collaboration, public learning or initiatives aligned with human transformation."]
   ];
   const card = ([title, copy, route, label]) => `<article><h3>${esc(title)}</h3><p>${copy}</p>${route ? textLink(depth, route, label) : ""}</article>`;
+  const aboutIcons = {
+    "Ancient Wisdom": glyph(`<path d="M16 16c-2.6-3.4-4.6-5-7-5a5 5 0 0 0 0 10c2.4 0 4.4-1.6 7-5zm0 0c2.6 3.4 4.6 5 7 5a5 5 0 0 0 0-10c-2.4 0-4.4 1.6-7 5z"/>`),
+    "Modern Science": glyph(`<circle cx="16" cy="16" r="1.8"/><ellipse cx="16" cy="16" rx="10" ry="4"/><ellipse cx="16" cy="16" rx="10" ry="4" transform="rotate(60 16 16)"/><ellipse cx="16" cy="16" rx="10" ry="4" transform="rotate(120 16 16)"/>`),
+    "Human Experience": icons.experience,
+    "Practical Application": glyph(`<circle cx="16" cy="16" r="3.6"/><path d="M16 6.5v3M16 22.5v3M6.5 16h3M22.5 16h3M9.3 9.3l2.1 2.1M20.6 20.6l2.1 2.1M22.7 9.3l-2.1 2.1M11.4 20.6l-2.1 2.1"/>`),
+    "Lifelong Learning": icons.wisdom,
+    "Conscious Technology": icons.legacy,
+    "Human Transformation": glyph(`<path d="M5 24h22M8.5 24l6-9 3.5 4.5 2.5-3 3.5 7.5"/><circle cx="21" cy="9.5" r="2"/>`),
+    "Human Operating System™": glyph(`<path d="M16 5.5 25 10.5v11L16 26.5 7 21.5v-11z"/><path d="M7 10.5l9 5 9-5M16 15.5v11"/>`),
+    "Knowledge": icons.wisdom,
+    "Research": icons.science,
+    "Practices": glyph(`<circle cx="16" cy="16" r="3.6"/><path d="M16 6.5v3M16 22.5v3M6.5 16h3M22.5 16h3M9.3 9.3l2.1 2.1M20.6 20.6l2.1 2.1M22.7 9.3l-2.1 2.1M11.4 20.6l-2.1 2.1"/>`),
+    "Experiences": icons.legacy,
+    "Community": icons.relationships
+  };
+  const missionNodes = [
+    ["Knowledge", "Educational resources and ideas."],
+    ["Community", "Shared learning, belonging and contribution."],
+    ["Experiences", "Guided learning and immersive experiences."],
+    ["Practices", "Exploring how understanding can inform action."],
+    ["Research", "Inquiry, evidence and responsible interpretation."]
+  ];
 
   return `
     <header class="page-hero institution-hero about-hero" id="about-hero">
@@ -2978,27 +3202,26 @@ function aboutPage(depth) {
       </div>
     </header>
 
-    <section class="section section-white" id="story" aria-labelledby="story-title">
+    <section class="section section-white about-story" id="story" aria-labelledby="story-title">
       <div class="container">
-        <div class="split">
-          <div>
-            ${eyebrow("The story")}
-            <h2 id="story-title">It begins with a question.</h2>
-            <p class="support">What does it mean to understand ourselves—not only as individuals with goals and responsibilities, but as human beings shaped by our bodies, thoughts, emotions, relationships, choices and sense of meaning?</p>
-            <p class="support">Human life is complex. We learn about ourselves through experience, through the people around us, through the ideas we encounter and through the questions that stay with us.</p>
-            <p class="support">Yet understanding can remain fragmented. Knowledge may stay theoretical. Insight may not become practice. Personal growth may remain disconnected from relationships, work, community and the wider world.</p>
-            <p class="support">CureSoulLife begins with the possibility of bringing these dimensions into a more thoughtful conversation.</p>
-            <p class="support">It seeks to create a living ecosystem where knowledge can inform practice, practice can deepen understanding, and individual learning can open pathways towards contribution.</p>
-            <p class="support">The intention is not to tell people who they must become. It is to create conditions in which deeper understanding and meaningful transformation become possible.</p>
-          </div>
-          <figure class="split-media">
-            ${picture("question-forest", 1600, 1066, "A sunlit path through tall trees", { lazy: true, prefix: p })}
-          </figure>
+        <div class="about-story-text">
+          ${eyebrow("The story")}
+          <h2 id="story-title">It begins with a question.</h2>
+          <p class="support">What does it mean to understand ourselves—not only as individuals with goals and responsibilities, but as human beings shaped by our bodies, thoughts, emotions, relationships, choices and sense of meaning?</p>
+          <p class="support">Human life is complex. We learn about ourselves through experience, through the people around us, through the ideas we encounter and through the questions that stay with us.</p>
+          <p class="support">Yet understanding can remain fragmented. Knowledge may stay theoretical. Insight may not become practice. Personal growth may remain disconnected from relationships, work, community and the wider world.</p>
+          <p class="support">CureSoulLife begins with the possibility of bringing these dimensions into a more thoughtful conversation.</p>
+          <p class="support">It seeks to create a living ecosystem where knowledge can inform practice, practice can deepen understanding, and individual learning can open pathways towards contribution.</p>
+          <p class="support">The intention is not to tell people who they must become. It is to create conditions in which deeper understanding and meaningful transformation become possible.</p>
         </div>
       </div>
+      <figure class="about-story-media">
+        ${picture("question-forest", 1600, 1066, "A sunlit path through tall trees", { lazy: true, prefix: p })}
+        <p class="about-story-card" aria-hidden="true">CureSoulLife begins with the possibility of bringing these dimensions into a more thoughtful conversation.</p>
+      </figure>
     </section>
 
-    <section class="section section-sand" id="why-we-exist" aria-labelledby="why-title">
+    <section class="section" id="why-we-exist" aria-labelledby="why-title">
       <div class="container">
         <div class="section-head reading-block">
           ${eyebrow("Why we exist")}
@@ -3016,27 +3239,33 @@ function aboutPage(depth) {
       </div>
     </section>
 
-    <section class="section section-forest" id="mission" aria-labelledby="mission-title">
-      <div class="container reading-block">
-        <h2 id="mission-title">Our mission</h2>
-        <p class="about-mission">To advance human transformation by bringing together Ancient Wisdom, Modern Science and lived human experience through knowledge, research, practical application and community.</p>
-        <p class="support">Our mission is to help people explore themselves and their lives with greater awareness, understanding and responsibility.</p>
-        <p class="support">We aim to make meaningful knowledge more accessible, encourage thoughtful practice, support lifelong learning and create opportunities for individual growth to connect with collective contribution.</p>
+    <section class="section section-sand about-mission-section" id="mission" aria-labelledby="mission-title">
+      <div class="container about-duo">
+        <div>
+          ${eyebrow("Our mission")}
+          <h2 id="mission-title" class="about-mission">To advance human transformation by bringing together Ancient Wisdom, Modern Science and lived human experience through knowledge, research, practical application and community.</h2>
+          <p class="support">Our mission is to help people explore themselves and their lives with greater awareness, understanding and responsibility.</p>
+          <p class="support">We aim to make meaningful knowledge more accessible, encourage thoughtful practice, support lifelong learning and create opportunities for individual growth to connect with collective contribution.</p>
+        </div>
+        <div class="about-orbit" aria-hidden="true">
+          <div class="about-orbit-core">${mark}<span>Human Transformation</span></div>
+          <ul>${missionNodes.map(([title, copy], index) => `<li style="--i:${index}"><span class="about-orbit-icon">${aboutIcons[title]}</span><strong>${title}</strong><small>${copy}</small></li>`).join("")}</ul>
+        </div>
       </div>
     </section>
 
     <section class="section section-white" id="philosophy" aria-labelledby="philosophy-title">
-      <div class="container">
-        <div class="section-head reading-block">
+      <div class="container about-duo about-duo-wide">
+        <div>
           ${eyebrow("Our philosophy")}
           <h2 id="philosophy-title">A philosophy built on openness, integration and responsibility.</h2>
           <p class="support">CureSoulLife does not seek to reduce human life to a single discipline, tradition or explanation.</p>
           <p class="support">Its philosophy brings different perspectives into conversation while asking what each can contribute, what its limitations are and how it may be applied responsibly.</p>
+          <p class="section-note">These principles are not badges, certifications or proof of institutional compliance.</p>
         </div>
-        <ol class="community-cards community-wide">
-          ${philosophy.map(([title, copy, route, label]) => `<li><h3>${title}</h3><p>${copy}</p>${route ? textLink(depth, route, label) : ""}</li>`).join("")}
+        <ol class="about-icon-cards about-philosophy">
+          ${philosophy.map(([title, copy, route, label]) => `<li><span class="about-icon">${aboutIcons[title]}</span><h3>${title}</h3><p>${copy}</p>${route ? textLink(depth, route, label) : ""}</li>`).join("")}
         </ol>
-        <p class="section-note">These principles are not badges, certifications or proof of institutional compliance.</p>
       </div>
     </section>
 
@@ -3051,21 +3280,31 @@ function aboutPage(depth) {
       </div>
     </section>
 
-    <section class="section section-white" id="values" aria-labelledby="values-title">
-      <div class="container">
-        <div class="section-head reading-block">
+    <section class="section section-white about-pair-section" id="values" aria-labelledby="values-title">
+      <div class="container about-pair">
+        <div>
           ${eyebrow("Our values")}
           <h2 id="values-title">Values matter when they guide decisions.</h2>
           <p class="support">CureSoulLife’s values are intended to guide the way the institution explores knowledge, communicates ideas, designs experiences and develops relationships.</p>
           <p class="support">They guide institutional development. They are not proof that every associated policy or process is already operational, and they are not an external certification.</p>
+          <ol class="about-values">
+            ${institutionalValues.map(([title, copy]) => `<li><h3>${title}</h3><p>${copy}</p></li>`).join("")}
+          </ol>
         </div>
-        <ol class="community-cards">
-          ${institutionalValues.map(([title, copy]) => `<li><h3>${title}</h3><p>${copy}</p></li>`).join("")}
-        </ol>
+        <div id="long-term-vision" aria-labelledby="long-term-title" role="region">
+          ${eyebrow("Long-term contribution")}
+          <h2 id="long-term-title">Build something that can continue to serve.</h2>
+          <p class="support">CureSoulLife’s long-term ambition is to become a trusted institution dedicated to human transformation.</p>
+          <p class="support">That ambition requires more than visibility. It requires the gradual development of reliable knowledge resources, responsible practices, strong institutional systems, meaningful relationships and a culture of continued learning.</p>
+          <p class="support">Over time, the institution hopes to make its resources accessible to more people, support appropriate educational and research collaborations, develop meaningful learning experiences and encourage forms of contribution that extend beyond the individual.</p>
+          <p class="support">The future should be shaped by the quality of the institution’s work and the needs it can responsibly serve—not by expansion for its own sake.</p>
+          <p class="section-note">This is an aspiration, not a current campus, laboratory, partner count or expansion schedule.</p>
+          <div class="cta-row">${textLink(depth, "community/global-network/index.html", "Explore Our Global Network Vision")}</div>
+        </div>
       </div>
     </section>
 
-    <section class="section section-sand" id="approach" aria-labelledby="approach-title">
+    <section class="section" id="approach" aria-labelledby="approach-title">
       <div class="container">
         <div class="section-head reading-block">
           ${eyebrow("How we work")}
@@ -3084,27 +3323,21 @@ function aboutPage(depth) {
       </div>
     </section>
 
-    <section class="section section-white" id="institutional-ecosystem" aria-labelledby="ecosystem-title">
-      <div class="container">
-        <div class="section-head reading-block">
+    <section class="section section-sand" id="institutional-ecosystem" aria-labelledby="ecosystem-title">
+      <div class="container about-duo about-duo-wide">
+        <div>
           ${eyebrow("The institution")}
           <h2 id="ecosystem-title">One institution. Many connected ways to explore human transformation.</h2>
           <p class="support">CureSoulLife is being developed as a connected institutional ecosystem. Its areas of work have different roles, but they share a common purpose: to explore human transformation through knowledge, inquiry, practical learning and contribution.</p>
           <p class="support">This describes the institutional architecture. It does not mean every programme, research activity, department or service is currently operating.</p>
         </div>
-        <div class="about-ecosystem" aria-hidden="true">
-          <p>CureSoulLife</p>
-          <ul>
-            ${ecosystem.map(([title], index) => `<li style="--i:${index}">${esc(title)}</li>`).join("")}
-          </ul>
-        </div>
-        <div class="community-cards community-wide">
-          ${ecosystem.map(card).join("")}
+        <div class="about-icon-cards about-ecosystem-cards">
+          ${ecosystem.map(([title, copy, route, label]) => `<article><span class="about-icon">${aboutIcons[title]}</span><h3>${esc(title)}</h3><p>${copy}</p>${route ? textLink(depth, route, label) : ""}</article>`).join("")}
         </div>
       </div>
     </section>
 
-    <section class="section" id="who-we-serve" aria-labelledby="serve-title">
+    <section class="section section-white" id="who-we-serve" aria-labelledby="serve-title">
       <div class="container">
         <div class="section-head reading-block">
           ${eyebrow("Who we serve")}
@@ -3117,19 +3350,6 @@ function aboutPage(depth) {
           ${audiences.map(([title, copy]) => `<article><h3>${esc(title)}</h3><p>${copy}</p></article>`).join("")}
         </div>
         <p class="section-note">CureSoulLife is not presented as suitable for every health condition, personal need or participant. A programme’s eligibility belongs on its own approved page. No application for a role or programme is offered here.</p>
-      </div>
-    </section>
-
-    <section class="section section-white" id="long-term-vision" aria-labelledby="long-term-title">
-      <div class="container reading-block">
-        ${eyebrow("Long-term contribution")}
-        <h2 id="long-term-title">Build something that can continue to serve.</h2>
-        <p class="support">CureSoulLife’s long-term ambition is to become a trusted institution dedicated to human transformation.</p>
-        <p class="support">That ambition requires more than visibility. It requires the gradual development of reliable knowledge resources, responsible practices, strong institutional systems, meaningful relationships and a culture of continued learning.</p>
-        <p class="support">Over time, the institution hopes to make its resources accessible to more people, support appropriate educational and research collaborations, develop meaningful learning experiences and encourage forms of contribution that extend beyond the individual.</p>
-        <p class="support">The future should be shaped by the quality of the institution’s work and the needs it can responsibly serve—not by expansion for its own sake.</p>
-        <p class="section-note">This is an aspiration, not a current campus, laboratory, partner count or expansion schedule.</p>
-        <div class="cta-row">${cta(depth, "community/global-network/index.html", "Explore Our Global Network Vision")}</div>
       </div>
     </section>
 
@@ -3175,7 +3395,8 @@ function aboutPage(depth) {
       </div>
     </section>
 
-    <section class="finale finale-plain cta-section cta-forest" id="final-invitation" aria-labelledby="final-title">
+    <section class="finale finale-plain cta-section cta-forest about-finale" id="final-invitation" aria-labelledby="final-title">
+      ${leaf("about-leaf-left")}${leaf("about-leaf-right")}
       <div class="container">
         <div>
           ${eyebrow("A shared human possibility")}
@@ -3196,34 +3417,28 @@ function aboutPage(depth) {
 }
 
 function founderPage(depth) {
+  const p = "../".repeat(depth);
   const esc = (value) => value.replace(/&/g, "&amp;");
   const questions = [
-    "Why do people repeat patterns they wish to change?",
-    "How do beliefs and interpretations influence the way we experience events?",
-    "How might philosophical traditions help us ask better questions about modern life?",
-    "Where can contemporary research offer useful understanding—and where should uncertainty remain visible?",
-    "How can insight become a practice that a person can integrate into everyday life?"
+    ["Human Experience", "Why do people interpret similar experiences differently?"],
+    ["Recurring Patterns", "What influences the habits, reactions and choices that repeat in our lives?"],
+    ["Understanding and Change", "How can greater awareness become more conscious action in everyday life?"],
+    ["Meaning and Responsibility", "How can people live with greater clarity, compassion and responsibility without reducing life to a single explanation?"]
   ];
-  const decoding = [
-    ["Observe", "Notice what is happening without rushing to explain it."],
-    ["Describe", "Identify the recurring situation, response or interpretation as clearly as possible."],
-    ["Explore", "Consider possible influences, context and alternative explanations."],
-    ["Reconsider", "Ask whether the current interpretation is complete, useful or supported by available evidence."],
-    ["Apply", "Where appropriate, test a small, realistic change in everyday life."],
-    ["Reflect", "Review what was learned and what remains uncertain."]
-  ];
-  const contributions = [
-    ["Vision & Institutional Architecture", "Help define the institution’s purpose, principles and long-term direction."],
-    ["Knowledge & Framework Development", "Contribute to the conceptual development of Life Decoding, Inner Alchemy and related educational frameworks."],
-    ["Media & Communication", "Use storytelling and content to make complex questions more accessible and invite thoughtful exploration."],
-    ["Institution Building", "Help develop the systems, relationships, governance and capabilities needed for responsible long-term growth."]
+  const responsibilities = [
+    ["Vision & Direction", "Clarifying the questions, purpose and long-term direction of CureSoulLife."],
+    ["Frameworks & Knowledge", "Contributing to the development and communication of its ideas, methodologies and learning resources."],
+    ["Institution Building", "Helping create the systems, relationships and responsible operating foundations required for long-term development."]
   ];
   const principles = [
-    ["Ask Better Questions", "Approach human experience with curiosity and a willingness to examine assumptions."],
-    ["Respect Different Forms of Knowledge", "Explore traditional, philosophical, scientific and experiential perspectives with attention to their different contexts and limitations."],
-    ["Distinguish Insight from Evidence", "A meaningful idea or personal experience does not automatically establish a universal truth. Claims should be presented with appropriate context."],
-    ["Connect Understanding with Practice", "Where appropriate, explore how learning can inform daily choices, relationships, habits and responsibility."],
-    ["Build for Long-Term Contribution", "Prefer the gradual development of trustworthy knowledge, useful systems and meaningful relationships over superficial growth or unsupported claims."]
+    ["Integrity", "Represent ideas, evidence, experience and limitations honestly."],
+    ["Compassion", "Approach human experiences with care rather than judgement."],
+    ["Curiosity", "Keep asking questions and remain open to learning."],
+    ["Evidence", "Distinguish personal reflection, traditional knowledge, philosophical perspectives and scientific evidence."],
+    ["Responsibility", "Recognise the consequences and limitations of ideas, advice and practices."],
+    ["Service", "Keep the purpose of human development and contribution in view."],
+    ["Collaboration", "Recognise that meaningful institutional work requires different perspectives, capabilities and contributions."],
+    ["Stewardship", "Build responsibly for the long term rather than optimising only for short-term attention."]
   ];
   const numbered = (items) => `<ol class="community-cards">${items.map(([title, copy]) => `<li><h3>${esc(title)}</h3><p>${copy}</p></li>`).join("")}</ol>`;
 
@@ -3264,12 +3479,12 @@ function founderPage(depth) {
     <section class="section section-white" id="founder-journey" aria-labelledby="journey-title">
       <div class="container">
         <div class="section-head reading-block">
-          ${eyebrow("Professional journey")}
+          ${eyebrow("The journey")}
           <h2 id="journey-title">A career in storytelling. A growing interest in the human story.</h2>
-          <p class="support">Sarvesh Mishra’s professional journey began in journalism and media, where storytelling, reporting and the effort to understand people and events became part of his working life.</p>
-          <p class="support">His experience across media environments helped shape an interest in how stories are told, how people interpret the world around them and how ideas influence decisions.</p>
-          <p class="support">Over time, his work expanded towards content creation, entrepreneurship and the exploration of human behaviour, philosophy, self-understanding and conscious living.</p>
-          <p class="support">CureSoulLife represents an effort to bring these interests into a more structured institutional direction—one that connects knowledge with practice and personal inquiry with a broader purpose.</p>
+          <p class="support">Journalism and media offer a way to observe people, institutions, decisions and the realities shaping everyday life.</p>
+          <p class="support">Sarvesh's professional journey in media and reporting informs his interest in listening carefully, asking questions, examining perspectives and understanding the stories people tell about themselves and the world around them.</p>
+          <p class="support">Over time, that interest has expanded beyond reporting what happens to exploring how people interpret their experiences, form beliefs, make decisions and seek meaning.</p>
+          <p class="support">His work now connects media, entrepreneurship, storytelling and an evolving interest in human understanding and transformation.</p>
           <p class="section-note">The dates below are the periods named in the approved record. Gaps between them are not filled in, and they are not presented as one uninterrupted career. No awards or audience figures are added.</p>
         </div>
         <ol class="founder-timeline">
@@ -3303,176 +3518,182 @@ function founderPage(depth) {
       <div class="container">
         <div class="section-head reading-block">
           ${eyebrow("The questions")}
-          <h2 id="questions-title">The questions behind the work.</h2>
-          <p class="support">Alongside his professional work in media and content, Sarvesh has developed a sustained interest in questions about human behaviour, identity, consciousness, relationships, purpose and the patterns that shape everyday life.</p>
+          <h2 id="questions-title">What shapes the way we think, feel, choose and live?</h2>
+          <p class="support">Some questions do not have one simple answer. They require observation, reflection, different perspectives and a willingness to keep learning.</p>
         </div>
-        <ul class="founder-questions">
-          ${questions.map((question) => `<li>${question}</li>`).join("")}
-        </ul>
-        <div class="reading-block">
-          <p class="support">These questions inform the direction of his work.</p>
-          <p class="support">Rather than presenting one explanation as the answer to every human problem, his approach is to explore ideas, examine different perspectives and work towards frameworks that can help people reflect more clearly and make more considered choices.</p>
-        </div>
+        <ol class="community-cards">
+          ${questions.map(([title, copy]) => `<li><h3>${title}</h3><p>${copy}</p></li>`).join("")}
+        </ol>
+        <p class="section-note">These questions inform the ideas Sarvesh explores through Life Decoding, Inner Alchemy and the wider purpose of CureSoulLife. They are not a claim that he has a definitive answer to every question.</p>
       </div>
     </section>
 
     <section class="section section-white" id="founder-decoding" aria-labelledby="decoding-title">
       <div class="container">
         <div class="section-head reading-block">
-          ${eyebrow("Life Decoding")}
-          <h2 id="decoding-title">Learning to observe the patterns of life.</h2>
-          <p class="support">Life Decoding is the conceptual methodology associated with Sarvesh Mishra’s work.</p>
-          <p class="support">It begins with a simple proposition: before attempting to change a recurring pattern, it can be useful to observe it, describe it, consider the influences that may be shaping it and examine alternative interpretations.</p>
-          <p class="support">The process involves curiosity rather than immediate judgement.</p>
-          <p class="support">It asks people to look at their thoughts, feelings, actions, routines, relationships and the meanings they assign to experience.</p>
-          <p class="support">Life Decoding is intended to support reflection and self-understanding. It is not a clinical diagnostic method, a guaranteed solution to personal difficulties or a system that can predict the future.</p>
+          ${eyebrow("The methodology")}
+          <h2 id="decoding-title">Look beyond the event. Explore the pattern.</h2>
+          <p class="support">Life Decoding is a framework for examining personal experiences, interpretations and recurring patterns.</p>
+          <p class="support">It encourages people to observe what is happening, question their assumptions, explore possible influences and consider more conscious choices.</p>
+          <p class="support">It is not a prediction of destiny, a diagnosis or a claim that every life experience has one hidden cause.</p>
+          <p class="support">For Sarvesh, Life Decoding represents an approach to asking better questions about the human experience.</p>
         </div>
-        <p class="founder-sequence">Observe → Describe → Explore → Reconsider → Apply → Reflect</p>
-        ${numbered(decoding).replace('class="community-cards"', 'class="community-cards community-wide"')}
-        <p class="section-note">This sequence is an exploratory framework, not a validated clinical protocol or a promise of results. The full methodology lives on the Life Decoding page.</p>
-        <div class="cta-row">${cta(depth, "human-transformation/life-decoding/index.html", "Explore the Life Decoding Framework")}</div>
+        <p class="founder-sequence">Experience → Observation → Reflection → Possible Understanding</p>
+        <p class="section-note">This is an illustrative sequence, not a validated clinical protocol or a guaranteed progression. The five dimensions are explained on the Life Decoding page.</p>
+        <div class="cta-row">${cta(depth, "human-transformation/life-decoding/index.html", "Explore Life Decoding")}</div>
       </div>
     </section>
 
     <section class="section" id="founder-alchemy" aria-labelledby="alchemy-title">
       <div class="container">
         <div class="section-head reading-block">
-          ${eyebrow("Inner Alchemy")}
-          <h2 id="alchemy-title">From insight to lived change.</h2>
-          <p class="support">Inner Alchemy describes the broader transformation philosophy associated with Sarvesh’s work.</p>
-          <p class="support">Understanding a pattern can be an important beginning, but understanding alone does not guarantee change. Learning may need to be supported by practice, reflection, patience, responsibility and integration into daily life.</p>
-          <p class="support">Inner Alchemy explores the relationship between these elements.</p>
-          <p class="support">It is a philosophical and practical direction for developing work that connects awareness with action and personal insight with more considered ways of living.</p>
-          <p class="support">It is not a promise of instant transformation, a claim that one method works for everyone, or a medical or scientific qualification.</p>
+          ${eyebrow("From insight to lived experience")}
+          <h2 id="alchemy-title">Understanding matters when it changes how we engage with life.</h2>
+          <p class="support">Inner Alchemy describes Sarvesh's developing philosophy of connecting insight, reflection, practice and lived experience.</p>
+          <p class="support">It explores the relationship between what we understand, how we respond, what we practise and how our choices unfold in everyday life.</p>
+          <p class="support">The emphasis is not on becoming a different person overnight. It is on creating room for greater awareness, more thoughtful choices, meaningful practice and continued learning.</p>
+          <p class="support">Inner Alchemy is a philosophical approach, not a scientific credential or promise of a particular outcome.</p>
         </div>
-        <p class="founder-sequence">Awareness → Understanding → Practice → Integration → Contribution</p>
-        <p class="section-note">This sequence is a guiding concept, not a scientifically validated formula or a mandatory sequence for every person.</p>
+        <div class="audience-grid founder-shift">
+          <article class="approach-card"><h3>Reflection and understanding</h3><p>What is noticed, questioned and beginning to be understood.</p></article>
+          <article class="approach-card"><h3>Practice and everyday life</h3><p>How that understanding is tried, reviewed and lived.</p></article>
+        </div>
         <div class="cta-row">${cta(depth, "human-transformation/index.html", "Explore Human Transformation")}</div>
       </div>
     </section>
 
-    <section class="section section-white" id="founder-why" aria-labelledby="why-founder-title">
-      <div class="container reading-block">
-        ${eyebrow("Why CureSoulLife")}
-        <h2 id="why-founder-title">From personal inquiry to an institutional purpose.</h2>
-        <p class="support">Over time, Sarvesh’s interests in storytelling, human behaviour, philosophical inquiry and practical self-understanding led towards a larger question:</p>
-        <p class="support">Could these areas of learning be brought together in an institution designed to help people explore human transformation throughout life?</p>
-        <p class="support">CureSoulLife is his response to that question.</p>
-        <p class="support">The intention is to create more than a collection of videos, programmes or individual experiences. It is to develop a connected ecosystem in which knowledge can inform practice, frameworks can support reflection, experiences can create opportunities for learning and community can encourage continuity and contribution.</p>
-        <p class="support">The institution is being developed around the relationship between Ancient Wisdom, Modern Science and lived human experience.</p>
-        <p class="support">These perspectives are not treated as interchangeable. Each requires context, and claims should be communicated according to the kind and quality of evidence available.</p>
-        <p class="support">The long-term ambition is to build an institution whose credibility comes from the quality of its work, the responsibility of its practices and the usefulness of its contribution.</p>
-        <blockquote class="founder-statement">
-          <p>The goal is not to tell people who they must become. It is to create conditions in which deeper understanding and meaningful transformation become possible.</p>
-          <footer>Sarvesh Mishra, Founder, CureSoulLife</footer>
-        </blockquote>
-        <p class="section-note">This is an approved institutional statement for this page. It is not presented as a quotation from an interview, speech or external publication.</p>
-        <div class="cta-row">${cta(depth, "about/index.html", "Discover the CureSoulLife Vision")}</div>
+    <section class="section section-forest" id="founder-why" aria-labelledby="why-founder-title">
+      <div class="container">
+        <div class="reading-block">
+          ${eyebrow("The purpose")}
+          <h2 id="why-founder-title">Build an institution that helps people explore human transformation responsibly.</h2>
+          <p class="support">CureSoulLife is being developed as an institution dedicated to human transformation.</p>
+          <p class="support">Its broader approach brings together ancient wisdom, modern science, human experience, knowledge, research, practices and community.</p>
+          <p class="support">The intention is to create a thoughtful environment where people can explore different perspectives, develop understanding and discover opportunities for meaningful learning and lived experience.</p>
+          <p class="support">The institution is not intended to be defined by one personality or one explanation of life.</p>
+          <p class="support">Its long-term credibility must come from the integrity of its work, the quality of its learning resources, the responsibility of its practices and the trust it builds over time.</p>
+          <p class="founder-close-line">The purpose is bigger than the person who begins it.</p>
+          <div class="cta-row">${cta(depth, "curesoullife/index.html", "Discover CureSoulLife", "btn btn-light")}</div>
+        </div>
+        <figure class="decode-path">
+          ${picture("question-forest", 1600, 1066, "A sunlit path through tall trees. Not a CureSoulLife campus or facility.", { lazy: true, prefix: p })}
+        </figure>
       </div>
     </section>
 
-    <section class="section section-sand" id="founder-role" aria-labelledby="role-title">
+    <section class="section section-white" id="founder-role" aria-labelledby="role-title">
       <div class="container">
         <div class="section-head reading-block">
-          ${eyebrow("The founder’s role")}
-          <h2 id="role-title">Building the institution, not just the identity.</h2>
-          <p class="support">As founder, Sarvesh’s role is to help shape the vision, conceptual architecture and direction of CureSoulLife.</p>
-          <p class="support">His contribution includes connecting ideas, developing frameworks, creating and curating knowledge-led content, identifying useful questions and helping establish the principles that should guide the institution’s growth.</p>
-          <p class="support">Over time, the ambition is for CureSoulLife to develop the people, systems, editorial standards, collaborations and institutional capabilities needed to operate beyond the daily involvement of any single individual.</p>
-          <p class="support">The founder’s role is to provide direction and stewardship—not to become the only source of knowledge, authority or decision-making.</p>
+          ${eyebrow("Leadership and responsibility")}
+          <h2 id="role-title">Set the direction. Build the foundations. Make room for collective work.</h2>
+          <p class="support">As founder, Sarvesh contributes to the vision, conceptual direction and development of CureSoulLife.</p>
+          <p class="support">His role includes helping shape the institution's central questions and frameworks, connecting ideas across media and human transformation, and contributing to the development of knowledge resources, experiences and relationships.</p>
+          <p class="support">The long-term institution will also depend on the work of qualified professionals, researchers, facilitators, collaborators and the communities it serves, according to the needs and capabilities established over time.</p>
         </div>
-        ${numbered(contributions).replace('class="community-cards"', 'class="community-cards about-four"')}
-        <p class="section-note">These are intended areas of contribution. They do not mean that departments, executives, advisory boards or research teams are already established.</p>
+        ${numbered(responsibilities).replace('class="community-cards"', 'class="community-cards community-wide"')}
+        <p class="section-note">These describe current areas of contribution and future institutional work. They do not mean that every team, department or expert network already exists.</p>
       </div>
     </section>
 
-    <section class="section section-white" id="founder-relationship" aria-labelledby="relationship-title">
+    <section class="section section-sand" id="founder-relationship" aria-labelledby="relationship-title">
       <div class="container">
         <div class="section-head reading-block">
-          ${eyebrow("Founder and institution")}
-          <h2 id="relationship-title">A founder gives an institution its beginning. Its work must earn its future.</h2>
-          <p class="support">Sarvesh Mishra’s personal interests and philosophy helped shape the initial direction of CureSoulLife.</p>
-          <p class="support">But the institution is intended to grow beyond a personal platform.</p>
-          <p class="support">The founder’s public work may introduce questions, frameworks and ideas. CureSoulLife’s responsibility is to develop these within a broader institutional structure—through knowledge resources, careful interpretation, responsible practices, learning experiences and collaboration.</p>
-          <p class="support">As the institution grows, its work should increasingly be supported by clear editorial standards, qualified contributors where appropriate, transparent responsibilities and systems that encourage learning and accountability.</p>
-          <p class="support">Sarvesh Mishra contributes the founding vision and an identifiable intellectual voice. CureSoulLife provides the institutional structure through which the vision can be explored, developed, questioned and shared.</p>
-          <p class="support">The institution’s credibility must ultimately rest on the integrity and quality of its work—not solely on the reputation of its founder. He does not replace relevant professional expertise, and not every part of the institution is fully operating.</p>
+          ${eyebrow("The founder and the institution")}
+          <h2 id="relationship-title">A personal vision. An institutional purpose.</h2>
+          <p class="support">Sarvesh Mishra's journey and intellectual interests inform the creation of CureSoulLife. But the institution has a purpose that must continue to develop beyond the founder's individual identity.</p>
         </div>
-        <ol class="founder-flow">
-          <li><h3>Founder Vision &amp; Intellectual Contribution</h3></li>
-          <li><h3>CureSoulLife Institutional Framework</h3></li>
-          <li><h3>Knowledge · Research · Practices · Experiences · Community</h3></li>
-          <li><h3>Learning, Integration &amp; Contribution</h3></li>
-        </ol>
+        <div class="founder-pair">
+          <article>
+            <h3>Sarvesh Mishra</h3>
+            <ul>
+              <li>Personal journey</li>
+              <li>Questions and ideas</li>
+              <li>Life Decoder</li>
+              <li>Inner Alchemy Architect</li>
+              <li>Founder and institution-builder</li>
+            </ul>
+          </article>
+          <article>
+            <h3>CureSoulLife</h3>
+            <ul>
+              <li>Institution</li>
+              <li>Human Transformation</li>
+              <li>Knowledge + Research</li>
+              <li>Practices + Experiences</li>
+              <li>Community + Contribution</li>
+            </ul>
+          </article>
+        </div>
+        <p class="section-note">The two lists are connected. Sarvesh Mishra introduces the purpose. CureSoulLife is the institution that must develop it. The labels, not colour alone, carry that distinction. Developing a framework does not by itself validate it.</p>
+        <p class="founder-close-line">The founder introduces the purpose. The institution must earn its own trust.</p>
       </div>
     </section>
 
-    <section class="section" id="founder-media" aria-labelledby="media-title">
+    <section class="section section-white" id="founder-media" aria-labelledby="media-title">
       <div class="container">
         <div class="section-head reading-block">
-          ${eyebrow("Media and storytelling")}
-          <h2 id="media-title">Making complex ideas accessible through communication.</h2>
-          <p class="support">Media and storytelling remain important parts of Sarvesh Mishra’s professional background.</p>
-          <p class="support">Through interviews, conversations and educational content, ideas can reach people in accessible forms and create opportunities for further exploration.</p>
-          <p class="support">His content ecosystem spans different editorial purposes: conversations with people and ideas, practical exploration of personal growth, and philosophical inquiry into consciousness, identity and human life.</p>
-          <p class="support">These platforms can help introduce questions and direct interested audiences towards deeper learning.</p>
-          <p class="support">CureSoulLife, however, has a distinct institutional purpose. It is not simply another content channel; it is intended to connect learning with frameworks, practice, experience and community. These properties are not departments of the institution.</p>
+          ${eyebrow("Stories that open questions")}
+          <h2 id="media-title">From telling stories to exploring the questions behind them.</h2>
+          <p class="support">Media and storytelling create opportunities to encounter different people, experiences and perspectives.</p>
+          <p class="support">Sarvesh's work across media, interviews and content provides a bridge between public conversations and the deeper questions that inform his interest in human understanding.</p>
+          <p class="support">Through his media work, he explores conversations, ideas and experiences that can encourage audiences to question assumptions, examine decisions and consider new perspectives.</p>
+          <p class="support">CureSoulLife represents a related but distinct institutional direction: building a framework for knowledge, inquiry, practices and human transformation.</p>
         </div>
-        <div class="community-cards about-four">
-          <article><h3>The Sarvesh Mishra Show</h3><p>Long-form conversations exploring people, ideas, work, behaviour and lived experience.</p></article>
-          <article><h3>The Inner Wealth</h3><p>Content exploring personal growth, psychology, human behaviour, emotions, relationships and everyday life.</p></article>
-          <article><h3>The Urban Sannyasi</h3><p>Content exploring Ancient Wisdom, philosophy, Vedanta, consciousness and questions of meaning.</p></article>
-          <article><h3>CureSoulLife</h3><p>The institutional platform for human transformation, knowledge, practices, experiences and community as these become available.</p>${textLink(depth, "curesoullife/index.html", "Discover CureSoulLife")}</article>
+        <div class="community-cards community-wide">
+          <article><h3>The Sarvesh Mishra Show</h3><p>Interview and conversation platform.</p></article>
+          <article><h3>The Inner Wealth</h3><p>Personal growth and learning content.</p></article>
+          <article><h3>The Urban Sannyasi</h3><p>Philosophical and reflective content.</p></article>
         </div>
-        <p class="section-note">No verified address is published for The Sarvesh Mishra Show, The Inner Wealth, The Urban Sannyasi or Red Hot Media House, so those names are not linked. No subscriber count is shown.</p>
+        <p class="section-note">No verified public address is published for these names, so they are not linked. No view counts, subscriber numbers or awards are shown. A selected-work link is omitted until a verified collection exists.</p>
       </div>
     </section>
 
-    <section class="section section-white" id="founder-principles" aria-labelledby="principles-title">
+    <section class="section" id="founder-principles" aria-labelledby="principles-title">
       <div class="container">
         <div class="section-head reading-block">
-          ${eyebrow("Guiding principles")}
-          <h2 id="principles-title">Curiosity before certainty. Responsibility before claims. Practice beyond theory.</h2>
+          ${eyebrow("Working principles")}
+          <h2 id="principles-title">Stay curious. Think carefully. Act responsibly.</h2>
+          <p class="support">These are working principles for this page. They use the same eight names as CureSoulLife's institutional values. They are not externally certified standards.</p>
         </div>
         ${numbered(principles)}
-        <p class="section-note">These principles are associated with the founder’s work. They do not rename CureSoulLife’s institutional values, and they are not evidence that every future policy or process is already implemented.</p>
       </div>
     </section>
 
-    <section class="section section-sand" id="founder-vision" aria-labelledby="founder-vision-title">
-      <div class="container reading-block">
-        ${eyebrow("A longer view")}
-        <h2 id="founder-vision-title">From an individual vision to an enduring institution.</h2>
-        <p class="support">Sarvesh Mishra’s long-term ambition is to help build CureSoulLife into a trusted institution dedicated to human transformation.</p>
-        <p class="support">That ambition includes the development of accessible knowledge, thoughtful educational frameworks, responsible practices, meaningful experiences and opportunities for collaboration.</p>
-        <p class="support">The future may also involve broader research partnerships, digital learning platforms, community initiatives and physical experiences, depending on what can be developed responsibly and sustained over time.</p>
-        <p class="support">These are directions for future development, not claims that every component currently exists.</p>
-        <p class="support">The goal is not simply to build a larger brand. It is to develop an institution whose knowledge, systems and contribution can continue to evolve beyond the founder’s individual presence.</p>
-        <p class="founder-close-line">The measure of institution building is not how much depends on the founder, but how much meaningful work can continue because the right foundations were built.</p>
+    <section class="section section-midnight" id="founder-vision" aria-labelledby="founder-vision-title">
+      <div class="container">
+        <div class="reading-block">
+          ${eyebrow("Looking ahead")}
+          <h2 id="founder-vision-title">A world where human transformation is part of everyday learning.</h2>
+          <p class="support">The long-term vision behind CureSoulLife is to help make personal transformation, self-understanding and conscious living more accessible as parts of everyday life.</p>
+          <p class="support">This involves building an institution where knowledge, research, practical experiences and community can develop together, with responsibility and intellectual honesty.</p>
+          <p class="support">The ambition is long-term. Its credibility will depend on what is built, how it is practised, what can be demonstrated and how consistently the institution serves people.</p>
+          <p class="founder-close-line">Human transformation is a lifelong journey.</p>
+          <p class="section-note">This is a direction for future development, not a description of a campus, headquarters or current operation.</p>
+        </div>
+        <figure class="decode-path">
+          ${picture("institutional-hills", 1800, 1072, "Misted green hills in soft light. Not a CureSoulLife campus or facility.", { lazy: true, prefix: p })}
+        </figure>
       </div>
     </section>
 
     <section class="section section-white" id="founder-explore" aria-labelledby="explore-title">
       <div class="container">
         <div class="section-head reading-block">
-          ${eyebrow("Further exploration")}
-          <h2 id="explore-title">Explore the work and the ideas.</h2>
+          <h2 id="explore-title">Explore the ideas and work connected with this journey.</h2>
         </div>
-        <div class="community-cards community-wide">
-          <article><h3>CureSoulLife</h3><p>Discover the institution, its purpose and its ecosystem.</p>${textLink(depth, "curesoullife/index.html", "Discover CureSoulLife")}</article>
-          <article><h3>Human Transformation</h3><p>Explore the broader process of awareness, understanding, practice, integration and contribution.</p>${textLink(depth, "human-transformation/index.html", "Explore Human Transformation")}</article>
-          <article><h3>Life Decoding</h3><p>Explore the conceptual methodology for observing and reflecting on personal patterns.</p>${textLink(depth, "human-transformation/life-decoding/index.html", "Explore Life Decoding")}</article>
-          <article><h3>Human Operating System™</h3><p>Explore the nine interconnected dimensions of human life.</p>${textLink(depth, "human-operating-system/index.html", "Explore the Human Operating System™")}</article>
-          <article><h3>Knowledge</h3><p>Explore educational resources and ideas related to human transformation. No knowledge resource is published yet.</p>${textLink(depth, "knowledge/index.html", "Explore Knowledge")}</article>
-          <article><h3>Contact</h3><p>For relevant speaking, media, institutional or collaboration enquiries. The contact page does not yet publish an enquiry form, so opening it does not send a message.</p>${textLink(depth, "contact/index.html", "Contact CureSoulLife")}</article>
+        <div class="community-cards">
+          <article><h3>Life Decoding</h3><p>Explore a framework for examining experiences and recurring patterns.</p>${textLink(depth, "human-transformation/life-decoding/index.html", "Explore Life Decoding")}</article>
+          <article><h3>Human Transformation</h3><p>Explore the broader journey of awareness, understanding, practice, integration and contribution.</p>${textLink(depth, "human-transformation/index.html", "Explore Human Transformation")}</article>
+          <article><h3>Human Operating System™</h3><p>Explore the interconnected dimensions of human life.</p>${textLink(depth, "human-operating-system/index.html", "Explore the Human Operating System™")}</article>
+          <article><h3>CureSoulLife</h3><p>Discover the institution, its purpose and its broader ecosystem.</p>${textLink(depth, "curesoullife/index.html", "Discover CureSoulLife")}</article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="founder-note" aria-labelledby="note-title">
+    <section class="section section-sand" id="founder-note" aria-labelledby="note-title">
       <div class="container reading-block">
-        ${eyebrow("Founder note")}
-        <h2 id="note-title">A note from the founder</h2>
+        ${eyebrow("A note from the founder")}
+        <h2 id="note-title">A continuing inquiry into what it means to live consciously.</h2>
         <p class="support">A personal note from Sarvesh Mishra is not published on this page. It will appear only after he has reviewed and approved the wording.</p>
       </div>
     </section>
@@ -3480,21 +3701,196 @@ function founderPage(depth) {
     <section class="finale finale-plain cta-section cta-forest" id="founder-closing" aria-labelledby="founder-close-title">
       <div class="container">
         <div>
-          ${eyebrow("Continue")}
-          <h2 id="founder-close-title">Explore the questions. Help build the possibility.</h2>
+          <h2 id="founder-close-title">Explore the purpose beyond the person.</h2>
           <div class="finale-copy">
-            <p>CureSoulLife is being developed around a shared human question: how can we understand ourselves more deeply and translate that understanding into more conscious ways of living?</p>
-            <p>If that question resonates with you, begin by exploring the institution, its frameworks and the knowledge it is developing.</p>
+            <p>Discover the ideas, frameworks and experiences through which CureSoulLife is exploring human transformation.</p>
           </div>
         </div>
         <div class="cta-row">
           ${cta(depth, "curesoullife/index.html", "Discover CureSoulLife", "btn btn-light")}
           ${cta(depth, "human-transformation/index.html", "Explore Human Transformation", "btn btn-ghost-light")}
         </div>
-        <p class="founder-enquiry">${textLink(depth, "contact/index.html", "For institutional or media enquiries, contact us.")}</p>
       </div>
     </section>`;
 }
+
+
+
+function contactPage(depth) {
+  const categories = [
+    ["general_enquiry", "General Enquiry", "For questions about CureSoulLife, its institutional purpose, knowledge resources or general information."],
+    ["media_press", "Media & Press", "For verified media enquiries, interview requests, press questions or editorial communication."],
+    ["institutional_collaboration", "Institutional Collaboration", "For universities, researchers, educators, professional organisations and other institutions interested in exploring possible collaboration."],
+    ["global_network", "Global Network & Community Collaboration", "For people or organisations interested in the future of CureSoulLife’s learning network, local initiatives or community collaboration."],
+    ["experiences_retreats", "Experiences & Retreats", "For questions about experiences, workshops or retreats."],
+    ["speaking_content", "Speaking & Content Invitations", "For podcast appearances, interviews, speaking invitations or content-related proposals."],
+    ["feedback", "Feedback & Suggestions", "For feedback about the website, content, accessibility or institutional communication."],
+    ["other", "Other Enquiry", "For messages that do not fit the listed categories."]
+  ];
+  const esc = (value) => value.replace(/&/g, "&amp;");
+  const options = [`<option value="">Select an enquiry type</option>`].concat(categories.map(([value, label]) => `<option value="${value}">${esc(label)}</option>`)).join("");
+  const cards = categories.map(([value, label, copy]) => `<li><button type="button" class="enquiry-card" data-enquiry="${value}" aria-pressed="false"><span>${esc(label)}</span><small>${copy}</small></button></li>`).join("");
+  return `
+    <header class="page-hero contact-hero" id="contact-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="${url(depth, "index.html")}">Home</a></li>
+            <li aria-current="page">Contact</li>
+          </ol>
+        </nav>
+        <div class="reading-block">
+          ${eyebrow("Contact CureSoulLife")}
+          <h1>Start a conversation. Explore a possibility.</h1>
+          <p class="lede">Have a question about CureSoulLife, an idea for collaboration or feedback to share?</p>
+          <p class="support">We welcome thoughtful enquiries from individuals, educators, researchers, practitioners, media professionals and organisations interested in human transformation and lifelong learning.</p>
+          <p class="support">Choose the option that best describes your enquiry, and we will use the information you provide to understand how to direct it.</p>
+          <div class="status-note">No verified delivery channel is connected, so this form cannot send a message. The Privacy Policy is not published. Nothing entered here is received, stored or forwarded.</div>
+          <div class="cta-row"><a class="btn btn-primary" href="#enquiry-form">Send an Enquiry${arrow}</a></div>
+        </div>
+      </div>
+    </header>
+
+    <section class="section section-white" id="enquiry-types" aria-labelledby="enquiry-types-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="enquiry-types-title">How can we help direct your enquiry?</h2>
+          <p class="support">Select the category that best matches your message. This helps us understand the purpose of your enquiry and route it appropriately.</p>
+          <p class="section-note">These categories describe kinds of messages. They are not claims that a department, service or programme is operating.</p>
+        </div>
+        <ul class="enquiry-grid">${cards}</ul>
+      </div>
+    </section>
+
+    <section class="section" id="contact-form" aria-labelledby="contact-form-title">
+      <div class="container reading-block">
+        <h2 id="contact-form-title">Send us a message</h2>
+        <p class="support">Please share the essential details and a short description of your enquiry. Avoid including sensitive personal information that is not necessary for us to respond.</p>
+        <form id="enquiry-form" class="enquiry-form" novalidate>
+          <div class="field">
+            <label for="full-name">Full name <span class="req">(required)</span></label>
+            <input id="full-name" name="full_name" type="text" autocomplete="name" required placeholder="Enter your full name" aria-describedby="full-name-error">
+            <p id="full-name-error" class="field-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="email">Email address <span class="req">(required)</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" aria-describedby="email-error">
+            <p id="email-error" class="field-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="enquiry-type">Enquiry type <span class="req">(required)</span></label>
+            <select id="enquiry-type" name="enquiry_type" required aria-describedby="enquiry-type-error">${options}</select>
+            <p id="enquiry-type-error" class="field-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="subject">Subject <span class="req">(required)</span></label>
+            <input id="subject" name="subject" type="text" required placeholder="What is your enquiry about?" aria-describedby="subject-error">
+            <p id="subject-error" class="field-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="message">Message <span class="req">(required)</span></label>
+            <textarea id="message" name="message" required maxlength="3000" rows="6" placeholder="Briefly describe your question, idea or request." aria-describedby="message-count message-error"></textarea>
+            <p id="message-count" class="field-count">0 / 3000</p>
+            <p id="message-error" class="field-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="organisation">Organisation <span class="opt">(optional)</span></label>
+            <input id="organisation" name="organisation" type="text" autocomplete="organization" placeholder="Organisation or institution, if relevant">
+          </div>
+          <div class="field">
+            <label for="website">Website or public profile <span class="opt">(optional)</span></label>
+            <input id="website" name="website_or_profile" type="text" inputmode="url" placeholder="https://...">
+          </div>
+          <div class="field">
+            <label for="country">Country or region <span class="opt">(optional)</span></label>
+            <input id="country" name="country_or_region" type="text" autocomplete="country-name">
+          </div>
+          <div class="field field-check">
+            <input id="privacy" name="privacy_acknowledgement" type="checkbox" value="yes" disabled aria-describedby="privacy-note privacy-error">
+            <label for="privacy">I have read the Privacy Policy and understand how the information in this form will be used to handle my enquiry.</label>
+            <p id="privacy-note" class="section-note">The Privacy Policy is not published, so these words are not linked and this box cannot be confirmed.</p>
+            <p id="privacy-error" class="field-error" hidden></p>
+          </div>
+          <p id="enquiry-status" class="form-status" role="alert" tabindex="-1" hidden></p>
+          <button class="btn btn-primary" type="submit">Send Enquiry${arrow}</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="section section-white" id="other-routes" aria-labelledby="other-routes-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="other-routes-title">Choose the route that fits your purpose.</h2>
+        </div>
+        <div class="community-cards about-four">
+          <article><h3>Explore Before You Enquire</h3><p>If you are new to CureSoulLife, start by understanding the institution and its approach.</p>${textLink(depth, "curesoullife/index.html", "Discover CureSoulLife")}</article>
+          <article><h3>Explore Knowledge</h3><p>Browse the knowledge resources and educational content available on the website. No knowledge resource is published yet.</p>${textLink(depth, "knowledge/index.html", "Explore Knowledge")}</article>
+          <article><h3>Understand Human Transformation</h3><p>Explore the wider framework connecting awareness, understanding, practice, integration and contribution.</p>${textLink(depth, "human-transformation/index.html", "Explore Human Transformation")}</article>
+          <article><h3>Explore Experiences</h3><p>Understand the institution’s approach to guided practices, workshops and retreats.</p>${textLink(depth, "experiences/index.html", "Explore Experiences")}</article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="collaboration-enquiries" aria-labelledby="collaboration-enquiries-title">
+      <div class="container reading-block">
+        <h2 id="collaboration-enquiries-title">Have an idea that could contribute to human learning?</h2>
+        <p class="support">CureSoulLife is interested in exploring relationships with people and organisations whose knowledge, experience or purpose may complement its work.</p>
+        <p class="support">Potential areas of discussion may include education, research, responsible knowledge communication, human development, community learning, technology and institutional collaboration.</p>
+        <p class="support">Every proposed relationship requires appropriate discussion, evaluation and mutual clarity. Submitting an enquiry does not establish a partnership or imply institutional endorsement.</p>
+        <p class="section-note">No formal partnership programme or dedicated collaboration team is claimed here.</p>
+        <div class="cta-row"><button type="button" class="btn btn-primary" data-select-enquiry="institutional_collaboration">Discuss a Collaboration${arrow}</button></div>
+      </div>
+    </section>
+
+    <section class="section section-sand" id="after-contact" aria-labelledby="after-contact-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="after-contact-title">A simple, responsible process.</h2>
+        </div>
+        <ol class="community-cards">
+          <li><h3>Your enquiry is received</h3><p>A success message would be shown only after a submission system confirms receipt. No system is connected, so that message is not shown.</p></li>
+          <li><h3>The enquiry is reviewed</h3><p>An authorised person would review the message and identify an appropriate next step. No reviewer is assigned on this page.</p></li>
+          <li><h3>Follow-up, where appropriate</h3><p>If a response were appropriate and sufficient contact details had been provided, someone might follow up. No reply time is promised, and an individual response is not guaranteed.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section-white" id="contact-privacy" aria-labelledby="contact-privacy-title">
+      <div class="container reading-block">
+        <h2 id="contact-privacy-title">Your information should be handled with care.</h2>
+        <p class="support">Please share only the information necessary for us to understand and respond to your enquiry.</p>
+        <p class="support">Contact details and message content should be handled according to CureSoulLife’s published privacy policy and applicable requirements.</p>
+        <p class="support">We should collect only the information needed for the stated purpose, restrict access to authorised people, retain submissions only as long as reasonably necessary under the applicable retention policy and use appropriate safeguards.</p>
+        <p class="support">Submitting a contact form should not automatically subscribe someone to a newsletter or marketing list.</p>
+        <p class="section-note">The Privacy Policy is not published. This form does not store a message, send it to a recipient, or add anyone to a list.</p>
+      </div>
+    </section>
+
+    <section class="section" id="contact-faq" aria-labelledby="contact-faq-title">
+      <div class="container reading-block">
+        <h2 id="contact-faq-title">Questions about contacting CureSoulLife</h2>
+        <div class="faq-list">
+          <details><summary>What can I contact CureSoulLife about?</summary><p>You can contact us with general questions, media and press enquiries, collaboration ideas, questions about experiences and retreats, speaking invitations, feedback or other relevant messages.</p></details>
+          <details><summary>How can I explore a collaboration with CureSoulLife?</summary><p>Choose Institutional Collaboration and describe your organisation, idea, intended purpose and the people it may serve. Submitting an enquiry does not guarantee a partnership or formal relationship.</p></details>
+          <details><summary>Can I contact CureSoulLife about retreats or experiences?</summary><p>Yes. Select Experiences &amp; Retreats. If a specific experience has a verified booking page on CureSoulLife.com, use that page for confirmed availability, registration and payment. No such booking page is published.</p></details>
+          <details><summary>Does submitting the form guarantee a response?</summary><p>No specific response time or individual response is guaranteed. If a response is appropriate, the team may follow up using the contact details provided. This form cannot currently submit a message.</p></details>
+          <details><summary>How will my information be used?</summary><p>Information should be used to understand and handle your enquiry in line with the published Privacy Policy and actual data-handling practices. The form must not automatically subscribe you to marketing communications. No policy is published, and this form does not keep what you type.</p></details>
+          <details><summary>Can I use this form for emergencies or urgent clinical support?</summary><p>No. This is an institutional contact channel, not an emergency or crisis service. It is not a substitute for urgent local emergency or professional support.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="finale finale-plain cta-section cta-forest" id="contact-closing" aria-labelledby="contact-close-title">
+      <div class="container">
+        <h2 id="contact-close-title">Every meaningful connection begins with a conversation.</h2>
+        <div class="finale-copy">
+          <p>If you have a question, a thoughtful idea or feedback to share, choose the enquiry type that best fits your purpose and tell us a little more.</p>
+        </div>
+        <div class="cta-row"><a class="btn btn-light" href="#enquiry-form">Send an Enquiry${arrow}</a></div>
+      </div>
+    </section>`;
+}
+
 
 const pages = [
   {
@@ -3639,11 +4035,11 @@ const pages = [
     depth: 2,
     current: "about",
     title: "Sarvesh Mishra | Founder of CureSoulLife",
-    description: "Meet Sarvesh Mishra, founder of CureSoulLife. Explore his background in journalism and media, his interest in human behaviour, Life Decoding, Inner Alchemy and human transformation.",
+    description: "Meet Sarvesh Mishra, founder of CureSoulLife. Explore his media journey, the ideas behind Life Decoding and Inner Alchemy, and his vision for human transformation.",
     head: `  <link rel="canonical" href="https://curesoullife.org/about/founder">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Sarvesh Mishra | Founder of CureSoulLife">
-  <meta property="og:description" content="Meet Sarvesh Mishra, founder of CureSoulLife. Explore his background in journalism and media, his interest in human behaviour, Life Decoding, Inner Alchemy and human transformation.">
+  <meta property="og:description" content="Meet Sarvesh Mishra, founder of CureSoulLife. Explore his media journey, the ideas behind Life Decoding and Inner Alchemy, and his vision for human transformation.">
   <meta property="og:url" content="https://curesoullife.org/about/founder">`,
     body: founderPage(2)
   },
@@ -3677,19 +4073,15 @@ const pages = [
   {
     file: "contact/index.html",
     depth: 1,
-    current: "",
-    title: "Contact — CureSoulLife",
-    description: "Official contact details for CureSoulLife are not yet published.",
+    current: "contact",
+    title: "Contact CureSoulLife | General &amp; Collaboration Enquiries",
+    description: "Contact CureSoulLife for general enquiries, media requests, institutional collaboration, experiences, speaking invitations and feedback.",
     head: `  <link rel="canonical" href="https://curesoullife.org/contact">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Contact — CureSoulLife">
-  <meta property="og:description" content="Official contact details for CureSoulLife are not yet published.">
+  <meta property="og:title" content="Contact CureSoulLife | General &amp; Collaboration Enquiries">
+  <meta property="og:description" content="Contact CureSoulLife for general enquiries, media requests, institutional collaboration, experiences, speaking invitations and feedback.">
   <meta property="og:url" content="https://curesoullife.org/contact">`,
-    body: prosePage(1, "Connect", "Contact, when an official channel exists.",
-      "A first conversation with the institution should go through a channel that is real and monitored.",
-      `<div class="status-note">Official email, phone, postal address and social profiles are not published on this site yet. There is no enquiry form, because a form here would not deliver a message to anyone.</div>
-      <p>This is a launch dependency. When a verified address exists, it will replace this notice. Until then, the useful next step is to read the institution, the Human Operating System™, and the transformation journey.</p>`,
-      [["curesoullife/index.html", "Discover CureSoulLife"], ["about/index.html", "About CureSoulLife"], ["human-transformation/index.html", "Begin Your Journey"]])
+    body: contactPage(1)
   }
 ];
 

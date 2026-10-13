@@ -402,27 +402,26 @@ const founderRequired = [
   "Zee News — Principal Correspondent.",
   "2006–2007",
   "2011–2017",
-  "The questions behind the work.",
-  "Why do people repeat patterns they wish to change?",
-  "Observe → Describe → Explore → Reconsider → Apply → Reflect",
-  "not a clinical diagnostic method",
-  "Awareness → Understanding → Practice → Integration → Contribution",
-  "not a scientifically validated formula",
-  "From personal inquiry to an institutional purpose.",
-  "not presented as a quotation from an interview",
-  "Vision &amp; Institutional Architecture",
-  "Knowledge &amp; Framework Development",
-  "Media &amp; Communication",
+  "A career in storytelling. A growing interest in the human story.",
+  "What shapes the way we think, feel, choose and live?",
+  "Why do people interpret similar experiences differently?",
+  "Look beyond the event. Explore the pattern.",
+  "Experience → Observation → Reflection → Possible Understanding",
+  "not a validated clinical protocol",
+  "Understanding matters when it changes how we engage with life.",
+  "not a scientific credential",
+  "The purpose is bigger than the person who begins it.",
+  "Vision &amp; Direction",
+  "Frameworks &amp; Knowledge",
   "Institution Building",
-  "Founder Vision &amp; Intellectual Contribution",
-  "CureSoulLife Institutional Framework",
-  "Learning, Integration &amp; Contribution",
+  "The founder introduces the purpose. The institution must earn its own trust.",
   "The Sarvesh Mishra Show",
   "The Inner Wealth",
   "The Urban Sannyasi",
-  "Ask Better Questions",
-  "Build for Long-Term Contribution",
-  "A personal note from Sarvesh Mishra is not published on this page."
+  "Stay curious. Think carefully. Act responsibly.",
+  "A continuing inquiry into what it means to live consciously.",
+  "A personal note from Sarvesh Mishra is not published on this page.",
+  "Explore the purpose beyond the person."
 ];
 const missingAbout = aboutRequired.filter((line) => !about.includes(line));
 const missingFounder = founderRequired.filter((line) => !founder.includes(line));
@@ -430,7 +429,7 @@ if (retreats.includes("Life Reset") || retreats.includes("LIFE RESET")) bad.push
 if (community.includes("/community/stories") || community.includes("/community/events") || community.includes("Join our global community") || community.includes("Meet our members")) bad.push("community page publishes an unapproved claim or route");
 if (network.includes("Our Partners") || network.includes("operating worldwide")) bad.push("global network page publishes an unapproved presence claim");
 if (about.includes("practices/index.html")) bad.push("about page links to an unapproved Practices route");
-if (founder.includes("I see human transformation as a lifelong process") || founder.includes("I do not see it as a finished answer")) bad.push("founder page publishes the unapproved first-person note");
+if (founder.includes("I see human transformation as a lifelong process") || founder.includes("I do not see it as a finished answer") || founder.includes("I do not see human transformation as a single answer") || founder.includes("My work has moved through media")) bad.push("founder page publishes the unapproved first-person note");
 const missingDecoding = decodingRequired.filter((line) => !decoding.includes(line));
 const approvedRoutes = [
   ["index.html", "https://curesoullife.org/"],
@@ -468,7 +467,10 @@ for (const [file, canonical] of approvedRoutes) {
   if (!html.includes('aria-label="Primary"') || !html.includes("Human transformation is a lifelong journey.")) bad.push(`${file} is missing the shared header or footer`);
 }
 const contactHtml = fs.readFileSync(path.join(root, "contact/index.html"), "utf8");
-if (/<form\b/i.test(contactHtml)) bad.push("contact page renders a form without a verified endpoint");
+if (contactHtml.includes("Your enquiry has been received")) bad.push("contact page shows a receipt that was not confirmed");
+if (contactHtml.includes("mailto:") || contactHtml.includes("@curesoullife.org")) bad.push("contact page publishes an unverified address");
+if (!contactHtml.includes("No verified delivery channel is connected")) bad.push("contact page does not state that delivery is unavailable");
+if (!contactHtml.includes("The Privacy Policy is not published")) bad.push("contact page does not state that the privacy policy is unpublished");
 console.log(`pages ${files.length}`);
 console.log(bad.length ? bad.join("\n") : "links ok");
 console.log(missing.length ? `missing:\n${missing.join("\n")}` : "copy ok");

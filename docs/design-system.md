@@ -83,7 +83,7 @@ Do not add FAQ, breadcrumbs, or form fields until a later part requires them. Th
 
 ## Header and footer routes
 
-Primary navigation: CureSoulLife, Human Transformation, Human Operating System™, Knowledge, Research, Experiences, Community, About.
+Primary navigation: CureSoulLife, Human Transformation, Human Operating System™, Knowledge, Research, Experiences, Community, About, Contact.
 
 Begin Your Journey goes to `/human-transformation`.
 
@@ -112,7 +112,7 @@ Closing line: “Human transformation is a lifelong journey.”
 - The wordmark is a temporary typographic mark. No approved logo file was in the project.
 - Founder photography is a labelled placeholder.
 - Landscape photos are replaceable stand-ins. See `assets/images/SOURCES.txt`.
-- Homepage copy that Part 03 specifies is used there. `/curesoullife` follows Part 04. `/human-transformation` follows Part 05. `/human-transformation/life-decoding` follows Part 06. `/human-operating-system` follows Part 07. `/knowledge` follows Part 08. `/research` follows Part 09. `/experiences` follows Part 10. `/experiences/retreats` follows Part 11. `/community` follows Part 12. `/community/global-network` follows Part 13. `/about` follows Part 14. `/about/founder` follows Part 15. Part 17 checked cross-page routes, links, and metadata without redesigning those pages.
+- Homepage copy that Part 03 specifies is used there. `/curesoullife` follows Part 04. `/human-transformation` follows Part 05. `/human-transformation/life-decoding` follows Part 18. `/human-operating-system` follows Part 07. `/knowledge` follows Part 08. `/research` follows Part 09. `/experiences` follows Part 10. `/experiences/retreats` follows Part 11. `/community` follows Part 12. `/community/global-network` follows Part 13. `/about` follows Part 14. `/about/founder` follows the revised Part 15 specification. Part 17 checked cross-page routes, links, and metadata without redesigning those pages.
 
 ## Homepage
 
