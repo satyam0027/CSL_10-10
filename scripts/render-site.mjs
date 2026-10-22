@@ -44,7 +44,8 @@ const footerCols = [
     ["human-operating-system/index.html", "Human Operating System™"],
     ["human-transformation/life-decoding/index.html", "Life Decoding"],
     ["knowledge/index.html", "Knowledge"],
-    ["research/index.html", "Research"]
+    ["research/index.html", "Research"],
+    ["blog/index.html", "Blog"]
   ]],
   ["Experience", [
     ["experiences/index.html", "Experiences"],
@@ -3892,6 +3893,89 @@ function contactPage(depth) {
 }
 
 
+const blogGuide = {
+  slug: "how-to-understand-yourself-better",
+  title: "How to Understand Yourself Better: A Practical Guide to Self-Awareness",
+  description: "Learning how to understand yourself better is an important step toward building healthier relationships, making confident decisions, managing your emotions, and experiencing personal growth.",
+  image: "blog-understand-yourself.jpg",
+  width: 1024,
+  height: 535,
+  alt: "A person writing in a notebook on a rocky ridge at sunrise, overlooking a river and hills."
+};
+
+function blogFigure(depth, priority = false) {
+  const p = pfx(depth);
+  const load = priority ? ` fetchpriority="high"` : ` loading="lazy"`;
+  return `<img src="${p}assets/images/${blogGuide.image}" alt="${blogGuide.alt}" width="${blogGuide.width}" height="${blogGuide.height}"${load} decoding="async">`;
+}
+
+function blogPage(depth) {
+  const href = `blog/${blogGuide.slug}/index.html`;
+  return `
+    <header class="page-hero blog-hero" id="blog-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="${url(depth, "index.html")}">Home</a></li>
+            <li aria-current="page">Blog</li>
+          </ol>
+        </nav>
+        ${eyebrow("CureSoulLife Blog")}
+        <h1>The CureSoulLife blog</h1>
+        <p class="lede">The CureSoulLife blog is a place for written explorations of human life, learning, and the questions the institution studies.</p>
+      </div>
+    </header>
+    <section class="section section-white" id="blog-posts" aria-labelledby="blog-posts-title">
+      <div class="container">
+        <article class="blog-card">
+          <a class="blog-card-media" href="${url(depth, href)}">
+            <figure>${blogFigure(depth, true)}</figure>
+            <h2 id="blog-posts-title">${blogGuide.title}</h2>
+          </a>
+          <p>${blogGuide.description}</p>
+          ${textLink(depth, href, "Read the guide")}
+        </article>
+      </div>
+    </section>
+    <section class="finale finale-plain cta-section cta-forest" id="blog-closing" aria-labelledby="blog-close-title">
+      <div class="container">
+        <div>
+          ${eyebrow("Continue exploring")}
+          <h2 id="blog-close-title">Begin with a question the institution is already exploring.</h2>
+          <div class="finale-copy">
+            <p>Knowledge, Research, and Human Transformation are the published places to read further.</p>
+          </div>
+        </div>
+        <div class="cta-row">
+          ${cta(depth, "knowledge/index.html", "Explore Knowledge", "btn btn-light")}
+          ${cta(depth, "human-transformation/index.html", "Explore Human Transformation", "btn btn-ghost-light")}
+        </div>
+      </div>
+    </section>`;
+}
+
+function blogGuidePage(depth) {
+  const article = fs.readFileSync(path.join(root, "scripts/blog/understand-yourself.html"), "utf8");
+  return `
+    <article class="section blog-article" id="blog-guide">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="${url(depth, "index.html")}">Home</a></li>
+            <li><a href="${url(depth, "blog/index.html")}">Blog</a></li>
+            <li aria-current="page">How to Understand Yourself Better</li>
+          </ol>
+        </nav>
+        <figure class="blog-banner">${blogFigure(depth, true)}</figure>
+        <div class="blog-prose">
+          <h1>${blogGuide.title}</h1>
+          ${article}
+          ${textLink(depth, "blog/index.html", "Back to the blog")}
+        </div>
+      </div>
+    </article>`;
+}
+
 const pages = [
   {
     file: "index.html",
@@ -4082,6 +4166,33 @@ const pages = [
   <meta property="og:description" content="Contact CureSoulLife for general enquiries, media requests, institutional collaboration, experiences, speaking invitations and feedback.">
   <meta property="og:url" content="https://curesoullife.org/contact">`,
     body: contactPage(1)
+  },
+  {
+    file: "blog/index.html",
+    depth: 1,
+    current: "blog",
+    title: "Blog | CureSoulLife",
+    description: "The CureSoulLife blog is a place for written explorations of human life, learning, and the questions the institution studies.",
+    head: `  <link rel="canonical" href="https://curesoullife.org/blog">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Blog | CureSoulLife">
+  <meta property="og:description" content="The CureSoulLife blog is a place for written explorations of human life, learning, and the questions the institution studies.">
+  <meta property="og:url" content="https://curesoullife.org/blog">`,
+    body: blogPage(1)
+  },
+  {
+    file: "blog/how-to-understand-yourself-better/index.html",
+    depth: 2,
+    current: "blog",
+    title: `${blogGuide.title} | CureSoulLife`,
+    description: blogGuide.description,
+    head: `  <link rel="canonical" href="https://curesoullife.org/blog/${blogGuide.slug}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="${blogGuide.title} | CureSoulLife">
+  <meta property="og:description" content="${blogGuide.description}">
+  <meta property="og:url" content="https://curesoullife.org/blog/${blogGuide.slug}">
+  <meta property="og:image" content="https://curesoullife.org/assets/images/${blogGuide.image}">`,
+    body: blogGuidePage(2)
   }
 ];
 

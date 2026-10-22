@@ -445,7 +445,9 @@ const approvedRoutes = [
   ["community/global-network/index.html", "https://curesoullife.org/community/global-network"],
   ["about/index.html", "https://curesoullife.org/about"],
   ["about/founder/index.html", "https://curesoullife.org/about/founder"],
-  ["contact/index.html", "https://curesoullife.org/contact"]
+  ["contact/index.html", "https://curesoullife.org/contact"],
+  ["blog/index.html", "https://curesoullife.org/blog"],
+  ["blog/how-to-understand-yourself-better/index.html", "https://curesoullife.org/blog/how-to-understand-yourself-better"]
 ];
 const sitemap = fs.existsSync(path.join(root, "sitemap.xml")) ? fs.readFileSync(path.join(root, "sitemap.xml"), "utf8") : "";
 const robots = fs.existsSync(path.join(root, "robots.txt")) ? fs.readFileSync(path.join(root, "robots.txt"), "utf8") : "";
@@ -466,6 +468,26 @@ for (const [file, canonical] of approvedRoutes) {
   if (!sitemap.includes(`<loc>${canonical}</loc>`)) bad.push(`sitemap missing ${canonical}`);
   if (!html.includes('aria-label="Primary"') || !html.includes("Human transformation is a lifelong journey.")) bad.push(`${file} is missing the shared header or footer`);
 }
+const blogHtml = fs.readFileSync(path.join(root, "blog/index.html"), "utf8");
+const blogArticle = fs.readFileSync(path.join(root, "blog/how-to-understand-yourself-better/index.html"), "utf8");
+const blogRequired = [
+  "The CureSoulLife blog",
+  "how-to-understand-yourself-better",
+  "How to Understand Yourself Better: A Practical Guide to Self-Awareness",
+  "https://curesoullife.org/blog"
+];
+const missingBlog = blogRequired.filter((line) => !blogHtml.includes(line));
+const articleRequired = [
+  "self-awareness is not something you either have or lack.",
+  "How to Understand Yourself Better: A Practical Guide to Self-Awareness",
+  "assets/images/blog-understand-yourself.jpg",
+  "https://curesoullife.org/blog/how-to-understand-yourself-better"
+];
+for (const line of articleRequired) {
+  if (!blogArticle.includes(line)) missingBlog.push(line);
+}
+const blogBan = "Posted on|min read|Leave a comment";
+if (new RegExp(blogBan).test(blogHtml) || new RegExp(blogBan).test(blogArticle)) bad.push("blog publishes an unapproved byline, reading time, or comment prompt");
 const contactHtml = fs.readFileSync(path.join(root, "contact/index.html"), "utf8");
 if (contactHtml.includes("Your enquiry has been received")) bad.push("contact page shows a receipt that was not confirmed");
 if (contactHtml.includes("mailto:") || contactHtml.includes("@curesoullife.org")) bad.push("contact page publishes an unverified address");
@@ -486,4 +508,5 @@ console.log(missingCommunity.length ? `community missing:\n${missingCommunity.jo
 console.log(missingNetwork.length ? `network missing:\n${missingNetwork.join("\n")}` : "network ok");
 console.log(missingAbout.length ? `about missing:\n${missingAbout.join("\n")}` : "about ok");
 console.log(missingFounder.length ? `founder missing:\n${missingFounder.join("\n")}` : "founder ok");
-if (bad.length || missing.length || missingOverview.length || missingTransformation.length || missingDecoding.length || missingHos.length || missingKnowledge.length || missingResearch.length || missingExperiences.length || missingRetreats.length || missingCommunity.length || missingNetwork.length || missingAbout.length || missingFounder.length) process.exit(1);
+console.log(missingBlog.length ? `blog missing:\n${missingBlog.join("\n")}` : "blog ok");
+if (bad.length || missing.length || missingOverview.length || missingTransformation.length || missingDecoding.length || missingHos.length || missingKnowledge.length || missingResearch.length || missingExperiences.length || missingRetreats.length || missingCommunity.length || missingNetwork.length || missingAbout.length || missingFounder.length || missingBlog.length) process.exit(1);
