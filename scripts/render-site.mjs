@@ -68,7 +68,7 @@ function navAnchors(depth, current) {
   }).join("");
 }
 
-function shell({ depth, current, title, description, body, head = "" }) {
+function shell({ file, depth, current, title, description, body, head = "" }) {
   const p = pfx(depth);
   const cols = footerCols.map(([heading, links]) => `
         <nav aria-label="${heading}">
@@ -91,7 +91,7 @@ ${head}
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="${p}css/styles.css">
-</head>
+${file === "index.html" ? `  <meta name="google-site-verification" content="PTow7dqA-rwD8YSM_1fAcxvvmANZutDRimZpK52on28" />\n` : ""}</head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" data-header>
@@ -3959,18 +3959,20 @@ function blogGuidePage(depth) {
   return `
     <article class="section blog-article" id="blog-guide">
       <div class="container">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <ol>
-            <li><a href="${url(depth, "index.html")}">Home</a></li>
-            <li><a href="${url(depth, "blog/index.html")}">Blog</a></li>
-            <li aria-current="page">How to Understand Yourself Better</li>
-          </ol>
-        </nav>
-        <figure class="blog-banner">${blogFigure(depth, true)}</figure>
-        <div class="blog-prose">
-          <h1>${blogGuide.title}</h1>
-          ${article}
-          ${textLink(depth, "blog/index.html", "Back to the blog")}
+        <div class="blog-sheet">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="${url(depth, "index.html")}">Home</a></li>
+              <li><a href="${url(depth, "blog/index.html")}">Blog</a></li>
+              <li aria-current="page">${blogGuide.title}</li>
+            </ol>
+          </nav>
+          <h1 class="blog-title">${blogGuide.title}</h1>
+          <figure class="blog-banner">${blogFigure(depth, true)}</figure>
+          <div class="blog-prose">
+            ${article}
+            ${textLink(depth, "blog/index.html", "Back to the blog")}
+          </div>
         </div>
       </div>
     </article>`;
