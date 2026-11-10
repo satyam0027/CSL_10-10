@@ -447,7 +447,8 @@ const approvedRoutes = [
   ["about/founder/index.html", "https://curesoullife.org/about/founder"],
   ["contact/index.html", "https://curesoullife.org/contact"],
   ["blog/index.html", "https://curesoullife.org/blog"],
-  ["blog/how-to-understand-yourself-better/index.html", "https://curesoullife.org/blog/how-to-understand-yourself-better"]
+  ["blog/how-to-understand-yourself-better/index.html", "https://curesoullife.org/blog/how-to-understand-yourself-better"],
+  ["blog/how-to-build-an-unbreakable-mindset/index.html", "https://curesoullife.org/blog/how-to-build-an-unbreakable-mindset"]
 ];
 const sitemap = fs.existsSync(path.join(root, "sitemap.xml")) ? fs.readFileSync(path.join(root, "sitemap.xml"), "utf8") : "";
 const robots = fs.existsSync(path.join(root, "robots.txt")) ? fs.readFileSync(path.join(root, "robots.txt"), "utf8") : "";
@@ -470,24 +471,32 @@ for (const [file, canonical] of approvedRoutes) {
 }
 const blogHtml = fs.readFileSync(path.join(root, "blog/index.html"), "utf8");
 const blogArticle = fs.readFileSync(path.join(root, "blog/how-to-understand-yourself-better/index.html"), "utf8");
+const blogMindset = fs.readFileSync(path.join(root, "blog/how-to-build-an-unbreakable-mindset/index.html"), "utf8");
 const blogRequired = [
   "The CureSoulLife blog",
   "how-to-understand-yourself-better",
+  "how-to-build-an-unbreakable-mindset",
+  "assets/images/blog-unbreakable-mindset.jpg",
   "How to Understand Yourself Better: A Practical Guide to Self-Awareness",
+  "How to Build an Unbreakable Mindset When Life Doesn't Go as Planned",
   "https://curesoullife.org/blog"
 ];
 const missingBlog = blogRequired.filter((line) => !blogHtml.includes(line));
 const articleRequired = [
-  "self-awareness is not something you either have or lack.",
-  "How to Understand Yourself Better: A Practical Guide to Self-Awareness",
-  "assets/images/blog-understand-yourself.jpg",
-  "https://curesoullife.org/blog/how-to-understand-yourself-better"
+  ["self-awareness is not something you either have or lack.", blogArticle],
+  ["How to Understand Yourself Better: A Practical Guide to Self-Awareness", blogArticle],
+  ["assets/images/blog-understand-yourself.jpg", blogArticle],
+  ["https://curesoullife.org/blog/how-to-understand-yourself-better", blogArticle],
+  ["mindset is not a personality trait you are born with.", blogMindset],
+  ["How to Build an Unbreakable Mindset When Life Doesn't Go as Planned", blogMindset],
+  ["assets/images/blog-unbreakable-mindset.jpg", blogMindset],
+  ["https://curesoullife.org/blog/how-to-build-an-unbreakable-mindset", blogMindset]
 ];
-for (const line of articleRequired) {
-  if (!blogArticle.includes(line)) missingBlog.push(line);
+for (const [line, html] of articleRequired) {
+  if (!html.includes(line)) missingBlog.push(line);
 }
 const blogBan = "Posted on|min read|Leave a comment";
-if (new RegExp(blogBan).test(blogHtml) || new RegExp(blogBan).test(blogArticle)) bad.push("blog publishes an unapproved byline, reading time, or comment prompt");
+if (new RegExp(blogBan).test(blogHtml) || new RegExp(blogBan).test(blogArticle) || new RegExp(blogBan).test(blogMindset)) bad.push("blog publishes an unapproved byline, reading time, or comment prompt");
 const contactHtml = fs.readFileSync(path.join(root, "contact/index.html"), "utf8");
 if (contactHtml.includes("Your enquiry has been received")) bad.push("contact page shows a receipt that was not confirmed");
 if (contactHtml.includes("mailto:") || contactHtml.includes("@curesoullife.org")) bad.push("contact page publishes an unverified address");

@@ -3899,24 +3899,53 @@ function contactPage(depth) {
 }
 
 
-const blogGuide = {
-  slug: "how-to-understand-yourself-better",
-  title: "How to Understand Yourself Better: A Practical Guide to Self-Awareness",
-  description: "Learning how to understand yourself better is an important step toward building healthier relationships, making confident decisions, managing your emotions, and experiencing personal growth.",
-  image: "blog-understand-yourself.jpg",
-  width: 1024,
-  height: 535,
-  alt: "A person writing in a notebook on a rocky ridge at sunrise, overlooking a river and hills."
-};
+const blogPosts = [
+  {
+    slug: "how-to-build-an-unbreakable-mindset",
+    title: "How to Build an Unbreakable Mindset When Life Doesn't Go as Planned",
+    description: "If you want a strong mindset in tough times, this breakdown covers the ideas worth keeping.",
+    source: "unbreakable-mindset.html",
+    readLabel: "Read the article",
+    image: "blog-unbreakable-mindset.jpg",
+    width: 1280,
+    height: 720,
+    alt: "YouTube thumbnail for the conversation between Sarvesh Mishra and Chitresh Soni."
+  },
+  {
+    slug: "how-to-understand-yourself-better",
+    title: "How to Understand Yourself Better: A Practical Guide to Self-Awareness",
+    description: "Learning how to understand yourself better is an important step toward building healthier relationships, making confident decisions, managing your emotions, and experiencing personal growth.",
+    source: "understand-yourself.html",
+    readLabel: "Read the guide",
+    image: "blog-understand-yourself.jpg",
+    width: 1024,
+    height: 535,
+    alt: "A person writing in a notebook on a rocky ridge at sunrise, overlooking a river and hills.",
+    hideTitle: true
+  }
+];
 
-function blogFigure(depth, priority = false) {
+const blogGuide = blogPosts[1];
+
+function blogFigure(depth, post, priority = false) {
   const p = pfx(depth);
   const load = priority ? ` fetchpriority="high"` : ` loading="lazy"`;
-  return `<img src="${p}assets/images/${blogGuide.image}" alt="${blogGuide.alt}" width="${blogGuide.width}" height="${blogGuide.height}"${load} decoding="async">`;
+  return `<img src="${p}assets/images/${post.image}" alt="${post.alt}" width="${post.width}" height="${post.height}"${load} decoding="async">`;
 }
 
 function blogPage(depth) {
-  const href = `blog/${blogGuide.slug}/index.html`;
+  const cards = blogPosts.map((post, index) => {
+    const href = `blog/${post.slug}/index.html`;
+    const media = post.image
+      ? `<a class="blog-card-media" href="${url(depth, href)}"><figure>${blogFigure(depth, post, index === 0)}</figure><h2>${post.title}</h2></a>`
+      : `<h2><a href="${url(depth, href)}">${post.title}</a></h2>`;
+    return `
+        <article class="blog-card">
+          ${media}
+          <p>${post.description}</p>
+          ${textLink(depth, href, post.readLabel)}
+        </article>`;
+  }).join("");
   return `
     <header class="page-hero blog-hero" id="blog-hero">
       <div class="container">
@@ -3931,16 +3960,9 @@ function blogPage(depth) {
         <p class="lede">The CureSoulLife blog is a place for written explorations of human life, learning, and the questions the institution studies.</p>
       </div>
     </header>
-    <section class="section section-white" id="blog-posts" aria-labelledby="blog-posts-title">
-      <div class="container">
-        <article class="blog-card">
-          <a class="blog-card-media" href="${url(depth, href)}">
-            <figure>${blogFigure(depth, true)}</figure>
-            <h2 id="blog-posts-title">${blogGuide.title}</h2>
-          </a>
-          <p>${blogGuide.description}</p>
-          ${textLink(depth, href, "Read the guide")}
-        </article>
+    <section class="section section-white" id="blog-posts" aria-label="Published notes">
+      <div class="container blog-stack">
+        ${cards}
       </div>
     </section>
     <section class="finale finale-plain cta-section cta-forest" id="blog-closing" aria-labelledby="blog-close-title">
@@ -3960,21 +3982,23 @@ function blogPage(depth) {
     </section>`;
 }
 
-function blogGuidePage(depth) {
-  const article = fs.readFileSync(path.join(root, "scripts/blog/understand-yourself.html"), "utf8");
+function blogArticlePage(depth, post) {
+  const article = fs.readFileSync(path.join(root, "scripts/blog", post.source), "utf8");
+  const titleClass = post.hideTitle ? "blog-title" : "blog-display";
+  const banner = post.image ? `<figure class="blog-banner">${blogFigure(depth, post, true)}</figure>` : "";
   return `
-    <article class="section blog-article" id="blog-guide">
+    <article class="section blog-article" id="blog-${post.slug}">
       <div class="container">
         <div class="blog-sheet">
           <nav class="breadcrumb" aria-label="Breadcrumb">
             <ol>
               <li><a href="${url(depth, "index.html")}">Home</a></li>
               <li><a href="${url(depth, "blog/index.html")}">Blog</a></li>
-              <li aria-current="page">${blogGuide.title}</li>
+              <li aria-current="page">${post.title}</li>
             </ol>
           </nav>
-          <h1 class="blog-title">${blogGuide.title}</h1>
-          <figure class="blog-banner">${blogFigure(depth, true)}</figure>
+          ${banner}
+          <h1 class="${titleClass}">${post.title}</h1>
           <div class="blog-prose">
             ${article}
             ${textLink(depth, "blog/index.html", "Back to the blog")}
@@ -3982,6 +4006,10 @@ function blogGuidePage(depth) {
         </div>
       </div>
     </article>`;
+}
+
+function blogGuidePage(depth) {
+  return blogArticlePage(depth, blogGuide);
 }
 
 const pages = [
@@ -4201,6 +4229,20 @@ const pages = [
   <meta property="og:url" content="https://curesoullife.org/blog/${blogGuide.slug}">
   <meta property="og:image" content="https://curesoullife.org/assets/images/${blogGuide.image}">`,
     body: blogGuidePage(2)
+  },
+  {
+    file: "blog/how-to-build-an-unbreakable-mindset/index.html",
+    depth: 2,
+    current: "blog",
+    title: `${blogPosts[0].title} | CureSoulLife`,
+    description: blogPosts[0].description,
+    head: `  <link rel="canonical" href="https://curesoullife.org/blog/${blogPosts[0].slug}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="${blogPosts[0].title} | CureSoulLife">
+  <meta property="og:description" content="${blogPosts[0].description}">
+  <meta property="og:url" content="https://curesoullife.org/blog/${blogPosts[0].slug}">
+  <meta property="og:image" content="https://curesoullife.org/assets/images/${blogPosts[0].image}">`,
+    body: blogArticlePage(2, blogPosts[0])
   }
 ];
 
