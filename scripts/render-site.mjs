@@ -3901,6 +3901,18 @@ function contactPage(depth) {
 
 const blogPosts = [
   {
+    slug: "human-transformation-journey-of-self-discovery",
+    title: "Human Transformation: The Journey of Becoming Your True Self",
+    pageTitle: "Human Transformation: A Journey Towards Your True Self",
+    description: "Discover the meaning of human transformation and how self-awareness, emotional healing, mindfulness, and conscious living can help you create a more meaningful life.",
+    source: "human-transformation-journey.html",
+    readLabel: "Read the article",
+    image: "blog-human-transformation.jpg",
+    width: 1024,
+    height: 576,
+    alt: "A person meditating on a mountain ridge at sunrise beneath the words Human Transformation, The Journey of Becoming Your True Self."
+  },
+  {
     slug: "how-to-build-an-unbreakable-mindset",
     title: "How to Build an Unbreakable Mindset When Life Doesn't Go as Planned",
     description: "If you want a strong mindset in tough times, this breakdown covers the ideas worth keeping.",
@@ -3925,7 +3937,9 @@ const blogPosts = [
   }
 ];
 
-const blogGuide = blogPosts[1];
+const blogGuide = blogPosts.find((post) => post.slug === "how-to-understand-yourself-better");
+const blogMindset = blogPosts.find((post) => post.slug === "how-to-build-an-unbreakable-mindset");
+const blogJourney = blogPosts.find((post) => post.slug === "human-transformation-journey-of-self-discovery");
 
 function blogFigure(depth, post, priority = false) {
   const p = pfx(depth);
@@ -4234,15 +4248,29 @@ const pages = [
     file: "blog/how-to-build-an-unbreakable-mindset/index.html",
     depth: 2,
     current: "blog",
-    title: `${blogPosts[0].title} | CureSoulLife`,
-    description: blogPosts[0].description,
-    head: `  <link rel="canonical" href="https://curesoullife.org/blog/${blogPosts[0].slug}">
+    title: `${blogMindset.title} | CureSoulLife`,
+    description: blogMindset.description,
+    head: `  <link rel="canonical" href="https://curesoullife.org/blog/${blogMindset.slug}">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="${blogPosts[0].title} | CureSoulLife">
-  <meta property="og:description" content="${blogPosts[0].description}">
-  <meta property="og:url" content="https://curesoullife.org/blog/${blogPosts[0].slug}">
-  <meta property="og:image" content="https://curesoullife.org/assets/images/${blogPosts[0].image}">`,
-    body: blogArticlePage(2, blogPosts[0])
+  <meta property="og:title" content="${blogMindset.title} | CureSoulLife">
+  <meta property="og:description" content="${blogMindset.description}">
+  <meta property="og:url" content="https://curesoullife.org/blog/${blogMindset.slug}">
+  <meta property="og:image" content="https://curesoullife.org/assets/images/${blogMindset.image}">`,
+    body: blogArticlePage(2, blogMindset)
+  },
+  {
+    file: "blog/human-transformation-journey-of-self-discovery/index.html",
+    depth: 2,
+    current: "blog",
+    title: `${blogJourney.pageTitle} | CureSoulLife`,
+    description: blogJourney.description,
+    head: `  <link rel="canonical" href="https://curesoullife.org/blog/${blogJourney.slug}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="${blogJourney.pageTitle} | CureSoulLife">
+  <meta property="og:description" content="${blogJourney.description}">
+  <meta property="og:url" content="https://curesoullife.org/blog/${blogJourney.slug}">
+  <meta property="og:image" content="https://curesoullife.org/assets/images/${blogJourney.image}">`,
+    body: blogArticlePage(2, blogJourney)
   }
 ];
 
