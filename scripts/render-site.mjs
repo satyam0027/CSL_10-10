@@ -3901,6 +3901,17 @@ function contactPage(depth) {
 
 const blogPosts = [
   {
+    slug: "how-to-stop-overthinking-and-find-mental-peace",
+    title: "How to Stop Overthinking and Find Mental Peace: 10 Effective Ways to Calm Your Mind",
+    description: "Learning how to stop overthinking is not about making your mind completely empty. It is about developing awareness, managing your reactions and directing your attention towards what truly matters.",
+    source: "stop-overthinking.html",
+    readLabel: "Read the article",
+    image: "blog-stop-overthinking.jpg",
+    width: 1024,
+    height: 576,
+    alt: "A woman sitting on a mountain ridge at sunrise beneath the words How to Stop Overthinking and Find Mental Peace."
+  },
+  {
     slug: "human-transformation-journey-of-self-discovery",
     title: "Human Transformation: The Journey of Becoming Your True Self",
     pageTitle: "Human Transformation: A Journey Towards Your True Self",
@@ -3940,6 +3951,7 @@ const blogPosts = [
 const blogGuide = blogPosts.find((post) => post.slug === "how-to-understand-yourself-better");
 const blogMindset = blogPosts.find((post) => post.slug === "how-to-build-an-unbreakable-mindset");
 const blogJourney = blogPosts.find((post) => post.slug === "human-transformation-journey-of-self-discovery");
+const blogPeace = blogPosts.find((post) => post.slug === "how-to-stop-overthinking-and-find-mental-peace");
 
 function blogFigure(depth, post, priority = false) {
   const p = pfx(depth);
@@ -4271,6 +4283,20 @@ const pages = [
   <meta property="og:url" content="https://curesoullife.org/blog/${blogJourney.slug}">
   <meta property="og:image" content="https://curesoullife.org/assets/images/${blogJourney.image}">`,
     body: blogArticlePage(2, blogJourney)
+  },
+  {
+    file: "blog/how-to-stop-overthinking-and-find-mental-peace/index.html",
+    depth: 2,
+    current: "blog",
+    title: `${blogPeace.title} | CureSoulLife`,
+    description: blogPeace.description,
+    head: `  <link rel="canonical" href="https://curesoullife.org/blog/${blogPeace.slug}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="${blogPeace.title} | CureSoulLife">
+  <meta property="og:description" content="${blogPeace.description}">
+  <meta property="og:url" content="https://curesoullife.org/blog/${blogPeace.slug}">
+  <meta property="og:image" content="https://curesoullife.org/assets/images/${blogPeace.image}">`,
+    body: blogArticlePage(2, blogPeace)
   }
 ];
 

@@ -449,7 +449,8 @@ const approvedRoutes = [
   ["blog/index.html", "https://curesoullife.org/blog"],
   ["blog/how-to-understand-yourself-better/index.html", "https://curesoullife.org/blog/how-to-understand-yourself-better"],
   ["blog/how-to-build-an-unbreakable-mindset/index.html", "https://curesoullife.org/blog/how-to-build-an-unbreakable-mindset"],
-  ["blog/human-transformation-journey-of-self-discovery/index.html", "https://curesoullife.org/blog/human-transformation-journey-of-self-discovery"]
+  ["blog/human-transformation-journey-of-self-discovery/index.html", "https://curesoullife.org/blog/human-transformation-journey-of-self-discovery"],
+  ["blog/how-to-stop-overthinking-and-find-mental-peace/index.html", "https://curesoullife.org/blog/how-to-stop-overthinking-and-find-mental-peace"]
 ];
 const sitemap = fs.existsSync(path.join(root, "sitemap.xml")) ? fs.readFileSync(path.join(root, "sitemap.xml"), "utf8") : "";
 const robots = fs.existsSync(path.join(root, "robots.txt")) ? fs.readFileSync(path.join(root, "robots.txt"), "utf8") : "";
@@ -474,16 +475,20 @@ const blogHtml = fs.readFileSync(path.join(root, "blog/index.html"), "utf8");
 const blogArticle = fs.readFileSync(path.join(root, "blog/how-to-understand-yourself-better/index.html"), "utf8");
 const blogMindset = fs.readFileSync(path.join(root, "blog/how-to-build-an-unbreakable-mindset/index.html"), "utf8");
 const blogJourneyHtml = fs.readFileSync(path.join(root, "blog/human-transformation-journey-of-self-discovery/index.html"), "utf8");
+const blogPeaceHtml = fs.readFileSync(path.join(root, "blog/how-to-stop-overthinking-and-find-mental-peace/index.html"), "utf8");
 const blogRequired = [
   "The CureSoulLife blog",
   "how-to-understand-yourself-better",
   "how-to-build-an-unbreakable-mindset",
   "human-transformation-journey-of-self-discovery",
+  "how-to-stop-overthinking-and-find-mental-peace",
   "assets/images/blog-unbreakable-mindset.jpg",
   "assets/images/blog-human-transformation.jpg",
+  "assets/images/blog-stop-overthinking.jpg",
   "How to Understand Yourself Better: A Practical Guide to Self-Awareness",
   "How to Build an Unbreakable Mindset When Life Doesn't Go as Planned",
   "Human Transformation: The Journey of Becoming Your True Self",
+  "How to Stop Overthinking and Find Mental Peace: 10 Effective Ways to Calm Your Mind",
   "https://curesoullife.org/blog"
 ];
 const missingBlog = blogRequired.filter((line) => !blogHtml.includes(line));
@@ -499,13 +504,17 @@ const articleRequired = [
   ["meaningful transformation begins when a person starts looking within.", blogJourneyHtml],
   ["Human Transformation: The Journey of Becoming Your True Self", blogJourneyHtml],
   ["assets/images/blog-human-transformation.jpg", blogJourneyHtml],
-  ["https://curesoullife.org/blog/human-transformation-journey-of-self-discovery", blogJourneyHtml]
+  ["https://curesoullife.org/blog/human-transformation-journey-of-self-discovery", blogJourneyHtml],
+  ["not about making your mind completely empty.", blogPeaceHtml],
+  ["How to Stop Overthinking and Find Mental Peace: 10 Effective Ways to Calm Your Mind", blogPeaceHtml],
+  ["assets/images/blog-stop-overthinking.jpg", blogPeaceHtml],
+  ["https://curesoullife.org/blog/how-to-stop-overthinking-and-find-mental-peace", blogPeaceHtml]
 ];
 for (const [line, html] of articleRequired) {
   if (!html.includes(line)) missingBlog.push(line);
 }
 const blogBan = "Posted on|min read|Leave a comment";
-if (new RegExp(blogBan).test(blogHtml) || new RegExp(blogBan).test(blogArticle) || new RegExp(blogBan).test(blogMindset) || new RegExp(blogBan).test(blogJourneyHtml)) bad.push("blog publishes an unapproved byline, reading time, or comment prompt");
+if (new RegExp(blogBan).test(blogHtml) || new RegExp(blogBan).test(blogArticle) || new RegExp(blogBan).test(blogMindset) || new RegExp(blogBan).test(blogJourneyHtml) || new RegExp(blogBan).test(blogPeaceHtml)) bad.push("blog publishes an unapproved byline, reading time, or comment prompt");
 const contactHtml = fs.readFileSync(path.join(root, "contact/index.html"), "utf8");
 if (contactHtml.includes("Your enquiry has been received")) bad.push("contact page shows a receipt that was not confirmed");
 if (contactHtml.includes("mailto:") || contactHtml.includes("@curesoullife.org")) bad.push("contact page publishes an unverified address");
