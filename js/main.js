@@ -342,37 +342,44 @@
         return;
       }
       var button = enquiryForm.querySelector("button[type='submit']");
+      var categoryLabel = typeField.options[typeField.selectedIndex] ? typeField.options[typeField.selectedIndex].text : typeField.value;
       if (button) button.disabled = true;
       status.hidden = false;
       status.textContent = "Sending your enquiry.";
-      fetch("/api/enquiry", {
+      fetch("https://formsubmit.co/ajax/curesoullife@gmail.com", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          full_name: name.value.trim(),
+          name: name.value.trim(),
           email: email.value.trim(),
-          country_or_region: country.value.trim(),
-          enquiry_category: typeField.value,
-          message: message.value.trim(),
-          telephone: telephone ? telephone.value.trim() : "",
-          privacy_acknowledgement: true,
-          company_website: ""
+          _replyto: email.value.trim(),
+          _subject: "CureSoulLife enquiry: " + categoryLabel,
+          _template: "table",
+          _captcha: "false",
+          country: country.value.trim(),
+          category: categoryLabel,
+          telephone: telephone && telephone.value.trim() ? telephone.value.trim() : "Not provided",
+          message: message.value.trim()
         })
       }).then(function (response) {
-        return response.json().catch(function () { return {}; }).then(function (data) {
-          return response.ok && data.ok === true;
-        });
-      }).then(function (sent) {
+        return response.json().catch(function () { return {}; });
+      }).then(function (data) {
         if (button) button.disabled = false;
-        if (!sent) {
-          status.textContent = "The enquiry was not sent. Nothing was delivered. Your details are still in the form. Please try again later.";
+        var accepted = data && (data.success === true || data.success === "true");
+        if (accepted) {
+          enquiryForm.reset();
+          if (counter) counter.textContent = "0 / 3000";
+          setEnquiry("");
+          status.textContent = "Your message has been sent to curesoullife@gmail.com.";
           status.focus();
           return;
         }
-        enquiryForm.reset();
-        if (counter) counter.textContent = "0 / 3000";
-        setEnquiry("");
-        status.textContent = "Your message has been sent to curesoullife@gmail.com.";
+        if (data && /activation/i.test(data.message || "")) {
+          status.textContent = "FormSubmit emailed an Activate Form link to curesoullife@gmail.com. Open that message and activate the form, then send this enquiry again. It has not been delivered yet.";
+          status.focus();
+          return;
+        }
+        status.textContent = "The enquiry was not sent. Nothing was delivered. Your details are still in the form. Please try again later.";
         status.focus();
       }).catch(function () {
         if (button) button.disabled = false;

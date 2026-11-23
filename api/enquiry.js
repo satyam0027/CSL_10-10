@@ -37,7 +37,12 @@ export default async function handler(req, res) {
   try {
     const response = await fetch("https://formsubmit.co/ajax/" + encodeURIComponent(RECIPIENT), {
       method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Referer: "https://www.curesoullife.org/contact",
+        Origin: "https://www.curesoullife.org"
+      },
       body: JSON.stringify({
         name,
         email,
