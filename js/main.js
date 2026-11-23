@@ -240,14 +240,25 @@
 
   var enquiryForm = document.getElementById("enquiry-form");
   if (enquiryForm) {
-    var allowed = ["general_enquiry", "media_press", "institutional_collaboration", "global_network", "experiences_retreats", "speaking_content", "feedback", "other"];
+    var allowed = ["programs_retreats", "personal_guidance", "wellness_mentorship", "institutional_collaboration", "media_general"];
+    var aliases = {
+      experiences_retreats: "programs_retreats",
+      global_network: "institutional_collaboration",
+      general_enquiry: "media_general",
+      media_press: "media_general",
+      speaking_content: "media_general",
+      feedback: "media_general",
+      other: "media_general"
+    };
     var typeField = document.getElementById("enquiry-type");
     var cards = Array.prototype.slice.call(document.querySelectorAll("[data-enquiry]"));
     var message = document.getElementById("message");
     var counter = document.getElementById("message-count");
     var status = document.getElementById("enquiry-status");
+    var privacy = document.getElementById("privacy");
 
     function setEnquiry(value) {
+      if (aliases[value]) value = aliases[value];
       if (allowed.indexOf(value) === -1) value = "";
       typeField.value = value;
       cards.forEach(function (card) {
@@ -288,13 +299,14 @@
       });
     }
     var requested = new URLSearchParams(window.location.search).get("enquiry");
-    if (requested && allowed.indexOf(requested) !== -1) setEnquiry(requested);
+    if (requested) setEnquiry(requested);
 
     enquiryForm.addEventListener("submit", function (event) {
       event.preventDefault();
       var name = document.getElementById("full-name");
       var email = document.getElementById("email");
-      var subject = document.getElementById("subject");
+      var country = document.getElementById("country");
+      var telephone = document.getElementById("telephone");
       var first = null;
       function fail(input, errorId, text) {
         showError(errorId, text);
@@ -302,27 +314,71 @@
       }
       showError("full-name-error", "");
       showError("email-error", "");
+      showError("country-error", "");
       showError("enquiry-type-error", "");
-      showError("subject-error", "");
       showError("message-error", "");
+      showError("telephone-error", "");
       showError("privacy-error", "");
       status.hidden = true;
       status.textContent = "";
       if (!name.value.trim()) fail(name, "full-name-error", "Enter your full name.");
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) fail(email, "email-error", "Enter an email address in the form name@example.com. This check does not verify that the address exists.");
-      if (allowed.indexOf(typeField.value) === -1) fail(typeField, "enquiry-type-error", "Select an enquiry type.");
-      if (!subject.value.trim()) fail(subject, "subject-error", "Enter a subject.");
+      if (!country.value.trim()) fail(country, "country-error", "Enter your country or region.");
+      if (allowed.indexOf(typeField.value) === -1) fail(typeField, "enquiry-type-error", "Select an enquiry category.");
       if (!message.value.trim()) fail(message, "message-error", "Enter a message.");
       else if (message.value.length > 3000) fail(message, "message-error", "Use 3,000 characters or fewer.");
-      showError("privacy-error", "The Privacy Policy is not published, so this acknowledgement cannot be completed.");
-      if (!first) first = document.getElementById("privacy");
-      if (name.value.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()) && allowed.indexOf(typeField.value) !== -1 && subject.value.trim() && message.value.trim() && message.value.length <= 3000) {
+      if (telephone && telephone.value.trim().length > 40) fail(telephone, "telephone-error", "Use 40 characters or fewer. Include a country code if you wish. This field is optional.");
+      if (!privacy.checked) fail(privacy, "privacy-error", "Confirm that your message may be emailed to curesoullife@gmail.com.");
+      var honey = document.getElementById("company-website");
+      var ready = name.value.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()) && country.value.trim() && allowed.indexOf(typeField.value) !== -1 && message.value.trim() && message.value.length <= 3000 && (!telephone || telephone.value.trim().length <= 40) && privacy.checked;
+      if (!ready) {
+        if (first && first.focus) first.focus();
+        return;
+      }
+      if (honey && honey.value.trim()) {
         status.hidden = false;
-        status.textContent = "This enquiry could not be submitted. No verified delivery channel is connected. Nothing was received. Your details are still in the form.";
+        status.textContent = "Your message has been sent to curesoullife@gmail.com.";
         status.focus();
         return;
       }
-      if (first && first.focus) first.focus();
+      var button = enquiryForm.querySelector("button[type='submit']");
+      if (button) button.disabled = true;
+      status.hidden = false;
+      status.textContent = "Sending your enquiry.";
+      fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          full_name: name.value.trim(),
+          email: email.value.trim(),
+          country_or_region: country.value.trim(),
+          enquiry_category: typeField.value,
+          message: message.value.trim(),
+          telephone: telephone ? telephone.value.trim() : "",
+          privacy_acknowledgement: true,
+          company_website: ""
+        })
+      }).then(function (response) {
+        return response.json().catch(function () { return {}; }).then(function (data) {
+          return response.ok && data.ok === true;
+        });
+      }).then(function (sent) {
+        if (button) button.disabled = false;
+        if (!sent) {
+          status.textContent = "The enquiry was not sent. Nothing was delivered. Your details are still in the form. Please try again later.";
+          status.focus();
+          return;
+        }
+        enquiryForm.reset();
+        if (counter) counter.textContent = "0 / 3000";
+        setEnquiry("");
+        status.textContent = "Your message has been sent to curesoullife@gmail.com.";
+        status.focus();
+      }).catch(function () {
+        if (button) button.disabled = false;
+        status.textContent = "The enquiry was not sent. Nothing was delivered. Your details are still in the form. Please try again later.";
+        status.focus();
+      });
     });
   }
 })();

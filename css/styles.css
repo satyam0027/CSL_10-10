@@ -1164,6 +1164,8 @@ main:focus { outline: none; }
 .hos-list p { margin-top: 4px; color: var(--earth); font-size: 15px; line-height: 1.5; }
 
 .reading-block { max-width: 760px; }
+.policy-copy h2 { margin-top: 40px; }
+.policy-copy h2:first-child { margin-top: 0; }
 .reading-block .support { margin-top: 20px; }
 .reading-block .quiet-panel,
 .reading-block .format-list { margin-top: 28px; }
@@ -3579,6 +3581,16 @@ ol.community-cards > li::before {
 .enquiry-card small { display: block; margin-top: 6px; font-size: 15px; line-height: 1.5; }
 .enquiry-card[aria-pressed="true"] { border-color: var(--forest); background: var(--sand); box-shadow: inset 3px 0 0 var(--forest); }
 .enquiry-form { margin-top: 28px; }
+.hp-field {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  border: 0;
+}
 .field { margin-top: 18px; }
 .field label { display: block; margin-bottom: 8px; color: var(--midnight); font-weight: 700; }
 .req, .opt { color: var(--earth); font-size: 13px; font-weight: 700; }

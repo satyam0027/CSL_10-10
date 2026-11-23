@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const root = path.resolve("D:/CSL 10-10");
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const arrow = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const mark = `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 19.5h16M11.5 19.5 16 13l4.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
 
@@ -54,7 +55,10 @@ const footerCols = [
     ["community/global-network/index.html", "Global Network"]
   ]],
   ["Connect", [
-    ["contact/index.html", "Contact"]
+    ["contact/index.html", "Contact"],
+    ["privacy-policy/index.html", "Privacy Policy (draft)"],
+    ["terms-of-use/index.html", "Terms of Use (draft)"],
+    ["wellness-disclaimer/index.html", "Wellness Disclaimer (draft)"]
   ]]
 ];
 
@@ -2762,7 +2766,7 @@ function communityPage(depth) {
             ${textLink(depth, "contact/index.html", "Contact CureSoulLife")}
           </article>
         </div>
-        <p class="section-note">The contact page does not yet publish an enquiry form. Opening it does not submit an application, create a membership or confirm a role.</p>
+        <p class="section-note">The contact form emails the enquiry to CureSoulLife. Opening this page does not submit an application, create a membership or confirm a role.</p>
       </div>
     </section>
 
@@ -3064,7 +3068,7 @@ function globalNetworkPage(depth) {
           <p class="support">Any public listing of a location, chapter, centre or formally recognised relationship must reflect a real, verified arrangement and the permission to describe it publicly. A draft, proposed contact, expression of interest or informal conversation is not an active partnership.</p>
         </div>
         ${presence}
-        <p class="section-note">The contact page does not yet publish an enquiry form. Opening it does not submit an enquiry or create a partnership.</p>
+        <p class="section-note">The contact form emails the enquiry to CureSoulLife. Opening this page does not submit an enquiry or create a partnership.</p>
       </div>
     </section>
 
@@ -3418,7 +3422,7 @@ function aboutPage(depth) {
           ${cta(depth, "human-transformation/index.html", "Discover Human Transformation", "btn btn-light")}
           ${cta(depth, "contact/index.html", "Connect with CureSoulLife", "btn btn-ghost-light")}
         </div>
-        <p class="section-note">The contact page does not yet publish an enquiry form. Opening it does not send a message.</p>
+        <p class="section-note">The contact form emails the enquiry to CureSoulLife. Opening this page does not send a message.</p>
       </div>
     </section>`;
 }
@@ -3725,17 +3729,14 @@ function founderPage(depth) {
 
 function contactPage(depth) {
   const categories = [
-    ["general_enquiry", "General Enquiry", "For questions about CureSoulLife, its institutional purpose, knowledge resources or general information."],
-    ["media_press", "Media & Press", "For verified media enquiries, interview requests, press questions or editorial communication."],
+    ["programs_retreats", "Programs & Retreats", "For questions about programmes, workshops or retreats. No programme or retreat is currently confirmed through this form."],
+    ["personal_guidance", "Personal Guidance", "For questions about possible personal guidance. Selecting this category does not mean a guidance service is open for booking."],
+    ["wellness_mentorship", "Wellness Business Mentorship", "For questions about possible mentorship for a wellness business. Selecting this category does not mean a mentorship programme is currently offered."],
     ["institutional_collaboration", "Institutional Collaboration", "For universities, researchers, educators, professional organisations and other institutions interested in exploring possible collaboration."],
-    ["global_network", "Global Network & Community Collaboration", "For people or organisations interested in the future of CureSoulLife’s learning network, local initiatives or community collaboration."],
-    ["experiences_retreats", "Experiences & Retreats", "For questions about experiences, workshops or retreats."],
-    ["speaking_content", "Speaking & Content Invitations", "For podcast appearances, interviews, speaking invitations or content-related proposals."],
-    ["feedback", "Feedback & Suggestions", "For feedback about the website, content, accessibility or institutional communication."],
-    ["other", "Other Enquiry", "For messages that do not fit the listed categories."]
+    ["media_general", "Media & General Enquiries", "For media questions and other general messages. This is not a claim that a press office is operating."]
   ];
   const esc = (value) => value.replace(/&/g, "&amp;");
-  const options = [`<option value="">Select an enquiry type</option>`].concat(categories.map(([value, label]) => `<option value="${value}">${esc(label)}</option>`)).join("");
+  const options = [`<option value="">Select an enquiry category</option>`].concat(categories.map(([value, label]) => `<option value="${value}">${esc(label)}</option>`)).join("");
   const cards = categories.map(([value, label, copy]) => `<li><button type="button" class="enquiry-card" data-enquiry="${value}" aria-pressed="false"><span>${esc(label)}</span><small>${copy}</small></button></li>`).join("");
   return `
     <header class="page-hero contact-hero" id="contact-hero">
@@ -3751,8 +3752,8 @@ function contactPage(depth) {
           <h1>Start a conversation. Explore a possibility.</h1>
           <p class="lede">Have a question about CureSoulLife, an idea for collaboration or feedback to share?</p>
           <p class="support">We welcome thoughtful enquiries from individuals, educators, researchers, practitioners, media professionals and organisations interested in human transformation and lifelong learning.</p>
-          <p class="support">Choose the option that best describes your enquiry, and we will use the information you provide to understand how to direct it.</p>
-          <div class="status-note">No verified delivery channel is connected, so this form cannot send a message. The Privacy Policy is not published. Nothing entered here is received, stored or forwarded.</div>
+          <p class="support">Choose the category that best describes your question. Sending the form emails the enquiry to curesoullife@gmail.com.</p>
+          <div class="status-note">The website does not keep a copy of the message. FormSubmit forwards it by email to curesoullife@gmail.com. The privacy page remains a draft pending owner and legal approval and is not an approved policy.</div>
           <div class="cta-row"><a class="btn btn-primary" href="#enquiry-form">Send an Enquiry${arrow}</a></div>
         </div>
       </div>
@@ -3762,7 +3763,7 @@ function contactPage(depth) {
       <div class="container">
         <div class="section-head reading-block">
           <h2 id="enquiry-types-title">How can we help direct your enquiry?</h2>
-          <p class="support">Select the category that best matches your message. This helps us understand the purpose of your enquiry and route it appropriately.</p>
+          <p class="support">Select the category that best matches your message. The category describes the question. It does not send it, and it does not mean a service is open.</p>
           <p class="section-note">These categories describe kinds of messages. They are not claims that a department, service or programme is operating.</p>
         </div>
         <ul class="enquiry-grid">${cards}</ul>
@@ -3785,14 +3786,14 @@ function contactPage(depth) {
             <p id="email-error" class="field-error" hidden></p>
           </div>
           <div class="field">
-            <label for="enquiry-type">Enquiry type <span class="req">(required)</span></label>
-            <select id="enquiry-type" name="enquiry_type" required aria-describedby="enquiry-type-error">${options}</select>
-            <p id="enquiry-type-error" class="field-error" hidden></p>
+            <label for="country">Country or region <span class="req">(required)</span></label>
+            <input id="country" name="country_or_region" type="text" autocomplete="country-name" required aria-describedby="country-error">
+            <p id="country-error" class="field-error" hidden></p>
           </div>
           <div class="field">
-            <label for="subject">Subject <span class="req">(required)</span></label>
-            <input id="subject" name="subject" type="text" required placeholder="What is your enquiry about?" aria-describedby="subject-error">
-            <p id="subject-error" class="field-error" hidden></p>
+            <label for="enquiry-type">Enquiry category <span class="req">(required)</span></label>
+            <select id="enquiry-type" name="enquiry_category" required aria-describedby="enquiry-type-error">${options}</select>
+            <p id="enquiry-type-error" class="field-error" hidden></p>
           </div>
           <div class="field">
             <label for="message">Message <span class="req">(required)</span></label>
@@ -3801,21 +3802,19 @@ function contactPage(depth) {
             <p id="message-error" class="field-error" hidden></p>
           </div>
           <div class="field">
-            <label for="organisation">Organisation <span class="opt">(optional)</span></label>
-            <input id="organisation" name="organisation" type="text" autocomplete="organization" placeholder="Organisation or institution, if relevant">
+            <label for="telephone">Telephone <span class="opt">(optional)</span></label>
+            <input id="telephone" name="telephone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="telephone-note telephone-error">
+            <p id="telephone-note" class="section-note">Include a country code if you choose to leave a number. Any format is accepted. This field is not required.</p>
+            <p id="telephone-error" class="field-error" hidden></p>
           </div>
-          <div class="field">
-            <label for="website">Website or public profile <span class="opt">(optional)</span></label>
-            <input id="website" name="website_or_profile" type="text" inputmode="url" placeholder="https://...">
-          </div>
-          <div class="field">
-            <label for="country">Country or region <span class="opt">(optional)</span></label>
-            <input id="country" name="country_or_region" type="text" autocomplete="country-name">
+          <div class="hp-field" aria-hidden="true">
+            <label for="company-website">Company website</label>
+            <input id="company-website" name="company_website" type="text" tabindex="-1" autocomplete="off">
           </div>
           <div class="field field-check">
-            <input id="privacy" name="privacy_acknowledgement" type="checkbox" value="yes" disabled aria-describedby="privacy-note privacy-error">
-            <label for="privacy">I have read the Privacy Policy and understand how the information in this form will be used to handle my enquiry.</label>
-            <p id="privacy-note" class="section-note">The Privacy Policy is not published, so these words are not linked and this box cannot be confirmed.</p>
+            <input id="privacy" name="privacy_acknowledgement" type="checkbox" value="yes" aria-describedby="privacy-note privacy-error">
+            <label for="privacy">I understand that this message will be emailed to curesoullife@gmail.com so CureSoulLife can read it and reply.</label>
+            <p id="privacy-note" class="section-note">Read the <a href="${url(depth, "privacy-policy/index.html")}">draft Privacy Policy</a>. It is pending owner and legal approval and is not an approved policy. The message is not stored on the website.</p>
             <p id="privacy-error" class="field-error" hidden></p>
           </div>
           <p id="enquiry-status" class="form-status" role="alert" tabindex="-1" hidden></p>
@@ -3855,7 +3854,7 @@ function contactPage(depth) {
           <h2 id="after-contact-title">A simple, responsible process.</h2>
         </div>
         <ol class="community-cards">
-          <li><h3>Your enquiry is received</h3><p>A success message would be shown only after a submission system confirms receipt. No system is connected, so that message is not shown.</p></li>
+          <li><h3>Your enquiry is emailed</h3><p>A success message is shown only after the email service accepts the message for delivery to curesoullife@gmail.com.</p></li>
           <li><h3>The enquiry is reviewed</h3><p>An authorised person would review the message and identify an appropriate next step. No reviewer is assigned on this page.</p></li>
           <li><h3>Follow-up, where appropriate</h3><p>If a response were appropriate and sufficient contact details had been provided, someone might follow up. No reply time is promised, and an individual response is not guaranteed.</p></li>
         </ol>
@@ -3865,11 +3864,10 @@ function contactPage(depth) {
     <section class="section section-white" id="contact-privacy" aria-labelledby="contact-privacy-title">
       <div class="container reading-block">
         <h2 id="contact-privacy-title">Your information should be handled with care.</h2>
-        <p class="support">Please share only the information necessary for us to understand and respond to your enquiry.</p>
-        <p class="support">Contact details and message content should be handled according to CureSoulLife’s published privacy policy and applicable requirements.</p>
-        <p class="support">We should collect only the information needed for the stated purpose, restrict access to authorised people, retain submissions only as long as reasonably necessary under the applicable retention policy and use appropriate safeguards.</p>
-        <p class="support">Submitting a contact form should not automatically subscribe someone to a newsletter or marketing list.</p>
-        <p class="section-note">The Privacy Policy is not published. This form does not store a message, send it to a recipient, or add anyone to a list.</p>
+        <p class="support">Please share only the information needed for a reply. The website does not store the message.</p>
+        <p class="support">FormSubmit forwards the enquiry by email to curesoullife@gmail.com. The <a href="${url(depth, "privacy-policy/index.html")}">draft Privacy Policy</a> records that path. How long the inbox keeps the email, and how a person can ask for it to be deleted, are still awaiting approval.</p>
+        <p class="support">Sending this form does not add anyone to a newsletter or marketing list. No such list is connected here.</p>
+        <p class="section-note">The draft is not an approved policy. The form does not keep its own copy of the message.</p>
       </div>
     </section>
 
@@ -3877,11 +3875,11 @@ function contactPage(depth) {
       <div class="container reading-block">
         <h2 id="contact-faq-title">Questions about contacting CureSoulLife</h2>
         <div class="faq-list">
-          <details><summary>What can I contact CureSoulLife about?</summary><p>You can contact us with general questions, media and press enquiries, collaboration ideas, questions about experiences and retreats, speaking invitations, feedback or other relevant messages.</p></details>
-          <details><summary>How can I explore a collaboration with CureSoulLife?</summary><p>Choose Institutional Collaboration and describe your organisation, idea, intended purpose and the people it may serve. Submitting an enquiry does not guarantee a partnership or formal relationship.</p></details>
-          <details><summary>Can I contact CureSoulLife about retreats or experiences?</summary><p>Yes. Select Experiences &amp; Retreats. If a specific experience has a verified booking page on CureSoulLife.com, use that page for confirmed availability, registration and payment. No such booking page is published.</p></details>
-          <details><summary>Does submitting the form guarantee a response?</summary><p>No specific response time or individual response is guaranteed. If a response is appropriate, the team may follow up using the contact details provided. This form cannot currently submit a message.</p></details>
-          <details><summary>How will my information be used?</summary><p>Information should be used to understand and handle your enquiry in line with the published Privacy Policy and actual data-handling practices. The form must not automatically subscribe you to marketing communications. No policy is published, and this form does not keep what you type.</p></details>
+          <details><summary>What can I contact CureSoulLife about?</summary><p>The form offers five categories: Programs &amp; Retreats, Personal Guidance, Wellness Business Mentorship, Institutional Collaboration, and Media &amp; General Enquiries. Choosing a category does not mean that service is currently open. Sending the form emails the message to curesoullife@gmail.com.</p></details>
+          <details><summary>How can I explore a collaboration with CureSoulLife?</summary><p>Choose Institutional Collaboration and describe your organisation, idea, intended purpose and the people it may serve. Sending an enquiry does not guarantee a partnership or formal relationship.</p></details>
+          <details><summary>Can I contact CureSoulLife about retreats or experiences?</summary><p>You can select Programs &amp; Retreats and send the form. No booking page is published, and the email does not confirm a place.</p></details>
+          <details><summary>Does submitting the form guarantee a response?</summary><p>No. The form emails curesoullife@gmail.com when the delivery service accepts it. No reply time is promised, and an individual reply is not guaranteed.</p></details>
+          <details><summary>How will my information be used?</summary><p>It is emailed to curesoullife@gmail.com so the enquiry can be read and, where appropriate, answered. The website does not keep a copy. The draft Privacy Policy is pending owner and legal approval and is not an approved policy. It does not set a retention period or add you to a marketing list.</p></details>
           <details><summary>Can I use this form for emergencies or urgent clinical support?</summary><p>No. This is an institutional contact channel, not an emergency or crisis service. It is not a substitute for urgent local emergency or professional support.</p></details>
         </div>
       </div>
@@ -3898,6 +3896,65 @@ function contactPage(depth) {
     </section>`;
 }
 
+
+function draftNotice() {
+  return `<div class="status-note" role="note"><strong>Draft pending owner and legal approval.</strong> This page is not an approved policy. It does not create legal rights or obligations, and it does not authorise the contact form to collect or send personal information.</div>`;
+}
+
+function policyDocument(depth, crumb, title, lede, blocks) {
+  const body = blocks.map(([heading, html]) => `<h2>${heading}</h2>${html}`).join("");
+  return `
+    <header class="page-hero" id="policy-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="${url(depth, "index.html")}">Home</a></li>
+            <li aria-current="page">${crumb}</li>
+          </ol>
+        </nav>
+        <div class="reading-block">
+          ${eyebrow("Draft for review")}
+          <h1>${title}</h1>
+          <p class="lede">${lede}</p>
+          ${draftNotice()}
+        </div>
+      </div>
+    </header>
+    <section class="section section-white">
+      <div class="container reading-block policy-copy">
+        ${body}
+        <p class="support">Related drafts: <a href="${url(depth, "privacy-policy/index.html")}">Privacy Policy</a>, <a href="${url(depth, "terms-of-use/index.html")}">Terms of Use</a>, and <a href="${url(depth, "wellness-disclaimer/index.html")}">Wellness Disclaimer</a>. Each one is pending approval. An enquiry can be sent from the <a href="${url(depth, "contact/index.html")}">contact page</a>.</p>
+      </div>
+    </section>`;
+}
+
+function privacyPolicyPage(depth) {
+  return policyDocument(depth, "Privacy Policy", "Draft Privacy Policy", "This draft describes how an enquiry email is forwarded. It is not an approved privacy policy.", [
+    ["What this draft covers", `<p class="support">This draft is about the public CureSoulLife website and the enquiry form on the contact page. The public name on the website is CureSoulLife.</p><p class="support">The form asks for full name, email address, country or region, enquiry category and message. Telephone is optional. A completed form is forwarded by email to curesoullife@gmail.com. The website does not store the message.</p>`],
+    ["Details awaiting owner approval", `<p class="support">The recipient inbox has been named. These operational details have not been approved and are intentionally not stated as facts:</p><ul class="format-list"><li>Legal entity name, registration and postal address.</li><li>A separate privacy-request address, other than the enquiry inbox.</li><li>The lawful basis for receiving an enquiry.</li><li>How long the emailed enquiry would be kept, and who else would be allowed to read it.</li><li>Whether any person reading the inbox would be in another country.</li><li>How a person could request access, correction or deletion, and which law would apply.</li><li>Whether the existing Google tag in the page head is retained, and what it records.</li></ul><p class="section-note">No retention period is stated, because none has been approved.</p>`],
+    ["What the website already does", `<p class="support">Sending the contact form gives the message to FormSubmit, which emails it to curesoullife@gmail.com. That is the delivery path. It is not a claim that a longer privacy arrangement has been signed.</p><p class="support">Every public page already loads one Google tag in the document head. This draft does not approve that tag, describe its data, or add another analytics or advertising service.</p><p class="support">The website does not provide user accounts, a newsletter signup or a payment form.</p>`],
+    ["Children", `<p class="support">No decision has been approved about whether the future enquiry channel is intended for children, or about any age limit. The form should not be used to send sensitive information about a child.</p>`],
+    ["Changes", `<p class="support">This text can change during owner and legal review. The approved version, if one is adopted, should replace this draft and be clearly distinguishable from it. Until then, this page remains a draft.</p>`]
+  ]);
+}
+
+function termsOfUsePage(depth) {
+  return policyDocument(depth, "Terms of Use", "Draft Terms of Use", "This draft sets out points for review before CureSoulLife publishes terms for use of the website. It is not an approved agreement.", [
+    ["Using the website", `<p class="support">The public pages explain CureSoulLife’s ideas, including the Human Operating System™ and the human transformation framework. They are available to read. They do not create an account, a membership or a contract to provide a programme, retreat, guidance session or mentorship.</p><p class="support">The contact form can email an enquiry to curesoullife@gmail.com. Filling it in does not create a booking, a client relationship or an obligation to reply.</p>`],
+    ["Details awaiting owner approval", `<p class="support">The following points are not decided in this draft:</p><ul class="format-list"><li>The legal entity that would offer these terms, and its postal address.</li><li>The governing law and the place where a dispute would be heard.</li><li>Which reuse of text, names or images is allowed, and on what licence.</li><li>Any limitation of liability, warranty or indemnity.</li><li>A contact address for a legal notice.</li></ul><p class="section-note">This draft does not choose a jurisdiction or state that a person has accepted a contract by visiting the site.</p>`],
+    ["Conduct", `<p class="support">The website is not a place to send unlawful, harmful or deceptive material. An enquiry that arrives by email can still be declined.</p>`],
+    ["Changes", `<p class="support">An approved terms page, if adopted, should replace this draft. Until that approval, these words are a review document only.</p>`]
+  ]);
+}
+
+function wellnessDisclaimerPage(depth) {
+  return policyDocument(depth, "Wellness Disclaimer", "Draft Wellness Disclaimer", "This draft explains the limit of the educational material on this website. It is not an approved disclaimer and it is not medical advice.", [
+    ["Educational material", `<p class="support">Articles, framework descriptions and reflective prompts are general educational and wellness material. They are not a diagnosis, a treatment plan, psychotherapy, medical care or a promise of a particular result.</p><p class="support">The Human Operating System™, Life Decoding and the seven-stage human transformation framework are ways of organising reflection. They are not clinical tests, and they do not measure health, consciousness or personal worth.</p>`],
+    ["No service is confirmed by a category", `<p class="support">The contact form includes categories for programmes and retreats, personal guidance and wellness business mentorship. Those labels describe the kind of question a person might ask later. They do not mean that a clinical, coaching or mentorship service is currently offered, staffed or booked through this website.</p><p class="support">Experiences and retreats pages say when nothing is confirmed. This disclaimer does not add a schedule, a price or a facilitator credential.</p>`],
+    ["Urgent help", `<p class="support">The contact form is not an emergency or crisis service. A person who needs urgent medical, mental health or safety help should contact local emergency or professional services. This draft does not name a helpline, because no helpline has been approved for this page.</p>`],
+    ["Details awaiting owner approval", `<ul class="format-list"><li>Any professional credentials, licences or supervising practitioners to be disclosed.</li><li>The countries or regions in which a future service, if any, would be offered.</li><li>The wording of a final disclaimer approved by qualified legal or clinical review.</li><li>A contact address for a concern about wellness content.</li></ul><p class="section-note">No credential, clinic, regulator or emergency number is added here.</p>`]
+  ]);
+}
 
 const blogPosts = [
   {
@@ -4297,6 +4354,48 @@ const pages = [
   <meta property="og:url" content="https://curesoullife.org/blog/${blogPeace.slug}">
   <meta property="og:image" content="https://curesoullife.org/assets/images/${blogPeace.image}">`,
     body: blogArticlePage(2, blogPeace)
+  },
+  {
+    file: "privacy-policy/index.html",
+    depth: 1,
+    current: "",
+    title: "Draft Privacy Policy | CureSoulLife",
+    description: "Draft Privacy Policy for the CureSoulLife website, pending owner and legal approval. It is not an approved policy. Enquiry emails are forwarded to the named inbox.",
+    head: `  <link rel="canonical" href="https://curesoullife.org/privacy-policy">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CureSoulLife">
+  <meta property="og:title" content="Draft Privacy Policy | CureSoulLife">
+  <meta property="og:description" content="Draft Privacy Policy for the CureSoulLife website, pending owner and legal approval. It is not an approved policy. Enquiry emails are forwarded to the named inbox.">
+  <meta property="og:url" content="https://curesoullife.org/privacy-policy">`,
+    body: privacyPolicyPage(1)
+  },
+  {
+    file: "terms-of-use/index.html",
+    depth: 1,
+    current: "",
+    title: "Draft Terms of Use | CureSoulLife",
+    description: "Draft Terms of Use for the CureSoulLife website, pending owner and legal approval. It is not an approved agreement.",
+    head: `  <link rel="canonical" href="https://curesoullife.org/terms-of-use">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CureSoulLife">
+  <meta property="og:title" content="Draft Terms of Use | CureSoulLife">
+  <meta property="og:description" content="Draft Terms of Use for the CureSoulLife website, pending owner and legal approval. It is not an approved agreement.">
+  <meta property="og:url" content="https://curesoullife.org/terms-of-use">`,
+    body: termsOfUsePage(1)
+  },
+  {
+    file: "wellness-disclaimer/index.html",
+    depth: 1,
+    current: "",
+    title: "Draft Wellness Disclaimer | CureSoulLife",
+    description: "Draft Wellness Disclaimer for CureSoulLife educational material, pending owner and legal approval. It is not medical advice and not an approved disclaimer.",
+    head: `  <link rel="canonical" href="https://curesoullife.org/wellness-disclaimer">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CureSoulLife">
+  <meta property="og:title" content="Draft Wellness Disclaimer | CureSoulLife">
+  <meta property="og:description" content="Draft Wellness Disclaimer for CureSoulLife educational material, pending owner and legal approval. It is not medical advice and not an approved disclaimer.">
+  <meta property="og:url" content="https://curesoullife.org/wellness-disclaimer">`,
+    body: wellnessDisclaimerPage(1)
   }
 ];
 

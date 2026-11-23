@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const root = path.resolve("D:/CSL 10-10");
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const skip = new Set(["scripts", "_docx_extract", "_preview", "node_modules"]);
 
 function walk(dir, acc = []) {
@@ -450,7 +451,10 @@ const approvedRoutes = [
   ["blog/how-to-understand-yourself-better/index.html", "https://curesoullife.org/blog/how-to-understand-yourself-better"],
   ["blog/how-to-build-an-unbreakable-mindset/index.html", "https://curesoullife.org/blog/how-to-build-an-unbreakable-mindset"],
   ["blog/human-transformation-journey-of-self-discovery/index.html", "https://curesoullife.org/blog/human-transformation-journey-of-self-discovery"],
-  ["blog/how-to-stop-overthinking-and-find-mental-peace/index.html", "https://curesoullife.org/blog/how-to-stop-overthinking-and-find-mental-peace"]
+  ["blog/how-to-stop-overthinking-and-find-mental-peace/index.html", "https://curesoullife.org/blog/how-to-stop-overthinking-and-find-mental-peace"],
+  ["privacy-policy/index.html", "https://curesoullife.org/privacy-policy"],
+  ["terms-of-use/index.html", "https://curesoullife.org/terms-of-use"],
+  ["wellness-disclaimer/index.html", "https://curesoullife.org/wellness-disclaimer"]
 ];
 const sitemap = fs.existsSync(path.join(root, "sitemap.xml")) ? fs.readFileSync(path.join(root, "sitemap.xml"), "utf8") : "";
 const robots = fs.existsSync(path.join(root, "robots.txt")) ? fs.readFileSync(path.join(root, "robots.txt"), "utf8") : "";
@@ -518,8 +522,26 @@ if (new RegExp(blogBan).test(blogHtml) || new RegExp(blogBan).test(blogArticle) 
 const contactHtml = fs.readFileSync(path.join(root, "contact/index.html"), "utf8");
 if (contactHtml.includes("Your enquiry has been received")) bad.push("contact page shows a receipt that was not confirmed");
 if (contactHtml.includes("mailto:") || contactHtml.includes("@curesoullife.org")) bad.push("contact page publishes an unverified address");
-if (!contactHtml.includes("No verified delivery channel is connected")) bad.push("contact page does not state that delivery is unavailable");
-if (!contactHtml.includes("The Privacy Policy is not published")) bad.push("contact page does not state that the privacy policy is unpublished");
+if (!contactHtml.includes("curesoullife@gmail.com")) bad.push("contact page does not name the approved enquiry inbox");
+if (!contactHtml.includes("FormSubmit")) bad.push("contact page does not name the email forwarding service");
+if (contactHtml.includes("No verified delivery channel is connected")) bad.push("contact page still says delivery is unavailable");
+if (!contactHtml.includes("not an approved policy")) bad.push("contact page does not state that the privacy policy is an unapproved draft");
+if (!contactHtml.includes("Programs &amp; Retreats") || !contactHtml.includes("Personal Guidance") || !contactHtml.includes("Wellness Business Mentorship") || !contactHtml.includes("Institutional Collaboration") || !contactHtml.includes("Media &amp; General Enquiries")) bad.push("contact page is missing an enquiry category");
+if (!contactHtml.includes('id="full-name"') || !contactHtml.includes('id="email"') || !contactHtml.includes('id="country"') || !contactHtml.includes('id="enquiry-type"') || !contactHtml.includes('id="message"') || !contactHtml.includes('id="telephone"') || !contactHtml.includes('id="privacy"')) bad.push("contact form is missing a prepared field");
+if (/<form[^>]*\baction=/.test(contactHtml)) bad.push("contact form has a submission action");
+const aboutHtml = fs.readFileSync(path.join(root, "about/index.html"), "utf8");
+if (aboutHtml.includes("not yet connected to a working submission service")) bad.push("about page still says the enquiry form is not connected");
+if (!aboutHtml.includes("The contact form emails the enquiry to CureSoulLife.")) bad.push("about page does not explain that the form sends email");
+for (const file of ["privacy-policy/index.html", "terms-of-use/index.html", "wellness-disclaimer/index.html"]) {
+  const policyHtml = fs.readFileSync(path.join(root, file), "utf8");
+  const visible = policyHtml.split("curesoullife@gmail.com").join("");
+  if (!policyHtml.includes("pending owner and legal approval") || !policyHtml.includes("not an approved policy")) bad.push(`${file} is not labelled as an unapproved draft`);
+  if (policyHtml.includes("mailto:") || /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(visible)) bad.push(`${file} publishes an address`);
+}
+const footerSample = fs.readFileSync(path.join(root, "index.html"), "utf8");
+for (const href of ["privacy-policy/index.html", "terms-of-use/index.html", "wellness-disclaimer/index.html"]) {
+  if (!footerSample.includes(href)) bad.push(`footer is missing ${href}`);
+}
 console.log(`pages ${files.length}`);
 console.log(bad.length ? bad.join("\n") : "links ok");
 console.log(missing.length ? `missing:\n${missing.join("\n")}` : "copy ok");
