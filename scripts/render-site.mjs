@@ -50,6 +50,7 @@ const footerCols = [
   ]],
   ["Experience", [
     ["experiences/index.html", "Experiences"],
+    ["personal-guidance/index.html", "Personal Guidance"],
     ["experiences/retreats/index.html", "Retreats"],
     ["community/index.html", "Community"],
     ["community/global-network/index.html", "Global Network"]
@@ -2188,7 +2189,7 @@ function experiencesPage(depth) {
   const formats = [
     ["Guided Practices", "Structured opportunities to explore practices such as meditation, reflection, yoga-based movement or other suitable activities within a clearly explained context.", ["Guided meditation", "Reflective exercises", "Yoga-based practices", "Breath-awareness practices", "Guided relaxation or Yoga Nidra, where appropriately designed"], ["knowledge/index.html", "Explore Practices"], ""],
     ["Workshops", "Focused sessions that bring people together to explore a specific subject, learn a concept or participate in guided activities.", ["Self-awareness", "Human behaviour", "Emotional understanding", "Relationships and communication", "Purpose and values", "Conscious living"], null, "No workshop is published, so this card has no action."],
-    ["Structured Programmes", "Learning experiences organised around a defined topic, duration and sequence of activities, with opportunities for reflection and practical application.", ["Short learning programmes", "Guided practice programmes", "Multi-day learning experiences", "Longer structured personal-development journeys"], null, "No programme is published, so this card has no action."],
+    ["Structured Programmes", "Learning experiences organised around a defined topic, duration and sequence of activities, with opportunities for reflection and practical application.", ["Short learning programmes", "Guided practice programmes", "Multi-day learning experiences", "Longer structured personal-development journeys"], ["programs/index.html", "Explore Programs"], "Three programs are developed and described on the Programs page. Registration is closed. Closed registration does not record a past gathering."],
     ["Retreats and Immersions", "Dedicated periods of guided learning, reflection and participation, often in a shared environment that allows people to step away from ordinary routines.", ["One-day retreats", "Multi-day retreats", "Themed immersive experiences", "Group reflection and practice sessions"], ["experiences/retreats/index.html", "Explore Retreats"], ""],
     ["Events and Shared Learning", "Opportunities to encounter ideas, hear different perspectives and participate in shared learning with others.", ["Public learning sessions", "Talks and discussions", "Community learning gatherings", "Special events and facilitated conversations"], ["community/index.html", "Explore Community"], ""]
   ];
@@ -2284,7 +2285,7 @@ function experiencesPage(depth) {
             <ul class="exp-row-list">${themes.map((theme) => `<li>${theme}</li>`).join("")}</ul>
           </article>`;
         }).join("")}</div>
-        <p class="section-note">These formats explain kinds of experience. They are not a list of live sessions. A listed practice is not a current in-person service unless a published offering says so. Workshops and programmes have no action because no approved destination exists. No booking page on another site is linked.</p>
+        <p class="section-note">These formats explain kinds of experience. They are not a list of live sessions. A listed practice is not a current in-person service unless a published offering says so. Workshops have no action because no approved workshop destination exists. Program descriptions are published on the Programs page. No booking page on another site is linked.</p>
       </div>
     </section>
 
@@ -2293,6 +2294,14 @@ function experiencesPage(depth) {
         <h2 id="available-title">Explore what is available.</h2>
         <p class="support">Discover published CureSoulLife experiences, including their purpose, format and practical details. Availability may change, so each listing should direct you to the most current information.</p>
         ${listings}
+        <h3>Published program descriptions</h3>
+        <p class="support">These pages describe three developed programs. Registration is closed. No date or fee is published, and a closed registration does not record whether a program has been conducted.</p>
+        <ul class="format-list">
+          <li><a href="${url(depth, "programs/life-reset-7/index.html")}">Life Reset 7</a> — 7-Day Online Guided Experience</li>
+          <li><a href="${url(depth, "programs/life-reset-one-day/index.html")}">LIFE RESET — A Day to Pause, Reconnect &amp; Restart</a> — One-Day In-Person Retreat</li>
+          <li><a href="${url(depth, "programs/inner-balance-transformation/index.html")}">INNER BALANCE &amp; TRANSFORMATION</a> — 9-Day Online Guided Program</li>
+        </ul>
+        <div class="cta-row">${cta(depth, "programs/index.html", "Explore Programs")}</div>
       </div>
     </section>
 
@@ -2365,6 +2374,359 @@ function experiencesPage(depth) {
 }
 
 const retreatOfferings = [];
+
+function personalGuidancePage(depth) {
+  const topics = [
+    ["Relationships &amp; Marriage", "Understanding communication difficulties, recurring conflicts, expectations, emotional reactions and the choices involved in important relationships."],
+    ["Overthinking &amp; Personal Clarity", "Exploring patterns of repetitive thinking, uncertainty, self-doubt and difficulty making decisions."],
+    ["Life Transitions &amp; Difficult Decisions", "Finding perspective during relationship changes, personal setbacks, family challenges or significant turning points."],
+    ["Career &amp; Business Clarity", "Reflecting on priorities, personal strengths, professional choices and the direction of a career or business."],
+    ["Self-Awareness &amp; Personal Growth", "Recognising habits, beliefs, emotional patterns and behaviours that may influence everyday decisions and relationships."]
+  ];
+  const steps = [
+    ["Listen &amp; Understand", "Creating space to discuss the situation, concerns and desired direction."],
+    ["Explore the Patterns", "Reflecting on recurring responses, perspectives, habits and choices."],
+    ["Find Clarity", "Identifying possible options, priorities and areas of personal responsibility."],
+    ["Choose the Next Steps", "Developing practical actions that the individual can consider in everyday life."]
+  ];
+  return `
+    <header class="page-hero" id="guidance-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="${url(depth, "index.html")}">Home</a></li>
+            <li aria-current="page">Personal Guidance</li>
+          </ol>
+        </nav>
+        <div class="reading-block">
+          ${eyebrow("CureSoulLife · Personal Guidance")}
+          <h1>Understand Your Patterns. Find Your Direction.</h1>
+          <p class="lede">Personal guidance for self-awareness, life clarity, conscious decision-making and meaningful personal growth.</p>
+          <p class="founder-role">Guided by <a href="${url(depth, "about/founder/index.html")}">Sarvesh Mishra</a> <span aria-hidden="true">·</span> Founder, CureSoulLife</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="section section-white" id="guidance-topics" aria-labelledby="guidance-topics-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="guidance-topics-title">Areas of guidance</h2>
+        </div>
+        <div class="community-cards">${topics.map(([title, copy]) => `<article><h3>${title}</h3><p>${copy}</p></article>`).join("")}</div>
+      </div>
+    </section>
+
+    <section class="section" id="guidance-approach" aria-labelledby="guidance-approach-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="guidance-approach-title">Our approach</h2>
+          <p class="support">Personal Guidance at CureSoulLife is informed by the <a href="${url(depth, "human-operating-system/index.html")}">Human Operating System™</a>, a conceptual framework that explores interconnected dimensions of human life.</p>
+          <p class="support">The process may involve:</p>
+        </div>
+        <ol class="community-cards">${steps.map(([title, copy]) => `<li><h3>${title}</h3><p>${copy}</p></li>`).join("")}</ol>
+        <p class="section-note">Each conversation is shaped by the person's circumstances. There is no universal formula or guaranteed outcome.</p>
+        <div class="cta-row">${cta(depth, "human-operating-system/index.html", "Explore the Human Operating System™")}</div>
+      </div>
+    </section>
+
+    <section class="section section-sand" id="guidance-conversation" aria-labelledby="guidance-conversation-title">
+      <div class="container reading-block">
+        <h2 id="guidance-conversation-title">A human-centred conversation</h2>
+        <p class="support">Sometimes, what a person needs first is not another piece of advice, but an opportunity to examine their situation without unnecessary pressure or judgment.</p>
+        <p class="support">Our intention is not to make decisions on someone's behalf. It is to support thoughtful reflection, greater self-understanding and more conscious choices.</p>
+      </div>
+    </section>
+
+    <section class="section section-white" id="guidance-suitability" aria-labelledby="guidance-suitability-title">
+      <div class="container reading-block">
+        <h2 id="guidance-suitability-title">Who is this for?</h2>
+        <p class="support">Personal Guidance may be suitable for adults who want to reflect on relationships, life choices, personal development, career direction or everyday challenges.</p>
+        <p class="support">It is not a replacement for licensed mental health care, medical treatment, crisis support or other regulated professional services.</p>
+        <p class="section-note">People experiencing severe psychological distress, suicidal thoughts or an immediate safety concern should seek qualified professional or emergency support.</p>
+      </div>
+    </section>
+
+    <section class="section section-sand" id="guidance-begin" aria-labelledby="guidance-begin-title">
+      <div class="container reading-block">
+        <h2 id="guidance-begin-title">Contact and next steps</h2>
+        <p class="support">If you would like to explore whether Personal Guidance is appropriate for your situation, you may contact CureSoulLife with a brief enquiry.</p>
+        <p class="support"><strong>Contact:</strong> curesoullife@gmail.com</p>
+        <p class="support">Whether that mailbox is receiving mail has not been confirmed on this page. Online submission on the contact form is temporarily unavailable.</p>
+        <p class="support">Session availability, suitability and any professional fees will be confirmed before a session is agreed.</p>
+        <div class="cta-row">${cta(depth, "contact/index.html", "Go to Contact")}</div>
+        <p class="founder-close-line">Heal. Grow. Awaken. Transform.</p>
+      </div>
+    </section>`;
+}
+
+function programStatus(delivery) {
+  return `
+    <section class="section section-white" id="program-status" aria-labelledby="program-status-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="program-status-title">Current standing</h2>
+          <p class="support">These three lines answer different questions. Closed registration does not show whether a program has been conducted before.</p>
+        </div>
+        <div class="community-cards community-wide">
+          <article><h3>Program developed</h3><p>The description on this page is published.</p></article>
+          <article><h3>Previous delivery</h3><p>${delivery}</p></article>
+          <article><h3>Registration</h3><p>Closed. No date, fee or payment is published.</p></article>
+        </div>
+      </div>
+    </section>`;
+}
+
+function programBoundary() {
+  return `
+    <section class="section section-white" id="program-boundary" aria-labelledby="program-boundary-title">
+      <div class="container reading-block">
+        <h2 id="program-boundary-title">Care and limits</h2>
+        <p class="support">This program is not a replacement for licensed mental health care, medical treatment, crisis support or other regulated professional services. Individual responses vary, and the program does not guarantee a result.</p>
+        <p class="section-note">People experiencing severe psychological distress, suicidal thoughts or an immediate safety concern should seek qualified professional or emergency support.</p>
+      </div>
+    </section>`;
+}
+
+function programEnquiry(depth) {
+  return `
+    <section class="section section-sand" id="program-enquiry" aria-labelledby="program-enquiry-title">
+      <div class="container reading-block">
+        <h2 id="program-enquiry-title">Expression of interest</h2>
+        <p class="support">An expression of interest can be sent while registration remains closed. This page does not take payment or reserve a place.</p>
+        <p class="support"><strong>Contact:</strong> curesoullife@gmail.com</p>
+        <p class="support">Whether that mailbox is receiving mail has not been confirmed on this page. Online submission on the contact form is temporarily unavailable.</p>
+        <div class="cta-row">${cta(depth, "contact/index.html", "Go to Contact")}</div>
+      </div>
+    </section>`;
+}
+
+function programHero(depth, crumb, eyebrowText, title, lede) {
+  return `
+    <header class="page-hero" id="program-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="${url(depth, "index.html")}">Home</a></li>
+            <li><a href="${url(depth, "programs/index.html")}">Programs</a></li>
+            <li aria-current="page">${crumb}</li>
+          </ol>
+        </nav>
+        <div class="reading-block">
+          ${eyebrow(eyebrowText)}
+          <h1>${title}</h1>
+          ${lede}
+        </div>
+      </div>
+    </header>`;
+}
+
+function programsPage(depth) {
+  const cards = [
+    ["Life Reset 7", "7-Day Online Guided Experience", "A seven-day online guided experience across brain, body, relationships, wealth and energy.", "programs/life-reset-7/index.html"],
+    ["LIFE RESET — A Day to Pause, Reconnect &amp; Restart", "One-Day In-Person Retreat", "A guided day for pause, guided experience, reflection and integration.", "programs/life-reset-one-day/index.html"],
+    ["INNER BALANCE &amp; TRANSFORMATION", "9-Day Online Guided Program", "A longer online program for sustained reflection, inner balance and behavioural awareness.", "programs/inner-balance-transformation/index.html"]
+  ];
+  return `
+    <header class="page-hero" id="programs-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="${url(depth, "index.html")}">Home</a></li>
+            <li aria-current="page">Programs</li>
+          </ol>
+        </nav>
+        <div class="reading-block">
+          ${eyebrow("CureSoulLife · Programs")}
+          <h1>Programs</h1>
+          <p class="lede">Three developed programs. Each page separates the published description, any verified past delivery, and whether registration is open.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="section section-white" id="program-list" aria-labelledby="program-list-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="program-list-title">Published programs</h2>
+          <p class="support">All three are developed. No completed gathering is recorded on this site, and registration is closed. Closed registration does not show whether a program has been conducted before.</p>
+        </div>
+        <div class="community-cards community-wide">${cards.map(([name, format, copy, route]) => `<article><p class="domain-index">${format}</p><h3>${name}</h3><p>${copy}</p><p>Program developed. Previous delivery is not recorded here. Registration is closed.</p>${textLink(depth, route, "View program")}</article>`).join("")}</div>
+      </div>
+    </section>
+
+    <section class="section" id="programs-boundary" aria-labelledby="programs-boundary-title">
+      <div class="container reading-block">
+        <h2 id="programs-boundary-title">Care and limits</h2>
+        <p class="support">These programs are not a replacement for licensed mental health care, medical treatment, crisis support or other regulated professional services. Individual responses vary, and a program does not guarantee a result.</p>
+        <p class="section-note">People experiencing severe psychological distress, suicidal thoughts or an immediate safety concern should seek qualified professional or emergency support.</p>
+        <div class="cta-row">${cta(depth, "experiences/index.html", "Back to Experiences", "btn btn-secondary")}</div>
+      </div>
+    </section>`;
+}
+
+function lifeResetSevenPage(depth) {
+  const areas = [
+    ["Brain", "Awareness of thought patterns and mindset. Reflection begins by noticing those patterns."],
+    ["Body", "Physical habits, energy sources and lifestyle. Reflection looks at how daily habits and energy fit together."],
+    ["Relationships", "Facts and stories in family and work ties. Reflection separates a fact from the story around it."],
+    ["Wealth", "Money beliefs and blocks. Reflection examines those beliefs."],
+    ["Energy", "Meditation, yoga and ancient wisdom practices, as named in the published account."]
+  ];
+  return `
+    ${programHero(depth, "Life Reset 7", "7-Day Online Guided Experience", "Life Reset 7", `
+      <p class="lede">A seven-day online guided experience across brain, body, relationships, wealth and energy.</p>`)}
+    ${programStatus("The published conversation describes how Life Reset is arranged. A completed cohort is not recorded on this page.")}
+
+    <section class="section" id="program-audience" aria-labelledby="program-audience-title">
+      <div class="container reading-block">
+        <h2 id="program-audience-title">Who it is for</h2>
+        <p class="support">Adults who want a guided online period to reflect on thought patterns, physical habits, relationships, money beliefs and energy.</p>
+      </div>
+    </section>
+
+    <section class="section section-sand" id="program-objectives" aria-labelledby="program-objectives-title">
+      <div class="container reading-block">
+        <h2 id="program-objectives-title">Learning and experience objectives</h2>
+        <p class="support">The published account uses the five areas below as subjects for awareness and reflection, and for what a person may then consider in ordinary life.</p>
+      </div>
+    </section>
+
+    <section class="section section-white" id="program-areas" aria-labelledby="program-areas-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="program-areas-title">Core experience areas</h2>
+          <p class="support">These five areas are named in CureSoulLife's <a href="${url(depth, "blog/how-to-build-an-unbreakable-mindset/index.html")}">published conversation</a>. They describe what the program covers. They are not a confirmed day-by-day curriculum, and this page does not add exercise instructions.</p>
+        </div>
+        <div class="community-cards">${areas.map(([title, copy]) => `<article><h3>${title}</h3><p>${copy}</p></article>`).join("")}</div>
+      </div>
+    </section>
+
+    <section class="section" id="program-format" aria-labelledby="program-format-title">
+      <div class="container reading-block">
+        <h2 id="program-format-title">Format and delivery</h2>
+        <p class="support">Life Reset 7 is a 7-day online guided experience. A session length, meeting method and cohort date are not published.</p>
+        <p class="support">It is separate from the one-day retreat, <a href="${url(depth, "programs/life-reset-one-day/index.html")}">LIFE RESET — A Day to Pause, Reconnect &amp; Restart</a>, and from <a href="${url(depth, "programs/inner-balance-transformation/index.html")}">INNER BALANCE &amp; TRANSFORMATION</a>, the nine-day program for sustained reflection.</p>
+      </div>
+    </section>
+
+    <section class="section section-sand" id="program-facilitator" aria-labelledby="program-facilitator-title">
+      <div class="container reading-block">
+        <h2 id="program-facilitator-title">Facilitation</h2>
+        <p class="support">In the published conversation, <a href="${url(depth, "about/founder/index.html")}">Sarvesh Mishra</a> describes Life Reset. He is Founder, CureSoulLife, and creator of the <a href="${url(depth, "human-operating-system/index.html")}">Human Operating System™</a>. The facilitator of a future cohort is not named here.</p>
+      </div>
+    </section>
+
+    ${programBoundary()}
+    ${programEnquiry(depth)}`;
+}
+
+function lifeResetDayPage(depth) {
+  const journey = [
+    ["Pause", "Step away from everyday routines and make room to notice what matters."],
+    ["Guided experience", "Take part in the guided portion of the day. The approved description combines guided practices and learning. A named practice is not published."],
+    ["Reflection", "Explore personal patterns. Sharing remains voluntary."],
+    ["Integration", "Consider meaningful next steps for ordinary life."]
+  ];
+  return `
+    ${programHero(depth, "One-day retreat", "One-Day In-Person Retreat", "LIFE RESET — A Day to Pause, Reconnect &amp; Restart", `
+      <p class="lede">A guided day designed to create space away from everyday routines and invite participants to pause, reflect and reconnect with what matters.</p>
+      <p class="support">The emphasis is not on becoming a different person in a single day. It is on creating space to notice, understand and choose with greater intention.</p>`)}
+    ${programStatus("No published source on this site records a completed gathering.")}
+
+    <section class="section" id="program-audience" aria-labelledby="program-audience-title">
+      <div class="container reading-block">
+        <h2 id="program-audience-title">Who it is for</h2>
+        <p class="support">People who want one guided day away from everyday routines, with time to pause, reflect and consider what matters to them.</p>
+      </div>
+    </section>
+
+    <section class="section section-sand" id="program-objectives" aria-labelledby="program-objectives-title">
+      <div class="container reading-block">
+        <h2 id="program-objectives-title">Learning and experience objectives</h2>
+        <p class="support">The day moves from pause, through a guided experience and reflection, toward integration. The aim is greater intention in what a person notices, understands and chooses.</p>
+      </div>
+    </section>
+
+    <section class="section section-white" id="program-areas" aria-labelledby="program-areas-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="program-areas-title">The day</h2>
+          <p class="support">The approved description holds the day together as pause, guided experience, reflection and integration. A timed session plan is not published.</p>
+        </div>
+        <ol class="community-cards">${journey.map(([title, copy]) => `<li><h3>${title}</h3><p>${copy}</p></li>`).join("")}</ol>
+      </div>
+    </section>
+
+    <section class="section" id="program-format" aria-labelledby="program-format-title">
+      <div class="container reading-block">
+        <h2 id="program-format-title">Format and delivery</h2>
+        <p class="support">This is a one-day in-person retreat. The venue and date are not published. The <a href="${url(depth, "experiences/retreats/index.html")}">Retreats page</a> explains how CureSoulLife approaches retreat design.</p>
+        <p class="support">This day is separate from <a href="${url(depth, "programs/life-reset-7/index.html")}">Life Reset 7</a>, the seven-day online experience across five areas.</p>
+      </div>
+    </section>
+
+    <section class="section section-sand" id="program-facilitator" aria-labelledby="program-facilitator-title">
+      <div class="container reading-block">
+        <h2 id="program-facilitator-title">Facilitation</h2>
+        <p class="support">A facilitator for this retreat has not been published. The founder of CureSoulLife is <a href="${url(depth, "about/founder/index.html")}">Sarvesh Mishra</a>.</p>
+      </div>
+    </section>
+
+    ${programBoundary()}
+    ${programEnquiry(depth)}`;
+}
+
+function innerBalancePage(depth) {
+  const themes = [
+    ["Sustained reflection", "Nine guided days give a longer span for returning to the same questions, rather than a single pass across five subjects."],
+    ["Inner balance", "The program asks how the parts of a person's life sit together, and what balance means in that person's circumstances."],
+    ["Behavioural awareness", "Reflection includes noticing patterns of response, choice and habit in ordinary life."]
+  ];
+  return `
+    ${programHero(depth, "Inner Balance", "9-Day Online Guided Program", "INNER BALANCE &amp; TRANSFORMATION", `
+      <p class="lede">A nine-day online guided program for sustained reflection on inner balance and behavioural awareness.</p>`)}
+    ${programStatus("No published source on this site records a completed gathering.")}
+
+    <section class="section" id="program-audience" aria-labelledby="program-audience-title">
+      <div class="container reading-block">
+        <h2 id="program-audience-title">Who it is for</h2>
+        <p class="support">Adults who want a longer online guided program for inner balance and for noticing their own patterns of behaviour. <a href="${url(depth, "programs/life-reset-7/index.html")}">Life Reset 7</a> is the separate seven-day program across brain, body, relationships, wealth and energy.</p>
+      </div>
+    </section>
+
+    <section class="section section-sand" id="program-objectives" aria-labelledby="program-objectives-title">
+      <div class="container reading-block">
+        <h2 id="program-objectives-title">Learning and experience objectives</h2>
+        <p class="support">The published aim is sustained reflection: to give inner balance and behavioural awareness more than one sitting, and to let that reflection stay connected to ordinary life.</p>
+      </div>
+    </section>
+
+    <section class="section section-white" id="program-areas" aria-labelledby="program-areas-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="program-areas-title">Core experience areas</h2>
+          <p class="support">These themes describe the program's purpose. A session-by-session curriculum is not published. The nine dimensions of the <a href="${url(depth, "human-operating-system/index.html")}">Human Operating System™</a> are not assigned to days of this program.</p>
+        </div>
+        <div class="community-cards community-wide">${themes.map(([title, copy]) => `<article><h3>${title}</h3><p>${copy}</p></article>`).join("")}</div>
+      </div>
+    </section>
+
+    <section class="section" id="program-format" aria-labelledby="program-format-title">
+      <div class="container reading-block">
+        <h2 id="program-format-title">Format and delivery</h2>
+        <p class="support">INNER BALANCE &amp; TRANSFORMATION is a 9-day online guided program. Session length, the meeting method and cohort dates are not published. Related questions can also be explored in the <a href="${url(depth, "human-transformation/index.html")}">Human Transformation</a> framework.</p>
+      </div>
+    </section>
+
+    <section class="section section-sand" id="program-facilitator" aria-labelledby="program-facilitator-title">
+      <div class="container reading-block">
+        <h2 id="program-facilitator-title">Facilitation</h2>
+        <p class="support">A facilitator for this program has not been published. The founder of CureSoulLife is <a href="${url(depth, "about/founder/index.html")}">Sarvesh Mishra</a>.</p>
+      </div>
+    </section>
+
+    ${programBoundary()}
+    ${programEnquiry(depth)}`;
+}
 
 function retreatsPage(depth) {
   const p = pfx(depth);
@@ -4156,6 +4518,75 @@ const pages = [
   <meta property="og:description" content="Explore CureSoulLife's approach to retreats, guided practices, reflection and immersive human transformation experiences.">
   <meta property="og:url" content="https://curesoullife.org/experiences/retreats">`,
     body: retreatsPage(2)
+  },
+  {
+    file: "personal-guidance/index.html",
+    depth: 1,
+    current: "guidance",
+    title: "Personal Guidance | CureSoulLife",
+    description: "Personal Guidance at CureSoulLife is a reflective conversation about relationships, decisions and personal patterns. It is not a replacement for licensed mental health care.",
+    head: `  <link rel="canonical" href="https://curesoullife.org/personal-guidance">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Personal Guidance | CureSoulLife">
+  <meta property="og:description" content="Personal Guidance at CureSoulLife is a reflective conversation about relationships, decisions and personal patterns. It is not a replacement for licensed mental health care.">
+  <meta property="og:url" content="https://curesoullife.org/personal-guidance">`,
+    body: personalGuidancePage(1)
+  },
+  {
+    file: "programs/index.html",
+    depth: 1,
+    current: "experiences",
+    title: "Programs | CureSoulLife",
+    description: "Three developed CureSoulLife programs. Registration is closed. A closed registration does not record a past gathering.",
+    head: `  <link rel="canonical" href="https://curesoullife.org/programs">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CureSoulLife">
+  <meta property="og:title" content="Programs | CureSoulLife">
+  <meta property="og:description" content="Three developed CureSoulLife programs. Registration is closed. A closed registration does not record a past gathering.">
+  <meta property="og:url" content="https://curesoullife.org/programs">`,
+    body: programsPage(1)
+  },
+  {
+    file: "programs/life-reset-7/index.html",
+    depth: 2,
+    current: "experiences",
+    title: "Life Reset 7 | CureSoulLife",
+    description: "Life Reset 7 is a developed seven-day online guided experience across brain, body, relationships, wealth and energy. Registration is closed.",
+    head: `  <link rel="canonical" href="https://curesoullife.org/programs/life-reset-7">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CureSoulLife">
+  <meta property="og:title" content="Life Reset 7 | CureSoulLife">
+  <meta property="og:description" content="Life Reset 7 is a developed seven-day online guided experience across brain, body, relationships, wealth and energy. Registration is closed.">
+  <meta property="og:url" content="https://curesoullife.org/programs/life-reset-7">`,
+    body: lifeResetSevenPage(2)
+  },
+  {
+    file: "programs/life-reset-one-day/index.html",
+    depth: 2,
+    current: "experiences",
+    title: "LIFE RESET — A Day to Pause, Reconnect &amp; Restart | CureSoulLife",
+    description: "A developed one-day in-person Life Reset retreat for pause, guided experience, reflection and integration. Registration is closed.",
+    head: `  <link rel="canonical" href="https://curesoullife.org/programs/life-reset-one-day">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CureSoulLife">
+  <meta property="og:title" content="LIFE RESET — A Day to Pause, Reconnect &amp; Restart | CureSoulLife">
+  <meta property="og:description" content="A developed one-day in-person Life Reset retreat for pause, guided experience, reflection and integration. Registration is closed.">
+  <meta property="og:url" content="https://curesoullife.org/programs/life-reset-one-day">`,
+    body: lifeResetDayPage(2)
+  },
+  {
+    file: "programs/inner-balance-transformation/index.html",
+    depth: 2,
+    current: "experiences",
+    title: "Inner Balance &amp; Transformation | CureSoulLife",
+    description: "Inner Balance &amp; Transformation is a developed nine-day online program for sustained reflection, inner balance and behavioural awareness. Registration is closed.",
+    head: `  <link rel="canonical" href="https://curesoullife.org/programs/inner-balance-transformation">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CureSoulLife">
+  <meta property="og:title" content="Inner Balance &amp; Transformation | CureSoulLife">
+  <meta property="og:description" content="Inner Balance &amp; Transformation is a developed nine-day online program for sustained reflection, inner balance and behavioural awareness. Registration is closed.">
+  <meta property="og:url" content="https://curesoullife.org/programs/inner-balance-transformation">`,
+    body: innerBalancePage(2)
   },
   {
     file: "contact/index.html",

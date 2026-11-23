@@ -243,6 +243,11 @@ const experiencesRequired = [
   "Events and Shared Learning",
   "Explore what is available.",
   "New experiences will be shared here as they are confirmed.",
+  "programs/index.html",
+  "programs/life-reset-7/index.html",
+  "programs/life-reset-one-day/index.html",
+  "programs/inner-balance-transformation/index.html",
+  "Registration is closed.",
   "Thoughtfully designed. Clearly facilitated. Human-centred.",
   "Experience is one part of a wider journey.",
   "Know what you are choosing.",
@@ -439,6 +444,11 @@ const approvedRoutes = [
   ["knowledge/index.html", "https://curesoullife.org/knowledge"],
   ["research/index.html", "https://curesoullife.org/research"],
   ["experiences/index.html", "https://curesoullife.org/experiences"],
+  ["personal-guidance/index.html", "https://curesoullife.org/personal-guidance"],
+  ["programs/index.html", "https://curesoullife.org/programs"],
+  ["programs/life-reset-7/index.html", "https://curesoullife.org/programs/life-reset-7"],
+  ["programs/life-reset-one-day/index.html", "https://curesoullife.org/programs/life-reset-one-day"],
+  ["programs/inner-balance-transformation/index.html", "https://curesoullife.org/programs/inner-balance-transformation"],
   ["experiences/retreats/index.html", "https://curesoullife.org/experiences/retreats"],
   ["community/index.html", "https://curesoullife.org/community"],
   ["community/global-network/index.html", "https://curesoullife.org/community/global-network"],
@@ -527,7 +537,140 @@ if (!contactHtml.includes("not processing active submissions")) bad.push("contac
 if (contactHtml.includes("formsubmit.co")) bad.push("contact page contains a FormSubmit endpoint");
 if (contactHtml.includes("FormSubmit forwards")) bad.push("contact page says FormSubmit is forwarding the current form");
 if (!contactHtml.includes("not an approved policy")) bad.push("contact page does not state that the privacy policy is an unapproved draft");
-if (!contactHtml.includes("Programs &amp; Retreats") || !contactHtml.includes("Personal Guidance") || !contactHtml.includes("Wellness Business Mentorship") || !contactHtml.includes("Institutional Collaboration") || !contactHtml.includes("Media &amp; General Enquiries")) bad.push("contact page is missing an enquiry category");
+const guidanceHtml = fs.readFileSync(path.join(root, "personal-guidance/index.html"), "utf8");
+const guidanceRequired = [
+  "https://curesoullife.org/personal-guidance",
+  "Understand Your Patterns. Find Your Direction.",
+  "Personal guidance for self-awareness, life clarity, conscious decision-making and meaningful personal growth.",
+  "CureSoulLife · Personal Guidance",
+  "Guided by",
+  "Founder, CureSoulLife",
+  "about/founder/index.html",
+  "human-operating-system/index.html",
+  "contact/index.html",
+  "Areas of guidance",
+  "Relationships &amp; Marriage",
+  "Overthinking &amp; Personal Clarity",
+  "Life Transitions &amp; Difficult Decisions",
+  "Career &amp; Business Clarity",
+  "Self-Awareness &amp; Personal Growth",
+  "Our approach",
+  "Listen &amp; Understand",
+  "Explore the Patterns",
+  "Find Clarity",
+  "Choose the Next Steps",
+  "no universal formula or guaranteed outcome",
+  "A human-centred conversation",
+  "Who is this for?",
+  "not a replacement for licensed mental health care",
+  "suicidal thoughts",
+  "curesoullife@gmail.com",
+  "has not been confirmed",
+  "temporarily unavailable",
+  "Heal. Grow. Awaken. Transform."
+];
+const missingGuidance = guidanceRequired.filter((line) => !guidanceHtml.includes(line));
+if (guidanceHtml.includes("mailto:") || guidanceHtml.includes("confidential") || /psychotherapy|psychiatric|counselling|counseling/i.test(guidanceHtml) || /₹|\$\d|per session/.test(guidanceHtml)) bad.push("personal guidance page publishes an unapproved claim, clinical term, booking link, or fee");
+if (missingGuidance.length) bad.push(`personal guidance page is missing approved copy: ${missingGuidance.join(" | ")}`);
+const programFiles = [
+  "programs/index.html",
+  "programs/life-reset-7/index.html",
+  "programs/life-reset-one-day/index.html",
+  "programs/inner-balance-transformation/index.html"
+];
+const programHtml = Object.fromEntries(programFiles.map((file) => [file, fs.readFileSync(path.join(root, file), "utf8")]));
+const programRequired = {
+  "programs/index.html": [
+    "https://curesoullife.org/programs",
+    "Programs | CureSoulLife",
+    "Life Reset 7",
+    "LIFE RESET — A Day to Pause, Reconnect &amp; Restart",
+    "INNER BALANCE &amp; TRANSFORMATION",
+    "Program developed",
+    "Previous delivery",
+    "Registration is closed.",
+    "Closed registration does not show whether a program has been conducted before.",
+    "not a replacement for licensed mental health care",
+    "suicidal thoughts"
+  ],
+  "programs/life-reset-7/index.html": [
+    "https://curesoullife.org/programs/life-reset-7",
+    "Life Reset 7",
+    "7-Day Online Guided Experience",
+    "brain, body, relationships, wealth and energy",
+    "Program developed",
+    "A completed cohort is not recorded on this page.",
+    "Registration",
+    "Closed.",
+    "Who it is for",
+    "Learning and experience objectives",
+    "Core experience areas",
+    ">Brain<",
+    "Awareness of thought patterns and mindset",
+    ">Body<",
+    "Physical habits, energy sources and lifestyle",
+    ">Relationships<",
+    "Facts and stories in family and work ties",
+    ">Wealth<",
+    "Money beliefs and blocks",
+    ">Energy<",
+    "Meditation, yoga and ancient wisdom practices",
+    "not a confirmed day-by-day curriculum",
+    "Format and delivery",
+    "Facilitation",
+    "Sarvesh Mishra",
+    "about/founder/index.html",
+    "human-operating-system/index.html",
+    "not a replacement for licensed mental health care",
+    "suicidal thoughts",
+    "curesoullife@gmail.com",
+    "has not been confirmed",
+    "temporarily unavailable"
+  ],
+  "programs/life-reset-one-day/index.html": [
+    "https://curesoullife.org/programs/life-reset-one-day",
+    "LIFE RESET — A Day to Pause, Reconnect &amp; Restart",
+    "One-Day In-Person Retreat",
+    "pause, reflect and reconnect with what matters",
+    "not on becoming a different person in a single day",
+    ">Pause<",
+    ">Guided experience<",
+    "guided practices and learning",
+    ">Reflection<",
+    ">Integration<",
+    "A timed session plan is not published.",
+    "A named practice is not published.",
+    "A facilitator for this retreat has not been published.",
+    "Registration",
+    "Closed.",
+    "not a replacement for licensed mental health care",
+    "curesoullife@gmail.com"
+  ],
+  "programs/inner-balance-transformation/index.html": [
+    "https://curesoullife.org/programs/inner-balance-transformation",
+    "INNER BALANCE &amp; TRANSFORMATION",
+    "9-Day Online Guided Program",
+    "sustained reflection",
+    "inner balance and behavioural awareness",
+    "Sustained reflection",
+    "Inner balance",
+    "Behavioural awareness",
+    "A session-by-session curriculum is not published.",
+    "are not assigned to days of this program",
+    "Life Reset 7",
+    "A facilitator for this program has not been published.",
+    "human-operating-system/index.html",
+    "Registration",
+    "Closed.",
+    "not a replacement for licensed mental health care",
+    "curesoullife@gmail.com"
+  ]
+};
+for (const [file, lines] of Object.entries(programRequired)) {
+  const missingProgram = lines.filter((line) => !programHtml[file].includes(line));
+  if (missingProgram.length) bad.push(`${file} is missing approved copy: ${missingProgram.join(" | ")}`);
+  if (/mailto:|confidential|psychotherapy|psychiatric|counselling|counseling|₹|\$\d|per session|Register now|Book now/i.test(programHtml[file])) bad.push(`${file} publishes an unapproved claim, clinical term, booking link, or fee`);
+}
 if (!contactHtml.includes('id="full-name"') || !contactHtml.includes('id="email"') || !contactHtml.includes('id="country"') || !contactHtml.includes('id="enquiry-type"') || !contactHtml.includes('id="message"') || !contactHtml.includes('id="telephone"') || !contactHtml.includes('id="privacy"')) bad.push("contact form is missing a prepared field");
 if (/<form[^>]*\baction=/.test(contactHtml)) bad.push("contact form has a submission action");
 const aboutHtml = fs.readFileSync(path.join(root, "about/index.html"), "utf8");
