@@ -55,7 +55,7 @@ const required = [
   "The Human Operating System™ is a conceptual framework for exploring interconnected dimensions of human life.",
   "Meet the Founder",
   "Sarvesh Mishra",
-  "Sarvesh Mishra — Media, IP &amp; Wellness Entrepreneur",
+  "Media, IP &amp; Wellness Entrepreneur",
   "Founder, CureSoulLife",
   "Creator of Human Operating System™",
   "Human transformation is a lifelong journey.",
@@ -404,26 +404,23 @@ const founderRequired = [
   "Zee News — Principal Correspondent.",
   "2006–2007",
   "2011–2017",
-  "A career in storytelling. A growing interest in the human story.",
-  "What shapes the way we think, feel, choose and live?",
-  "Why do people interpret similar experiences differently?",
-  "Look beyond the event. Explore the pattern.",
-  "Experience → Observation → Reflection → Possible Understanding",
-  "not a validated clinical protocol",
-  "Understanding matters when it changes how we engage with life.",
-  "not a scientific credential",
+  "From Understanding the World to Understanding Human Life",
+  "A Journey Across Media, Entrepreneurship and Human Understanding",
+  "founder of Red Hot Media House",
+  "The Vision Behind CureSoulLife",
+  "What if people could understand the patterns shaping their lives and make more conscious choices about how they live?",
   "The purpose is bigger than the person who begins it.",
-  "Vision &amp; Direction",
-  "Frameworks &amp; Knowledge",
-  "Institution Building",
-  "The founder introduces the purpose. The institution must earn its own trust.",
+  "not as a medical diagnostic system",
+  "Life Decoding",
+  "Inner Alchemy",
+  "not a scientific credential",
+  "A Broader Vision",
   "The Sarvesh Mishra Show",
   "The Inner Wealth",
   "The Urban Sannyasi",
-  "Stay curious. Think carefully. Act responsibly.",
-  "A continuing inquiry into what it means to live consciously.",
-  "A personal note from Sarvesh Mishra is not published on this page.",
-  "Explore the purpose beyond the person."
+  "A Message from the Founder",
+  "I believe that understanding ourselves is one of the most important journeys we can undertake.",
+  "My vision for CureSoulLife is to create a space where people can explore this journey with curiosity, responsibility and a deeper understanding of life."
 ];
 const missingAbout = aboutRequired.filter((line) => !about.includes(line));
 const missingFounder = founderRequired.filter((line) => !founder.includes(line));
@@ -431,7 +428,7 @@ if (retreats.includes("Life Reset") || retreats.includes("LIFE RESET")) bad.push
 if (community.includes("/community/stories") || community.includes("/community/events") || community.includes("Join our global community") || community.includes("Meet our members")) bad.push("community page publishes an unapproved claim or route");
 if (network.includes("Our Partners") || network.includes("operating worldwide")) bad.push("global network page publishes an unapproved presence claim");
 if (about.includes("practices/index.html")) bad.push("about page links to an unapproved Practices route");
-if (founder.includes("I see human transformation as a lifelong process") || founder.includes("I do not see it as a finished answer") || founder.includes("I do not see human transformation as a single answer") || founder.includes("My work has moved through media")) bad.push("founder page publishes the unapproved first-person note");
+if (founder.includes("I see human transformation as a lifelong process") || founder.includes("I do not see it as a finished answer") || founder.includes("I do not see human transformation as a single answer") || founder.includes("My work has moved through media") || founder.includes("I believe that meaningful transformation begins") || founder.includes("An approved photograph has not been supplied") || founder.includes("This monogram is not a portrait") || founder.includes("A first-person note is not published yet") || founder.includes("does not present that draft as his statement")) bad.push("founder page publishes an unapproved note or an editorial placeholder");
 const missingDecoding = decodingRequired.filter((line) => !decoding.includes(line));
 const approvedRoutes = [
   ["index.html", "https://curesoullife.org/"],

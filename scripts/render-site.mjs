@@ -403,7 +403,7 @@ function home() {
         <div class="founder-copy reveal">
           ${eyebrow("The founder")}
           <h2 class="founder-name" id="founder-name">Sarvesh Mishra</h2>
-          <p class="founder-identity">Sarvesh Mishra — Media, IP &amp; Wellness Entrepreneur</p>
+          <p class="founder-identity">Media, IP &amp; Wellness Entrepreneur</p>
           <p class="founder-identity founder-identity-sub">Founder, CureSoulLife <span aria-hidden="true">|</span> Creator of Human Operating System™</p>
           <p class="support">CureSoulLife is shaped by a continuing exploration of human behaviour, ancient wisdom, modern knowledge, personal understanding and the possibilities of human transformation.</p>
           <div class="cta-row">${cta(d, "about/founder/index.html", "Meet the Founder")}</div>
@@ -747,9 +747,9 @@ function institutionPage(depth) {
           ${eyebrow("The founder")}
           <h2 id="founder-note-title">A question that became an institutional purpose.</h2>
           <p class="identity-name">Sarvesh Mishra</p>
-          <p class="founder-identity">Sarvesh Mishra — Media, IP &amp; Wellness Entrepreneur</p>
+          <p class="founder-identity">Media, IP &amp; Wellness Entrepreneur</p>
           <p class="founder-identity founder-identity-sub">Founder, CureSoulLife <span aria-hidden="true">|</span> Creator of Human Operating System™</p>
-          <p class="support">A first-person note for this section has been drafted. It will be published only after Sarvesh Mishra approves it. Until then, this page does not present that draft as his public statement.</p>
+          <p class="support">His professional journey, the founding vision and his message are on the Founder page.</p>
           <div class="cta-row">${cta(depth, "about/founder/index.html", "Meet the Founder")}</div>
         </div>
       </div>
@@ -3429,29 +3429,6 @@ function aboutPage(depth) {
 
 function founderPage(depth) {
   const p = "../".repeat(depth);
-  const esc = (value) => value.replace(/&/g, "&amp;");
-  const questions = [
-    ["Human Experience", "Why do people interpret similar experiences differently?"],
-    ["Recurring Patterns", "What influences the habits, reactions and choices that repeat in our lives?"],
-    ["Understanding and Change", "How can greater awareness become more conscious action in everyday life?"],
-    ["Meaning and Responsibility", "How can people live with greater clarity, compassion and responsibility without reducing life to a single explanation?"]
-  ];
-  const responsibilities = [
-    ["Vision & Direction", "Clarifying the questions, purpose and long-term direction of CureSoulLife."],
-    ["Frameworks & Knowledge", "Contributing to the development and communication of its ideas, methodologies and learning resources."],
-    ["Institution Building", "Helping create the systems, relationships and responsible operating foundations required for long-term development."]
-  ];
-  const principles = [
-    ["Integrity", "Represent ideas, evidence, experience and limitations honestly."],
-    ["Compassion", "Approach human experiences with care rather than judgement."],
-    ["Curiosity", "Keep asking questions and remain open to learning."],
-    ["Evidence", "Distinguish personal reflection, traditional knowledge, philosophical perspectives and scientific evidence."],
-    ["Responsibility", "Recognise the consequences and limitations of ideas, advice and practices."],
-    ["Service", "Keep the purpose of human development and contribution in view."],
-    ["Collaboration", "Recognise that meaningful institutional work requires different perspectives, capabilities and contributions."],
-    ["Stewardship", "Build responsibly for the long term rather than optimising only for short-term attention."]
-  ];
-  const numbered = (items) => `<ol class="community-cards">${items.map(([title, copy]) => `<li><h3>${esc(title)}</h3><p>${copy}</p></li>`).join("")}</ol>`;
 
   return `
     <header class="page-hero founder-hero" id="founder-hero">
@@ -3465,18 +3442,17 @@ function founderPage(depth) {
         </nav>
         <div class="founder-grid">
           <figure class="founder-figure">
-            <div class="portrait-placeholder" role="img" aria-label="Placeholder for an approved photograph of Sarvesh Mishra. No portrait is shown.">
+            <div class="portrait-placeholder portrait-monogram" role="img" aria-label="Monogram placeholder for Sarvesh Mishra. An approved photograph is not shown.">
               <span class="portrait-mark" aria-hidden="true">SM</span>
-              <p>An approved photograph has not been supplied. This monogram is not a portrait.</p>
             </div>
           </figure>
           <div>
             ${eyebrow("The founder")}
             <h1>Sarvesh Mishra</h1>
-            <p class="founder-identity">Sarvesh Mishra — Media, IP &amp; Wellness Entrepreneur</p>
+            <p class="founder-identity">Media, IP &amp; Wellness Entrepreneur</p>
             <p class="founder-role">Founder, CureSoulLife <span aria-hidden="true">|</span> Creator of Human Operating System™</p>
-            <p class="lede">Sarvesh Mishra is a media professional, content creator and entrepreneur whose work brings together storytelling, human behaviour, philosophical inquiry and the exploration of personal transformation.</p>
-            <p class="support">Through CureSoulLife, he is working towards building an institution that connects Ancient Wisdom, Modern Science and lived human experience with knowledge, practices, learning and community.</p>
+            <p class="lede">Sarvesh Mishra is an Indian media entrepreneur, former television journalist and the founder of CureSoulLife, an emerging human transformation institution.</p>
+            <p class="support">As founder, he contributes to the vision, conceptual direction and development of CureSoulLife.</p>
             <div class="cta-row">
               <a class="btn btn-primary" href="${url(depth, "curesoullife/index.html")}">Discover CureSoulLife${arrow}</a>
               <a class="btn btn-secondary" href="${url(depth, "human-transformation/index.html")}">Explore Human Transformation${arrow}</a>
@@ -3490,12 +3466,10 @@ function founderPage(depth) {
       <div class="container">
         <div class="section-head reading-block">
           ${eyebrow("The journey")}
-          <h2 id="journey-title">A career in storytelling. A growing interest in the human story.</h2>
-          <p class="support">Journalism and media offer a way to observe people, institutions, decisions and the realities shaping everyday life.</p>
-          <p class="support">Sarvesh's professional journey in media and reporting informs his interest in listening carefully, asking questions, examining perspectives and understanding the stories people tell about themselves and the world around them.</p>
-          <p class="support">Over time, that interest has expanded beyond reporting what happens to exploring how people interpret their experiences, form beliefs, make decisions and seek meaning.</p>
-          <p class="support">His work now connects media, entrepreneurship, storytelling and an evolving interest in human understanding and transformation.</p>
-          <p class="section-note">The dates below are the periods named in the approved record. Gaps between them are not filled in, and they are not presented as one uninterrupted career. No awards or audience figures are added.</p>
+          <h2 id="journey-title">From Understanding the World to Understanding Human Life</h2>
+          <p class="support">His professional journey began in journalism, where he spent years reporting on social issues, public affairs and major events that shaped contemporary India.</p>
+          <p class="support">Through his work in television news, including News24, P7 News and Zee News, he developed a deep interest in human behaviour, decision-making, resilience and the forces that shape individual and collective lives.</p>
+          <p class="support">Over time, this curiosity expanded beyond journalism into entrepreneurship, original media creation and the exploration of personal transformation.</p>
         </div>
         <ol class="founder-timeline">
           <li>
@@ -3517,155 +3491,82 @@ function founderPage(depth) {
           </li>
           <li>
             <h3>Media Entrepreneurship &amp; Content</h3>
-            <p>Sarvesh subsequently developed his work across media production, digital content, podcasts and entrepreneurial ventures.</p>
-            <p>His wider professional ecosystem includes Red Hot Media House and content properties such as The Sarvesh Mishra Show, The Inner Wealth and The Urban Sannyasi. No dates are published for this later period.</p>
+            <p>Sarvesh subsequently developed his work across media production, digital content, podcasts and entrepreneurial ventures, including Red Hot Media House.</p>
           </li>
         </ol>
       </div>
     </section>
 
-    <section class="section section-sand" id="founder-questions" aria-labelledby="questions-title">
+    <section class="section section-sand" id="founder-media" aria-labelledby="media-title">
       <div class="container">
         <div class="section-head reading-block">
-          ${eyebrow("The questions")}
-          <h2 id="questions-title">What shapes the way we think, feel, choose and live?</h2>
-          <p class="support">Some questions do not have one simple answer. They require observation, reflection, different perspectives and a willingness to keep learning.</p>
-        </div>
-        <ol class="community-cards">
-          ${questions.map(([title, copy]) => `<li><h3>${title}</h3><p>${copy}</p></li>`).join("")}
-        </ol>
-        <p class="section-note">These questions inform the ideas Sarvesh explores through Life Decoding, Inner Alchemy and the wider purpose of CureSoulLife. They are not a claim that he has a definitive answer to every question.</p>
-      </div>
-    </section>
-
-    <section class="section section-white" id="founder-decoding" aria-labelledby="decoding-title">
-      <div class="container">
-        <div class="section-head reading-block">
-          ${eyebrow("The methodology")}
-          <h2 id="decoding-title">Look beyond the event. Explore the pattern.</h2>
-          <p class="support">Life Decoding is a framework for examining personal experiences, interpretations and recurring patterns.</p>
-          <p class="support">It encourages people to observe what is happening, question their assumptions, explore possible influences and consider more conscious choices.</p>
-          <p class="support">It is not a prediction of destiny, a diagnosis or a claim that every life experience has one hidden cause.</p>
-          <p class="support">For Sarvesh, Life Decoding represents an approach to asking better questions about the human experience.</p>
-        </div>
-        <p class="founder-sequence">Experience → Observation → Reflection → Possible Understanding</p>
-        <p class="section-note">This is an illustrative sequence, not a validated clinical protocol or a guaranteed progression. The five dimensions are explained on the Life Decoding page.</p>
-        <div class="cta-row">${cta(depth, "human-transformation/life-decoding/index.html", "Explore Life Decoding")}</div>
-      </div>
-    </section>
-
-    <section class="section" id="founder-alchemy" aria-labelledby="alchemy-title">
-      <div class="container">
-        <div class="section-head reading-block">
-          ${eyebrow("From insight to lived experience")}
-          <h2 id="alchemy-title">Understanding matters when it changes how we engage with life.</h2>
-          <p class="support">Inner Alchemy describes Sarvesh's developing philosophy of connecting insight, reflection, practice and lived experience.</p>
-          <p class="support">It explores the relationship between what we understand, how we respond, what we practise and how our choices unfold in everyday life.</p>
-          <p class="support">The emphasis is not on becoming a different person overnight. It is on creating room for greater awareness, more thoughtful choices, meaningful practice and continued learning.</p>
-          <p class="support">Inner Alchemy is a philosophical approach, not a scientific credential or promise of a particular outcome.</p>
-        </div>
-        <div class="audience-grid founder-shift">
-          <article class="approach-card"><h3>Reflection and understanding</h3><p>What is noticed, questioned and beginning to be understood.</p></article>
-          <article class="approach-card"><h3>Practice and everyday life</h3><p>How that understanding is tried, reviewed and lived.</p></article>
-        </div>
-        <div class="cta-row">${cta(depth, "human-transformation/index.html", "Explore Human Transformation")}</div>
-      </div>
-    </section>
-
-    <section class="section section-forest" id="founder-why" aria-labelledby="why-founder-title">
-      <div class="container">
-        <div class="reading-block">
-          ${eyebrow("The purpose")}
-          <h2 id="why-founder-title">Build an institution that helps people explore human transformation responsibly.</h2>
-          <p class="support">CureSoulLife is being developed as an institution dedicated to human transformation.</p>
-          <p class="support">Its broader approach brings together ancient wisdom, modern science, human experience, knowledge, research, practices and community.</p>
-          <p class="support">The intention is to create a thoughtful environment where people can explore different perspectives, develop understanding and discover opportunities for meaningful learning and lived experience.</p>
-          <p class="support">The institution is not intended to be defined by one personality or one explanation of life.</p>
-          <p class="support">Its long-term credibility must come from the integrity of its work, the quality of its learning resources, the responsibility of its practices and the trust it builds over time.</p>
-          <p class="founder-close-line">The purpose is bigger than the person who begins it.</p>
-          <div class="cta-row">${cta(depth, "curesoullife/index.html", "Discover CureSoulLife", "btn btn-light")}</div>
-        </div>
-        <figure class="decode-path">
-          ${picture("question-forest", 1600, 1066, "A sunlit path through tall trees. Not a CureSoulLife campus or facility.", { lazy: true, prefix: p })}
-        </figure>
-      </div>
-    </section>
-
-    <section class="section section-white" id="founder-role" aria-labelledby="role-title">
-      <div class="container">
-        <div class="section-head reading-block">
-          ${eyebrow("Leadership and responsibility")}
-          <h2 id="role-title">Set the direction. Build the foundations. Make room for collective work.</h2>
-          <p class="support">As founder, Sarvesh contributes to the vision, conceptual direction and development of CureSoulLife.</p>
-          <p class="support">His role includes helping shape the institution's central questions and frameworks, connecting ideas across media and human transformation, and contributing to the development of knowledge resources, experiences and relationships.</p>
-          <p class="support">The long-term institution will also depend on the work of qualified professionals, researchers, facilitators, collaborators and the communities it serves, according to the needs and capabilities established over time.</p>
-        </div>
-        ${numbered(responsibilities).replace('class="community-cards"', 'class="community-cards community-wide"')}
-        <p class="section-note">These describe current areas of contribution and future institutional work. They do not mean that every team, department or expert network already exists.</p>
-      </div>
-    </section>
-
-    <section class="section section-sand" id="founder-relationship" aria-labelledby="relationship-title">
-      <div class="container">
-        <div class="section-head reading-block">
-          ${eyebrow("The founder and the institution")}
-          <h2 id="relationship-title">A personal vision. An institutional purpose.</h2>
-          <p class="support">Sarvesh Mishra's journey and intellectual interests inform the creation of CureSoulLife. But the institution has a purpose that must continue to develop beyond the founder's individual identity.</p>
-        </div>
-        <div class="founder-pair">
-          <article>
-            <h3>Sarvesh Mishra</h3>
-            <ul>
-              <li>Personal journey</li>
-              <li>Questions and ideas</li>
-              <li>Media, IP &amp; Wellness Entrepreneur</li>
-              <li>Creator of Human Operating System™</li>
-              <li>Founder and institution-builder</li>
-            </ul>
-          </article>
-          <article>
-            <h3>CureSoulLife</h3>
-            <ul>
-              <li>Institution</li>
-              <li>Human Transformation</li>
-              <li>Knowledge + Research</li>
-              <li>Practices + Experiences</li>
-              <li>Community + Contribution</li>
-            </ul>
-          </article>
-        </div>
-        <p class="section-note">The two lists are connected. Sarvesh Mishra introduces the purpose. CureSoulLife is the institution that must develop it. The labels, not colour alone, carry that distinction. Developing a framework does not by itself validate it.</p>
-        <p class="founder-close-line">The founder introduces the purpose. The institution must earn its own trust.</p>
-      </div>
-    </section>
-
-    <section class="section section-white" id="founder-media" aria-labelledby="media-title">
-      <div class="container">
-        <div class="section-head reading-block">
-          ${eyebrow("Stories that open questions")}
-          <h2 id="media-title">From telling stories to exploring the questions behind them.</h2>
-          <p class="support">Media and storytelling create opportunities to encounter different people, experiences and perspectives.</p>
-          <p class="support">Sarvesh's work across media, interviews and content provides a bridge between public conversations and the deeper questions that inform his interest in human understanding.</p>
-          <p class="support">Through his media work, he explores conversations, ideas and experiences that can encourage audiences to question assumptions, examine decisions and consider new perspectives.</p>
-          <p class="support">CureSoulLife represents a related but distinct institutional direction: building a framework for knowledge, inquiry, practices and human transformation.</p>
+          ${eyebrow("Media and entrepreneurship")}
+          <h2 id="media-title">A Journey Across Media, Entrepreneurship and Human Understanding</h2>
+          <p class="support">As the founder of Red Hot Media House, Sarvesh has been involved in building media properties, creating original content and developing communication-led projects.</p>
+          <p class="support">Through The Sarvesh Mishra Show, he engages with thinkers, entrepreneurs, professionals and specialists to explore ideas that influence everyday life, society and human understanding.</p>
+          <p class="support">His experience across journalism, digital media, documentary storytelling and intellectual property has informed his approach to human transformation.</p>
         </div>
         <div class="community-cards community-wide">
           <article><h3>The Sarvesh Mishra Show</h3><p>Interview and conversation platform.</p></article>
           <article><h3>The Inner Wealth</h3><p>Personal growth and learning content.</p></article>
           <article><h3>The Urban Sannyasi</h3><p>Philosophical and reflective content.</p></article>
         </div>
-        <p class="section-note">No verified public address is published for these names, so they are not linked. No view counts, subscriber numbers or awards are shown. A selected-work link is omitted until a verified collection exists.</p>
       </div>
     </section>
 
-    <section class="section" id="founder-principles" aria-labelledby="principles-title">
+    <section class="section section-white" id="founder-vision-origin" aria-labelledby="vision-origin-title">
+      <div class="container reading-block">
+        ${eyebrow("CureSoulLife")}
+        <h2 id="vision-origin-title">The Vision Behind CureSoulLife</h2>
+        <p class="support">CureSoulLife grew from a fundamental question:</p>
+        <p class="founder-question">What if people could understand the patterns shaping their lives and make more conscious choices about how they live?</p>
+        <p class="support">Sarvesh founded CureSoulLife with a vision to bring together ancient wisdom, modern understanding, lived human experience and practical approaches to personal development.</p>
+        <p class="support">The institution seeks to make self-awareness, reflection and meaningful personal growth more accessible through learning, guided practices and structured experiences.</p>
+        <p class="founder-close-line">The purpose is bigger than the person who begins it.</p>
+        <div class="cta-row">${cta(depth, "curesoullife/index.html", "Discover CureSoulLife")}</div>
+      </div>
+    </section>
+
+    <section class="section section-sand" id="founder-hos" aria-labelledby="founder-hos-title">
+      <div class="container reading-block">
+        ${eyebrow("A framework for reflection")}
+        <h2 id="founder-hos-title">The Human Operating System™</h2>
+        <p class="support">Sarvesh is the creator of the Human Operating System™, a conceptual framework exploring nine interconnected dimensions of human life:</p>
+        <ul class="format-list">
+          <li>Body</li>
+          <li>Mind</li>
+          <li>Emotion</li>
+          <li>Energy</li>
+          <li>Relationships</li>
+          <li>Purpose</li>
+          <li>Work &amp; Wealth</li>
+          <li>Consciousness</li>
+          <li>Legacy</li>
+        </ul>
+        <p class="support">The framework encourages people to examine how these dimensions interact and influence everyday choices, habits, relationships and personal development.</p>
+        <p class="support">It is designed as a framework for reflection and learning, not as a medical diagnostic system or a clinically validated psychological assessment.</p>
+        <div class="cta-row">${cta(depth, "human-operating-system/index.html", "Explore the Human Operating System™")}</div>
+      </div>
+    </section>
+
+    <section class="section" id="founder-philosophy" aria-labelledby="philosophy-title">
       <div class="container">
         <div class="section-head reading-block">
-          ${eyebrow("Working principles")}
-          <h2 id="principles-title">Stay curious. Think carefully. Act responsibly.</h2>
-          <p class="support">These are working principles for this page. They use the same eight names as CureSoulLife's institutional values. They are not externally certified standards.</p>
+          ${eyebrow("Philosophy and approach")}
+          <h2 id="philosophy-title">Look beyond the event. Practise what becomes clear.</h2>
         </div>
-        ${numbered(principles)}
+        <div class="founder-pair">
+          <article>
+            <h3>Life Decoding</h3>
+            <p>Life Decoding is a framework for examining personal experiences, interpretations and recurring patterns. It encourages observation, questioning and more conscious choices. It is not a prediction of destiny, a diagnosis, or a claim that every experience has one hidden cause.</p>
+            ${textLink(depth, "human-transformation/life-decoding/index.html", "Explore Life Decoding")}
+          </article>
+          <article>
+            <h3>Inner Alchemy</h3>
+            <p>Inner Alchemy connects insight, reflection, practice and lived experience. It is a philosophical approach, not a scientific credential or a promise of a particular outcome.</p>
+            ${textLink(depth, "human-transformation/index.html", "Explore Human Transformation")}
+          </article>
+        </div>
       </div>
     </section>
 
@@ -3673,10 +3574,9 @@ function founderPage(depth) {
       <div class="container">
         <div class="reading-block">
           ${eyebrow("Looking ahead")}
-          <h2 id="founder-vision-title">A world where human transformation is part of everyday learning.</h2>
-          <p class="support">The long-term vision behind CureSoulLife is to help make personal transformation, self-understanding and conscious living more accessible as parts of everyday life.</p>
-          <p class="support">This involves building an institution where knowledge, research, practical experiences and community can develop together, with responsibility and intellectual honesty.</p>
-          <p class="support">The ambition is long-term. Its credibility will depend on what is built, how it is practised, what can be demonstrated and how consistently the institution serves people.</p>
+          <h2 id="founder-vision-title">A Broader Vision</h2>
+          <p class="support">Through CureSoulLife, Sarvesh envisions an international learning ecosystem connecting knowledge, guided experiences, responsible facilitation and human transformation.</p>
+          <p class="support">His long-term aspiration is to create an institution where individuals can explore meaningful change through awareness, understanding and consistent practice.</p>
           <p class="founder-close-line">Human transformation is a lifelong journey.</p>
           <p class="section-note">This is a direction for future development, not a description of a campus, headquarters or current operation.</p>
         </div>
@@ -3686,39 +3586,23 @@ function founderPage(depth) {
       </div>
     </section>
 
-    <section class="section section-white" id="founder-explore" aria-labelledby="explore-title">
+    <section class="section section-sand" id="founder-message" aria-labelledby="message-title">
       <div class="container">
-        <div class="section-head reading-block">
-          <h2 id="explore-title">Explore the ideas and work connected with this journey.</h2>
+        <div class="reading-block">
+          ${eyebrow("The founder")}
+          <h2 id="message-title">A Message from the Founder</h2>
+          <blockquote class="founder-message">
+            <p>I believe that understanding ourselves is one of the most important journeys we can undertake. When awareness is combined with honest reflection, conscious choices and consistent action, meaningful change becomes possible.</p>
+            <p>My vision for CureSoulLife is to create a space where people can explore this journey with curiosity, responsibility and a deeper understanding of life.</p>
+            <footer>Sarvesh Mishra<br>Founder, CureSoulLife</footer>
+          </blockquote>
         </div>
-        <div class="community-cards">
-          <article><h3>Life Decoding</h3><p>Explore a framework for examining experiences and recurring patterns.</p>${textLink(depth, "human-transformation/life-decoding/index.html", "Explore Life Decoding")}</article>
-          <article><h3>Human Transformation</h3><p>Explore the broader journey of awareness, understanding, practice, integration and contribution.</p>${textLink(depth, "human-transformation/index.html", "Explore Human Transformation")}</article>
-          <article><h3>Human Operating System™</h3><p>Explore the interconnected dimensions of human life.</p>${textLink(depth, "human-operating-system/index.html", "Explore the Human Operating System™")}</article>
-          <article><h3>CureSoulLife</h3><p>Discover the institution, its purpose and its broader ecosystem.</p>${textLink(depth, "curesoullife/index.html", "Discover CureSoulLife")}</article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-sand" id="founder-note" aria-labelledby="note-title">
-      <div class="container reading-block">
-        ${eyebrow("A note from the founder")}
-        <h2 id="note-title">A continuing inquiry into what it means to live consciously.</h2>
-        <p class="support">A personal note from Sarvesh Mishra is not published on this page. It will appear only after he has reviewed and approved the wording.</p>
-      </div>
-    </section>
-
-    <section class="finale finale-plain cta-section cta-forest" id="founder-closing" aria-labelledby="founder-close-title">
-      <div class="container">
-        <div>
-          <h2 id="founder-close-title">Explore the purpose beyond the person.</h2>
-          <div class="finale-copy">
-            <p>Discover the ideas, frameworks and experiences through which CureSoulLife is exploring human transformation.</p>
+        <div class="founder-links">
+          <h3>Explore CureSoulLife</h3>
+          <div class="cta-row">
+            ${cta(depth, "curesoullife/index.html", "Discover CureSoulLife")}
+            ${cta(depth, "human-transformation/index.html", "Explore Human Transformation", "btn btn-secondary")}
           </div>
-        </div>
-        <div class="cta-row">
-          ${cta(depth, "curesoullife/index.html", "Discover CureSoulLife", "btn btn-light")}
-          ${cta(depth, "human-transformation/index.html", "Explore Human Transformation", "btn btn-ghost-light")}
         </div>
       </div>
     </section>`;
@@ -4238,11 +4122,11 @@ const pages = [
     depth: 2,
     current: "about",
     title: "Sarvesh Mishra — Media, IP &amp; Wellness Entrepreneur | CureSoulLife",
-    description: "Sarvesh Mishra is a media, IP and wellness entrepreneur, Founder of CureSoulLife, and creator of the Human Operating System™. Explore his media journey and the ideas behind Life Decoding and Inner Alchemy.",
+    description: "Sarvesh Mishra is an Indian media entrepreneur, former television journalist, Founder of CureSoulLife, and creator of the Human Operating System™.",
     head: `  <link rel="canonical" href="https://curesoullife.org/about/founder">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Sarvesh Mishra — Media, IP &amp; Wellness Entrepreneur | CureSoulLife">
-  <meta property="og:description" content="Sarvesh Mishra is a media, IP and wellness entrepreneur, Founder of CureSoulLife, and creator of the Human Operating System™. Explore his media journey and the ideas behind Life Decoding and Inner Alchemy.">
+  <meta property="og:description" content="Sarvesh Mishra is an Indian media entrepreneur, former television journalist, Founder of CureSoulLife, and creator of the Human Operating System™.">
   <meta property="og:url" content="https://curesoullife.org/about/founder">`,
     body: founderPage(2)
   },
