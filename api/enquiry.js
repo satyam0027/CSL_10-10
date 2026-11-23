@@ -18,6 +18,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false });
   }
 
+  // Paused while the privacy draft is unapproved. The function stays in place and does not forward personal information.
+  return res.status(403).json({ ok: false, error: "submission_paused" });
+
   const body = req.body && typeof req.body === "object" ? req.body : {};
   if (text(body.company_website, 200)) return res.status(200).json({ ok: true });
 

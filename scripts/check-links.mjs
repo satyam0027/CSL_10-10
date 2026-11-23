@@ -55,8 +55,9 @@ const required = [
   "The Human Operating System™ is a conceptual framework for exploring interconnected dimensions of human life.",
   "Meet the Founder",
   "Sarvesh Mishra",
-  "Life Decoder",
-  "Inner Alchemy Architect",
+  "Sarvesh Mishra — Media, IP &amp; Wellness Entrepreneur",
+  "Founder, CureSoulLife",
+  "Creator of Human Operating System™",
   "Human transformation is a lifelong journey.",
   "Work &amp; Wealth",
   "Physical wellbeing",
@@ -390,12 +391,12 @@ const aboutRequired = [
 ];
 const missingNetwork = networkRequired.filter((line) => !network.includes(line));
 const founderRequired = [
-  "Sarvesh Mishra | Founder of CureSoulLife",
+  "Sarvesh Mishra — Media, IP &amp; Wellness Entrepreneur | CureSoulLife",
   "https://curesoullife.org/about/founder",
   ">Sarvesh Mishra<",
-  "Life Decoder",
-  "Inner Alchemy Architect",
+  "Sarvesh Mishra — Media, IP &amp; Wellness Entrepreneur",
   "Founder, CureSoulLife",
+  "Creator of Human Operating System™",
   "Media, IP &amp; Wellness Entrepreneur",
   "Swatantra Chetna — Writer",
   "News24 — Trainee, Assignment Desk, 2009–2010.",
@@ -522,16 +523,25 @@ if (new RegExp(blogBan).test(blogHtml) || new RegExp(blogBan).test(blogArticle) 
 const contactHtml = fs.readFileSync(path.join(root, "contact/index.html"), "utf8");
 if (contactHtml.includes("Your enquiry has been received")) bad.push("contact page shows a receipt that was not confirmed");
 if (contactHtml.includes("mailto:") || contactHtml.includes("@curesoullife.org")) bad.push("contact page publishes an unverified address");
-if (!contactHtml.includes("curesoullife@gmail.com")) bad.push("contact page does not name the approved enquiry inbox");
-if (!contactHtml.includes("FormSubmit")) bad.push("contact page does not name the email forwarding service");
-if (contactHtml.includes("No verified delivery channel is connected")) bad.push("contact page still says delivery is unavailable");
+if (!contactHtml.includes("curesoullife@gmail.com")) bad.push("contact page does not name the temporary enquiry inbox");
+if (!contactHtml.includes("FormSubmit")) bad.push("contact page does not name the intended form provider");
+if (!contactHtml.includes("temporarily unavailable")) bad.push("contact page does not say online submission is temporarily unavailable");
+if (!contactHtml.includes("not processing active submissions")) bad.push("contact page claims FormSubmit is processing active submissions");
+if (contactHtml.includes("formsubmit.co")) bad.push("contact page contains a FormSubmit endpoint");
+if (contactHtml.includes("FormSubmit forwards")) bad.push("contact page says FormSubmit is forwarding the current form");
 if (!contactHtml.includes("not an approved policy")) bad.push("contact page does not state that the privacy policy is an unapproved draft");
 if (!contactHtml.includes("Programs &amp; Retreats") || !contactHtml.includes("Personal Guidance") || !contactHtml.includes("Wellness Business Mentorship") || !contactHtml.includes("Institutional Collaboration") || !contactHtml.includes("Media &amp; General Enquiries")) bad.push("contact page is missing an enquiry category");
 if (!contactHtml.includes('id="full-name"') || !contactHtml.includes('id="email"') || !contactHtml.includes('id="country"') || !contactHtml.includes('id="enquiry-type"') || !contactHtml.includes('id="message"') || !contactHtml.includes('id="telephone"') || !contactHtml.includes('id="privacy"')) bad.push("contact form is missing a prepared field");
 if (/<form[^>]*\baction=/.test(contactHtml)) bad.push("contact form has a submission action");
 const aboutHtml = fs.readFileSync(path.join(root, "about/index.html"), "utf8");
 if (aboutHtml.includes("not yet connected to a working submission service")) bad.push("about page still says the enquiry form is not connected");
-if (!aboutHtml.includes("The contact form emails the enquiry to CureSoulLife.")) bad.push("about page does not explain that the form sends email");
+if (!aboutHtml.includes("Online submission on the contact form is temporarily unavailable.")) bad.push("about page does not say online submission is paused");
+if (aboutHtml.includes("The contact form emails the enquiry")) bad.push("about page says the form sends email");
+const mainJs = fs.readFileSync(path.join(root, "js/main.js"), "utf8");
+if (mainJs.includes("formsubmit.co") || mainJs.includes("fetch(")) bad.push("enquiry script can still transmit a form");
+const enquiryApi = fs.readFileSync(path.join(root, "api/enquiry.js"), "utf8");
+if (!enquiryApi.includes("submission_paused")) bad.push("enquiry function is missing the submission pause");
+if (!enquiryApi.includes("export default")) bad.push("enquiry function was removed");
 for (const file of ["privacy-policy/index.html", "terms-of-use/index.html", "wellness-disclaimer/index.html"]) {
   const policyHtml = fs.readFileSync(path.join(root, file), "utf8");
   const visible = policyHtml.split("curesoullife@gmail.com").join("");

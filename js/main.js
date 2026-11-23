@@ -303,89 +303,11 @@
 
     enquiryForm.addEventListener("submit", function (event) {
       event.preventDefault();
-      var name = document.getElementById("full-name");
-      var email = document.getElementById("email");
-      var country = document.getElementById("country");
-      var telephone = document.getElementById("telephone");
-      var first = null;
-      function fail(input, errorId, text) {
-        showError(errorId, text);
-        if (!first) first = input;
-      }
-      showError("full-name-error", "");
-      showError("email-error", "");
-      showError("country-error", "");
-      showError("enquiry-type-error", "");
-      showError("message-error", "");
-      showError("telephone-error", "");
-      showError("privacy-error", "");
-      status.hidden = true;
-      status.textContent = "";
-      if (!name.value.trim()) fail(name, "full-name-error", "Enter your full name.");
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) fail(email, "email-error", "Enter an email address in the form name@example.com. This check does not verify that the address exists.");
-      if (!country.value.trim()) fail(country, "country-error", "Enter your country or region.");
-      if (allowed.indexOf(typeField.value) === -1) fail(typeField, "enquiry-type-error", "Select an enquiry category.");
-      if (!message.value.trim()) fail(message, "message-error", "Enter a message.");
-      else if (message.value.length > 3000) fail(message, "message-error", "Use 3,000 characters or fewer.");
-      if (telephone && telephone.value.trim().length > 40) fail(telephone, "telephone-error", "Use 40 characters or fewer. Include a country code if you wish. This field is optional.");
-      if (!privacy.checked) fail(privacy, "privacy-error", "Confirm that your message may be emailed to curesoullife@gmail.com.");
-      var honey = document.getElementById("company-website");
-      var ready = name.value.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()) && country.value.trim() && allowed.indexOf(typeField.value) !== -1 && message.value.trim() && message.value.length <= 3000 && (!telephone || telephone.value.trim().length <= 40) && privacy.checked;
-      if (!ready) {
-        if (first && first.focus) first.focus();
-        return;
-      }
-      if (honey && honey.value.trim()) {
+      if (status) {
         status.hidden = false;
-        status.textContent = "Your message has been sent to curesoullife@gmail.com.";
+        status.textContent = "Online submission is temporarily unavailable. Nothing was sent. Write to curesoullife@gmail.com if you choose to. Whether that mailbox is receiving mail has not been confirmed on this page.";
         status.focus();
-        return;
       }
-      var button = enquiryForm.querySelector("button[type='submit']");
-      var categoryLabel = typeField.options[typeField.selectedIndex] ? typeField.options[typeField.selectedIndex].text : typeField.value;
-      if (button) button.disabled = true;
-      status.hidden = false;
-      status.textContent = "Sending your enquiry.";
-      fetch("https://formsubmit.co/ajax/curesoullife@gmail.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: name.value.trim(),
-          email: email.value.trim(),
-          _replyto: email.value.trim(),
-          _subject: "CureSoulLife enquiry: " + categoryLabel,
-          _template: "table",
-          _captcha: "false",
-          country: country.value.trim(),
-          category: categoryLabel,
-          telephone: telephone && telephone.value.trim() ? telephone.value.trim() : "Not provided",
-          message: message.value.trim()
-        })
-      }).then(function (response) {
-        return response.json().catch(function () { return {}; });
-      }).then(function (data) {
-        if (button) button.disabled = false;
-        var accepted = data && (data.success === true || data.success === "true");
-        if (accepted) {
-          enquiryForm.reset();
-          if (counter) counter.textContent = "0 / 3000";
-          setEnquiry("");
-          status.textContent = "Your message has been sent to curesoullife@gmail.com.";
-          status.focus();
-          return;
-        }
-        if (data && /activation/i.test(data.message || "")) {
-          status.textContent = "FormSubmit emailed an Activate Form link to curesoullife@gmail.com. Open that message and activate the form, then send this enquiry again. It has not been delivered yet.";
-          status.focus();
-          return;
-        }
-        status.textContent = "The enquiry was not sent. Nothing was delivered. Your details are still in the form. Please try again later.";
-        status.focus();
-      }).catch(function () {
-        if (button) button.disabled = false;
-        status.textContent = "The enquiry was not sent. Nothing was delivered. Your details are still in the form. Please try again later.";
-        status.focus();
-      });
     });
   }
 })();
