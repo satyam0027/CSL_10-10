@@ -10,12 +10,12 @@
   <meta charset="utf-8">
   <script>document.documentElement.classList.add("js");</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Online form submission is temporarily unavailable. The temporary contact email is curesoullife@gmail.com. The privacy page remains an unapproved draft.">
+  <meta name="description" content="Send an enquiry to curesoullife@gmail.com, or write to that mailbox directly. The privacy page remains an unapproved draft.">
   <meta name="theme-color" content="#F7F4ED">
   <link rel="canonical" href="https://curesoullife.org/contact">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Contact CureSoulLife | General &amp; Collaboration Enquiries">
-  <meta property="og:description" content="Online form submission is temporarily unavailable. The temporary contact email is curesoullife@gmail.com. The privacy page remains an unapproved draft.">
+  <meta property="og:description" content="Send an enquiry to curesoullife@gmail.com, or write to that mailbox directly. The privacy page remains an unapproved draft.">
   <meta property="og:url" content="https://curesoullife.org/contact">
   <title>Contact CureSoulLife | General &amp; Collaboration Enquiries</title>
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
@@ -58,8 +58,8 @@
           <h1>Start a conversation. Explore a possibility.</h1>
           <p class="lede">Have a question about CureSoulLife, an idea for collaboration or feedback to share?</p>
           <p class="support">We welcome thoughtful enquiries from individuals, educators, researchers, practitioners, media professionals and organisations interested in human transformation and lifelong learning.</p>
-          <p class="support">Choose the category that best describes your question. Online submission is temporarily unavailable while the Privacy Policy remains a draft.</p>
-          <div class="status-note">Visitors may write directly to curesoullife@gmail.com. The owner has confirmed that this mailbox receives email. The form on this page does not send an enquiry. FormSubmit is not processing active submissions from this form. The privacy page remains a draft pending owner and legal approval and is not an approved policy.</div>
+          <p class="support">Choose the category that best describes your question, then send the form or write directly to curesoullife@gmail.com.</p>
+          <div class="status-note">Visitors may write directly to curesoullife@gmail.com or use the form. The owner has confirmed that this mailbox receives email. FormSubmit delivers a submitted enquiry to that mailbox. The privacy page remains a draft pending owner and legal approval and is not an approved policy.</div>
           <div class="cta-row"><a class="btn btn-primary" href="#enquiry-form">View the enquiry form<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
         </div>
       </div>
@@ -79,53 +79,52 @@
     <section class="section" id="contact-form" aria-labelledby="contact-form-title">
       <div class="container reading-block">
         <h2 id="contact-form-title">The enquiry form</h2>
-        <p class="support">The fields below show what a future enquiry would ask. They are disabled. Filling them in is not possible, and doing so would not send an enquiry.</p>
-        <p class="support">Write directly to curesoullife@gmail.com. The owner has confirmed that this mailbox receives email. Online submission stays unavailable until a secure delivery method and the privacy draft are approved.</p>
-        <form id="enquiry-form" class="enquiry-form" onsubmit="return false;" novalidate>
+        <p class="support">Send an enquiry with this form, or write directly to curesoullife@gmail.com. The owner has confirmed that this mailbox receives email. The message is sent only after you choose Send enquiry.</p>
+        <form id="enquiry-form" class="enquiry-form" data-delivery="ready" novalidate>
           <div class="field">
             <label for="full-name">Full name <span class="req">(required)</span></label>
-            <input id="full-name" type="text" autocomplete="off" placeholder="Enter your full name" aria-describedby="full-name-error" disabled>
+            <input id="full-name" name="full_name" type="text" autocomplete="name" placeholder="Enter your full name" aria-describedby="full-name-error" required>
             <p id="full-name-error" class="field-error" hidden></p>
           </div>
           <div class="field">
             <label for="email">Email address <span class="req">(required)</span></label>
-            <input id="email" type="text" autocomplete="off" placeholder="you@example.com" aria-describedby="email-error" disabled>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" aria-describedby="email-error" required>
             <p id="email-error" class="field-error" hidden></p>
           </div>
           <div class="field">
             <label for="country">Country or region <span class="req">(required)</span></label>
-            <input id="country" type="text" autocomplete="off" aria-describedby="country-error" disabled>
+            <input id="country" name="country" type="text" autocomplete="country-name" aria-describedby="country-error" required>
             <p id="country-error" class="field-error" hidden></p>
           </div>
           <div class="field">
             <label for="enquiry-type">Enquiry category <span class="req">(required)</span></label>
-            <select id="enquiry-type" aria-describedby="enquiry-type-error" disabled><option value="">Select an enquiry category</option><option value="programs_retreats">Programs &amp; Retreats</option><option value="personal_guidance">Personal Guidance</option><option value="wellness_mentorship">Wellness Business Mentorship</option><option value="institutional_collaboration">Institutional Collaboration</option><option value="media_general">Media &amp; General Enquiries</option></select>
+            <select id="enquiry-type" name="enquiry_category" aria-describedby="enquiry-type-error" required><option value="">Select an enquiry category</option><option value="programs_retreats">Programs &amp; Retreats</option><option value="personal_guidance">Personal Guidance</option><option value="wellness_mentorship">Wellness Business Mentorship</option><option value="institutional_collaboration">Institutional Collaboration</option><option value="media_general">Media &amp; General Enquiries</option></select>
             <p id="enquiry-type-error" class="field-error" hidden></p>
           </div>
           <div class="field">
             <label for="message">Message <span class="req">(required)</span></label>
-            <textarea id="message" maxlength="3000" rows="6" placeholder="Briefly describe your question, idea or request." aria-describedby="message-count message-error" disabled></textarea>
+            <textarea id="message" name="message" maxlength="3000" rows="6" placeholder="Briefly describe your question, idea or request." aria-describedby="message-count message-error" required></textarea>
             <p id="message-count" class="field-count">0 / 3000</p>
             <p id="message-error" class="field-error" hidden></p>
           </div>
           <div class="field">
             <label for="telephone">Telephone <span class="opt">(optional)</span></label>
-            <input id="telephone" type="text" autocomplete="off" aria-describedby="telephone-note telephone-error" disabled>
+            <input id="telephone" name="telephone" type="tel" autocomplete="tel" aria-describedby="telephone-note telephone-error">
             <p id="telephone-note" class="section-note">Include a country code if you choose to leave a number. Any format is accepted. This field is not required.</p>
             <p id="telephone-error" class="field-error" hidden></p>
           </div>
           <div class="hp-field" aria-hidden="true">
             <label for="company-website">Company website</label>
-            <input id="company-website" type="text" tabindex="-1" autocomplete="off" disabled>
+            <input id="company-website" name="company_website" type="text" tabindex="-1" autocomplete="off">
           </div>
           <div class="field field-check">
-            <input id="privacy" type="checkbox" value="yes" aria-describedby="privacy-note privacy-error" disabled>
-            <label for="privacy">I understand that this form cannot send this message while online submission is unavailable.</label>
-            <p id="privacy-note" class="section-note">Read the <a href="../privacy-policy/index.html">draft Privacy Policy</a>. It is pending owner and legal approval and is not an approved policy. The form does not send or store the message.</p>
+            <input id="privacy" name="privacy" type="checkbox" value="yes" aria-describedby="privacy-note privacy-error" required>
+            <label for="privacy">I have read the draft Privacy Policy and I want to send this enquiry.</label>
+            <p id="privacy-note" class="section-note">Read the <a href="../privacy-policy/index.html">draft Privacy Policy</a>. It is pending owner and legal approval and is not an approved policy. Sending delivers the enquiry to curesoullife@gmail.com. The website does not keep its own copy.</p>
             <p id="privacy-error" class="field-error" hidden></p>
           </div>
-          <p id="enquiry-status" class="form-status" role="status">Online submission is temporarily unavailable. Nothing on this form is sent. Write directly to curesoullife@gmail.com.</p>
-          <button class="btn btn-primary" type="button" disabled>Online submission unavailable</button>
+          <p id="enquiry-status" class="form-status" role="status" tabindex="-1"></p>
+          <button class="btn btn-primary" type="submit">Send enquiry</button>
         </form>
       </div>
     </section>
@@ -161,7 +160,7 @@
           <h2 id="after-contact-title">A simple, responsible process.</h2>
         </div>
         <ol class="community-cards">
-          <li><h3>Online submission is paused</h3><p>The form does not send personal information while the privacy draft is unapproved. Write directly to curesoullife@gmail.com. The owner has confirmed that this mailbox receives email.</p></li>
+          <li><h3>You send an enquiry</h3><p>Use the form, or write directly to curesoullife@gmail.com. The owner has confirmed that this mailbox receives email. Sending does not create a booking.</p></li>
           <li><h3>The enquiry is reviewed</h3><p>An authorised person would review the message and identify an appropriate next step. No reviewer is assigned on this page.</p></li>
           <li><h3>Follow-up, where appropriate</h3><p>If a response were appropriate and sufficient contact details had been provided, someone might follow up. No reply time is promised, and an individual response is not guaranteed.</p></li>
         </ol>
@@ -171,10 +170,10 @@
     <section class="section section-white" id="contact-privacy" aria-labelledby="contact-privacy-title">
       <div class="container reading-block">
         <h2 id="contact-privacy-title">Your information should be handled with care.</h2>
-        <p class="support">Please share only the information needed for a reply, and only by the temporary email while the form is paused. The website does not store a form message, because the form does not submit one.</p>
-        <p class="support">No online provider is delivering this form. FormSubmit is not processing active submissions from this form. The <a href="../privacy-policy/index.html">draft Privacy Policy</a> is pending owner and legal approval and is not an approved policy. How long an email would be kept, and how a person could ask for it to be deleted, are still awaiting approval.</p>
+        <p class="support">Please share only the information needed for a reply. The website does not keep its own copy of a form message. FormSubmit receives it in order to deliver the email.</p>
+        <p class="support">FormSubmit delivers a submitted enquiry to curesoullife@gmail.com. The website does not keep its own copy. The <a href="../privacy-policy/index.html">draft Privacy Policy</a> is pending owner and legal approval and is not an approved policy. How long an email would be kept, and how a person could ask for it to be deleted, are still awaiting approval.</p>
         <p class="support">This form does not add anyone to a newsletter or marketing list. No such list is connected here.</p>
-        <p class="section-note">The draft is not an approved policy. The form does not keep a copy of a message, because it does not send one.</p>
+        <p class="section-note">The draft is not an approved policy. The website does not keep its own copy of a message.</p>
       </div>
     </section>
 
@@ -182,11 +181,11 @@
       <div class="container reading-block">
         <h2 id="contact-faq-title">Questions about contacting CureSoulLife</h2>
         <div class="faq-list">
-          <details><summary>What can I contact CureSoulLife about?</summary><p>The form shows five categories: Programs &amp; Retreats, Personal Guidance, Wellness Business Mentorship, Institutional Collaboration, and Media &amp; General Enquiries. Choosing a category does not mean that service is currently open, and it does not send the form. Online submission is temporarily unavailable. The temporary contact email is curesoullife@gmail.com.</p></details>
-          <details><summary>How can I explore a collaboration with CureSoulLife?</summary><p>The Institutional Collaboration category describes that kind of question. Sending is paused. Writing to curesoullife@gmail.com does not guarantee a partnership or formal relationship.</p></details>
-          <details><summary>Can I contact CureSoulLife about retreats or experiences?</summary><p>The Programs &amp; Retreats category describes that kind of question. No booking page is published, and the form does not send a request or confirm a place.</p></details>
-          <details><summary>Does submitting the form guarantee a response?</summary><p>The form cannot be submitted. It does not send personal information. A message written to curesoullife@gmail.com does not promise a reply time, and an individual reply is not guaranteed. The owner has confirmed that this mailbox receives email.</p></details>
-          <details><summary>How will my information be used?</summary><p>The form does not send or store what is typed into it, and the fields cannot be filled while submission is paused. FormSubmit is not processing active submissions from this form. The draft Privacy Policy is pending owner and legal approval and is not an approved policy. It does not set a retention period or add you to a marketing list.</p></details>
+          <details><summary>What can I contact CureSoulLife about?</summary><p>The form shows five categories: Programs &amp; Retreats, Personal Guidance, Wellness Business Mentorship, Institutional Collaboration, and Media &amp; General Enquiries. Choosing a category does not mean that service is currently open, and choosing it does not send the form by itself. You can also write to curesoullife@gmail.com.</p></details>
+          <details><summary>How can I explore a collaboration with CureSoulLife?</summary><p>The Institutional Collaboration category describes that kind of question. Sending an enquiry does not guarantee a partnership or formal relationship.</p></details>
+          <details><summary>Can I contact CureSoulLife about retreats or experiences?</summary><p>The Programs &amp; Retreats category describes that kind of question. No booking page is published, and sending the form does not reserve a place.</p></details>
+          <details><summary>Does submitting the form guarantee a response?</summary><p>Sending the form delivers the enquiry to curesoullife@gmail.com. It does not promise a reply time, and an individual reply is not guaranteed. The owner has confirmed that this mailbox receives email.</p></details>
+          <details><summary>How will my information be used?</summary><p>The form sends the enquiry through FormSubmit to curesoullife@gmail.com. The website does not keep its own copy. The draft Privacy Policy is pending owner and legal approval and is not an approved policy. It does not set a retention period or add you to a marketing list.</p></details>
           <details><summary>Can I use this form for emergencies or urgent clinical support?</summary><p>No. This is an institutional contact channel, not an emergency or crisis service. It is not a substitute for urgent local emergency or professional support.</p></details>
         </div>
       </div>
@@ -196,7 +195,7 @@
       <div class="container">
         <h2 id="contact-close-title">Every meaningful connection begins with a conversation.</h2>
         <div class="finale-copy">
-          <p>If you have a question, a thoughtful idea or feedback to share, use the temporary contact email while online submission is paused.</p>
+          <p>If you have a question, a thoughtful idea or feedback to share, send the enquiry form or write to curesoullife@gmail.com.</p>
         </div>
         <div class="cta-row"><a class="btn btn-light" href="#enquiry-form">View the enquiry form<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
       </div>

@@ -600,11 +600,12 @@ const contactHtml = fs.readFileSync(path.join(root, "contact/index.html"), "utf8
 if (contactHtml.includes("Your enquiry has been received")) bad.push("contact page shows a receipt that was not confirmed");
 if (contactHtml.includes("mailto:") || contactHtml.includes("@curesoullife.org")) bad.push("contact page publishes an unverified address");
 if (!contactHtml.includes("curesoullife@gmail.com")) bad.push("contact page does not name the temporary enquiry inbox");
-if (!contactHtml.includes("FormSubmit")) bad.push("contact page does not name the intended form provider");
-if (!contactHtml.includes("temporarily unavailable")) bad.push("contact page does not say online submission is temporarily unavailable");
-if (!contactHtml.includes("not processing active submissions")) bad.push("contact page claims FormSubmit is processing active submissions");
+if (!contactHtml.includes("FormSubmit")) bad.push("contact page does not name the form provider");
+if (!contactHtml.includes("Send enquiry")) bad.push("contact page does not offer to send an enquiry");
+if (!contactHtml.includes('data-delivery="ready"')) bad.push("contact form is not ready to send");
+if (/id="full-name"[^>]*disabled/.test(contactHtml)) bad.push("contact form fields are disabled");
 if (contactHtml.includes("formsubmit.co")) bad.push("contact page contains a FormSubmit endpoint");
-if (contactHtml.includes("FormSubmit forwards")) bad.push("contact page says FormSubmit is forwarding the current form");
+if (contactHtml.includes("temporarily unavailable")) bad.push("contact page still says submission is unavailable");
 if (!contactHtml.includes("not an approved policy")) bad.push("contact page does not state that the privacy policy is an unapproved draft");
 const guidanceHtml = fs.readFileSync(path.join(root, "personal-guidance/index.html"), "utf8");
 const guidanceRequired = [
@@ -635,7 +636,7 @@ const guidanceRequired = [
   "suicidal thoughts",
   "curesoullife@gmail.com",
   "The owner has confirmed that this mailbox receives email",
-  "temporarily unavailable",
+  "send an enquiry from the contact page",
   "Heal. Grow. Awaken. Transform."
 ];
 const missingGuidance = guidanceRequired.filter((line) => !guidanceHtml.includes(line));
@@ -694,7 +695,7 @@ const programRequired = {
     "suicidal thoughts",
     "curesoullife@gmail.com",
     "The owner has confirmed that this mailbox receives email",
-    "temporarily unavailable"
+    "send an enquiry from the contact page"
   ],
   "programs/life-reset-one-day/index.html": [
     "https://curesoullife.org/programs/life-reset-one-day",
@@ -715,7 +716,7 @@ const programRequired = {
     "not a replacement for licensed mental health care",
     "curesoullife@gmail.com",
     "The owner has confirmed that this mailbox receives email",
-    "temporarily unavailable"
+    "send an enquiry from the contact page"
   ],
   "programs/inner-balance-transformation/index.html": [
     "https://curesoullife.org/programs/inner-balance-transformation",
@@ -736,7 +737,7 @@ const programRequired = {
     "not a replacement for licensed mental health care",
     "curesoullife@gmail.com",
     "The owner has confirmed that this mailbox receives email",
-    "temporarily unavailable"
+    "send an enquiry from the contact page"
   ]
 };
 for (const [file, lines] of Object.entries(programRequired)) {
@@ -748,13 +749,17 @@ if (!contactHtml.includes('id="full-name"') || !contactHtml.includes('id="email"
 if (/<form[^>]*\baction=/.test(contactHtml)) bad.push("contact form has a submission action");
 const aboutHtml = fs.readFileSync(path.join(root, "about/index.html"), "utf8");
 if (aboutHtml.includes("not yet connected to a working submission service")) bad.push("about page still says the enquiry form is not connected");
-if (!aboutHtml.includes("Online submission on the contact form is temporarily unavailable.")) bad.push("about page does not say online submission is paused");
+if (!aboutHtml.includes("An enquiry can be sent from the contact page.")) bad.push("about page does not say an enquiry can be sent");
 if (aboutHtml.includes("The contact form emails the enquiry")) bad.push("about page says the form sends email");
 const mainJs = fs.readFileSync(path.join(root, "js/main.js"), "utf8");
-if (mainJs.includes("formsubmit.co") || mainJs.includes("fetch(")) bad.push("enquiry script can still transmit a form");
+if (mainJs.includes("formsubmit.co")) bad.push("enquiry script names FormSubmit");
+if (mainJs.includes("fetch(") && !mainJs.includes('fetch("/api/enquiry"')) bad.push("enquiry script can transmit a form to an unapproved address");
+if (!mainJs.includes('data-delivery") !== "ready"')) bad.push("enquiry script does not check that delivery is ready");
 const enquiryApi = fs.readFileSync(path.join(root, "api/enquiry.js"), "utf8");
-if (!enquiryApi.includes("submission_paused")) bad.push("enquiry function is missing the submission pause");
 if (!enquiryApi.includes("export default")) bad.push("enquiry function was removed");
+if (!enquiryApi.includes("formsubmit.co/ajax/")) bad.push("enquiry function does not deliver through FormSubmit");
+if (enquiryApi.includes("_captcha")) bad.push("enquiry function changes FormSubmit captcha settings");
+if (enquiryApi.includes("submission_paused")) bad.push("enquiry function still pauses a valid enquiry");
 for (const file of ["privacy-policy/index.html", "terms-of-use/index.html", "wellness-disclaimer/index.html"]) {
   const policyHtml = fs.readFileSync(path.join(root, file), "utf8");
   const visible = policyHtml.split("curesoullife@gmail.com").join("");

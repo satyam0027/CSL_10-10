@@ -301,13 +301,103 @@
     var requested = new URLSearchParams(window.location.search).get("enquiry");
     if (requested) setEnquiry(requested);
 
+    function setStatus(text) {
+      if (!status) return;
+      status.hidden = false;
+      status.textContent = text;
+      status.focus();
+    }
+
     enquiryForm.addEventListener("submit", function (event) {
       event.preventDefault();
-      if (status) {
-        status.hidden = false;
-        status.textContent = "Online submission is temporarily unavailable. Nothing was sent. Write directly to curesoullife@gmail.com.";
-        status.focus();
+      if (enquiryForm.getAttribute("data-delivery") !== "ready") {
+        setStatus("Online submission is temporarily unavailable. Nothing was sent. Write directly to curesoullife@gmail.com.");
+        return;
       }
+
+      var fullName = document.getElementById("full-name");
+      var email = document.getElementById("email");
+      var country = document.getElementById("country");
+      var telephone = document.getElementById("telephone");
+      var company = document.getElementById("company-website");
+      var payload = {
+        full_name: fullName ? fullName.value : "",
+        email: email ? email.value : "",
+        country_or_region: country ? country.value : "",
+        enquiry_category: typeField ? typeField.value : "",
+        message: message ? message.value : "",
+        telephone: telephone ? telephone.value : "",
+        privacy_acknowledgement: privacy && privacy.checked ? "yes" : "",
+        company_website: company ? company.value : ""
+      };
+      var problems = [];
+      if (!payload.full_name.trim() || payload.full_name.trim().length > 120) problems.push(["full-name-error", "full-name", "Enter your full name."]);
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email.trim()) || payload.email.trim().length > 200) problems.push(["email-error", "email", "Enter an email address."]);
+      if (!payload.country_or_region.trim() || payload.country_or_region.trim().length > 80) problems.push(["country-error", "country", "Enter your country or region."]);
+      if (allowed.indexOf(payload.enquiry_category) === -1) problems.push(["enquiry-type-error", "enquiry-type", "Choose an enquiry category."]);
+      if (!payload.message.trim() || payload.message.length > 3000) problems.push(["message-error", "message", "Enter a message of up to 3000 characters."]);
+      if (payload.telephone.trim().length > 40) problems.push(["telephone-error", "telephone", "Use no more than 40 characters."]);
+      if (payload.privacy_acknowledgement !== "yes") problems.push(["privacy-error", "privacy", "Confirm that you have read the draft Privacy Policy."]);
+      ["full-name-error", "email-error", "country-error", "enquiry-type-error", "message-error", "telephone-error", "privacy-error"].forEach(function (id) {
+        showError(id, "");
+      });
+      if (problems.length) {
+        problems.forEach(function (problem) { showError(problem[0], problem[2]); });
+        var first = document.getElementById(problems[0][1]);
+        if (first) first.focus();
+        setStatus("The form was not sent. Correct the marked fields.");
+        return;
+      }
+
+      var submitButton = enquiryForm.querySelector("button");
+      if (submitButton) submitButton.disabled = true;
+      setStatus("Sending your enquiry.");
+      fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(function (response) {
+        return response.json().then(function (data) {
+          return { ok: response.ok, status: response.status, data: data || {} };
+        });
+      }).then(function (result) {
+        var data = result.data;
+        if (data.delivered === true) {
+          enquiryForm.reset();
+          if (counter && message) counter.textContent = "0 / 3000";
+          setStatus("The enquiry was accepted for delivery to curesoullife@gmail.com.");
+          return;
+        }
+        if (data.error === "validation" && Array.isArray(data.fields)) {
+          data.fields.forEach(function (field) {
+            var map = {
+              full_name: ["full-name-error", "Enter your full name."],
+              email: ["email-error", "Enter an email address."],
+              country_or_region: ["country-error", "Enter your country or region."],
+              enquiry_category: ["enquiry-type-error", "Choose an enquiry category."],
+              message: ["message-error", "Enter a message of up to 3000 characters."],
+              telephone: ["telephone-error", "Use no more than 40 characters."],
+              privacy_acknowledgement: ["privacy-error", "Confirm that you have read the draft Privacy Policy."]
+            };
+            if (map[field]) showError(map[field][0], map[field][1]);
+          });
+          setStatus("The form was not sent. Correct the marked fields.");
+          return;
+        }
+        if (data.error === "rate_limited") {
+          setStatus("The form was not sent. Please wait and try again, or write directly to curesoullife@gmail.com.");
+          return;
+        }
+        if (data.error === "delivery_failed") {
+          setStatus("The form was not sent. Write directly to curesoullife@gmail.com.");
+          return;
+        }
+        setStatus("Online submission is temporarily unavailable. Nothing was sent. Write directly to curesoullife@gmail.com.");
+      }).catch(function () {
+        setStatus("The form was not sent. Write directly to curesoullife@gmail.com.");
+      }).then(function () {
+        if (submitButton) submitButton.disabled = false;
+      });
     });
   }
 })();
