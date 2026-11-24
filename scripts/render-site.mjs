@@ -51,6 +51,8 @@ const footerCols = [
   ["Experience", [
     ["experiences/index.html", "Experiences"],
     ["personal-guidance/index.html", "Personal Guidance"],
+    ["experiences/stories/index.html", "Stories"],
+    ["guided-practices/index.html", "Guided Practices"],
     ["experiences/retreats/index.html", "Retreats"],
     ["community/index.html", "Community"],
     ["community/global-network/index.html", "Global Network"]
@@ -174,6 +176,133 @@ const transformationStages = [
 ];
 const stages = transformationStages.map((stage) => stage.name);
 
+// Internal note, not rendered. Owner confirmed on 24 November 2026 that all five
+// reviewers voluntarily published these reviews on Google Business Profile and
+// gave permission for reuse on the CureSoulLife website. Screenshot labels were
+// relative ("a month ago", "4 months ago", "6 months ago") and are not converted
+// into calendar dates. No review URL, review count, or aggregate rating was supplied.
+const republicationNote = "Owner confirmed republication on 24 November 2026. Relative screenshot labels were retained internally and are not published as calendar dates.";
+
+const reviewRecords = [
+  {
+    id: "aastha-yadav",
+    name: "Aastha Yadav",
+    group: "person",
+    homepage: true,
+    publicLabel: "Personal appreciation of Sarvesh Mishra's guidance.",
+    quote: `Thank you so much, Sarvesh Mishra Ji, Sir. 🙏🏻 After speaking with you, I truly feel that anyone struggling with any problem should talk to you—you can give them the clarity and solution they are looking for.
+
+We often share our problems with many people and seek solutions, but still don’t get the clarity we need. You have a rare ability to understand what a person is truly looking for and guide them in the right direction.
+
+I’m deeply grateful to Lord Mahakal for bringing you into my life, and to Shivam Mishra ji Sir, through whom I got the opportunity to meet you. Thank you so much for giving me the clarity and solution I needed. 🙏🏻 Thankyou so much sir 🙏🏻`,
+    stars: 5,
+    screenshotLabel: "a month ago",
+    source: "Google review",
+    consent: "republication-confirmed",
+    publish: true,
+    program: null,
+    permission: republicationNote
+  },
+  {
+    id: "smart-infovision",
+    name: "Smart Infovision",
+    group: "person",
+    homepage: false,
+    publicLabel: "Personal appreciation of Sarvesh Mishra. This is not a review of a particular program.",
+    quote: "Sarvesh Mishra is a remarkable personality. He aligns the body, mind, and soul in an extraordinary manner, completely transforming one's way of thinking. Anyone aspiring to achieve progress in life should definitely meet Sarvesh Ji at least once. 🙏🙏",
+    stars: 5,
+    screenshotLabel: "6 months ago",
+    source: "Google review",
+    consent: "republication-confirmed",
+    publish: true,
+    program: null,
+    permission: republicationNote
+  },
+  {
+    id: "krishna-davi",
+    name: "Krishna Davi",
+    group: "institution",
+    homepage: true,
+    publicLabel: "A participant's experience with CureSoulLife.",
+    quote: "CureSoulLife helped me understand myself on a much deeper level. The sessions brought clarity, emotional balance, and a new perspective towards life.",
+    stars: 5,
+    screenshotLabel: "4 months ago",
+    source: "Google review",
+    consent: "republication-confirmed",
+    publish: true,
+    program: null,
+    permission: republicationNote
+  },
+  {
+    id: "satwik-mishra",
+    name: "Satwik Mishra",
+    group: "institution",
+    homepage: false,
+    publicLabel: "A general reflection on the programs. It is not attributed to one course.",
+    quote: "The focus on mind, body, energy, and consciousness makes the programs very holistic. Every session feels meaningful and impactful.",
+    stars: 5,
+    screenshotLabel: "4 months ago",
+    source: "Google review",
+    consent: "republication-confirmed",
+    publish: true,
+    program: null,
+    permission: republicationNote
+  },
+  {
+    id: "dharma-raj",
+    name: "Dharma Raj",
+    group: "institution",
+    homepage: true,
+    publicLabel: "A reflection on practices and support.",
+    quote: "One of the best investments I’ve made in myself. The practices are powerful, and the support from the team is exceptional.",
+    stars: 5,
+    screenshotLabel: "4 months ago",
+    source: "Google review",
+    consent: "republication-confirmed",
+    publish: true,
+    program: null,
+    permission: republicationNote
+  }
+];
+
+const guidedPracticeRecords = [
+  { id: "yoga-nidra", title: "Yoga Nidra", intendedMinutes: 30, category: "Rest & Sleep", format: "audio", showFace: false, mediaUrl: null, verified: false, publish: false },
+  { id: "deep-sleep-meditation", title: "Deep Sleep Meditation", intendedMinutes: 30, category: "Rest & Sleep", format: "audio", showFace: false, mediaUrl: null, verified: false, publish: false },
+  { id: "sleep-body-scan", title: "Sleep Body Scan", intendedMinutes: 20, category: "Rest & Sleep", format: "audio", showFace: false, mediaUrl: null, verified: false, publish: false },
+  { id: "nervous-system-reset", title: "Nervous System Reset", intendedMinutes: 20, category: "Calm & Grounding", format: "audio", showFace: false, mediaUrl: null, verified: false, publish: false },
+  { id: "grounding", title: "Grounding", intendedMinutes: 15, category: "Calm & Grounding", format: "audio", showFace: false, mediaUrl: null, verified: false, publish: false },
+  { id: "progressive-muscle-relaxation", title: "Progressive Muscle Relaxation", intendedMinutes: 20, category: "Calm & Grounding", format: "audio", showFace: false, mediaUrl: null, verified: false, publish: false },
+  { id: "overthinking-reset", title: "Overthinking Reset", intendedMinutes: 20, category: "Awareness & Clarity", format: "audio", showFace: false, mediaUrl: null, verified: false, publish: false },
+  { id: "inner-silence-meditation", title: "Inner Silence Meditation", intendedMinutes: 20, category: "Awareness & Clarity", format: "audio", showFace: false, mediaUrl: null, verified: false, publish: false },
+  { id: "mental-clarity", title: "Mental Clarity", intendedMinutes: 20, category: "Awareness & Clarity", format: "audio", showFace: false, mediaUrl: null, verified: false, publish: false },
+  { id: "emotional-release", title: "Emotional Release", intendedMinutes: 25, category: "Calm & Grounding", format: "audio", showFace: false, mediaUrl: null, verified: false, publish: false }
+];
+
+function publishedReviews() {
+  return reviewRecords.filter((review) => review.publish === true && review.consent === "republication-confirmed" && review.quote);
+}
+
+function publishedPractices() {
+  return guidedPracticeRecords.filter((practice) => practice.publish === true && practice.verified === true && practice.mediaUrl);
+}
+
+function reviewParagraphs(quote) {
+  return quote.split(/\n\n/).map((paragraph) => `<p>${paragraph}</p>`).join("");
+}
+
+function reviewCard(review) {
+  return `<article class="review-card">
+            <h3>${review.name}</h3>
+            <p class="review-meta"><span class="review-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">★★★★★</span></span> <span class="review-source">Google review</span></p>
+            <p class="review-kind">${review.publicLabel}</p>
+            <blockquote>${reviewParagraphs(review.quote)}</blockquote>
+          </article>`;
+}
+
+function homepageReviews() {
+  return ["krishna-davi", "aastha-yadav", "dharma-raj"].map((id) => publishedReviews().find((review) => review.id === id)).filter(Boolean);
+}
+
 function picture(stem, width, height, alt, { priority = false, lazy = true, prefix = "" } = {}) {
   const load = lazy ? ` loading="lazy"` : "";
   const fetch = priority ? ` fetchpriority="high"` : "";
@@ -202,51 +331,25 @@ function home() {
     ["Human Experience", icons.experience, "Learn from lived experience, reflection and the questions people encounter in everyday life.", "closing-horizon", 1800, 1196, "78% 40%"],
     ["Practical Application", icons.practice, "Connect understanding with responsible practices, everyday choices and continued reflection.", "page-landscape", 1600, 1067, "center 70%"]
   ];
-
+  const programs = [
+    ["Life Reset 7", "A seven-day online guided experience across brain, body, relationships, wealth and energy.", "programs/life-reset-7/index.html"],
+    ["LIFE RESET — A Day to Pause, Reconnect &amp; Restart", "A guided day for pause, guided experience, reflection and integration.", "programs/life-reset-one-day/index.html"],
+    ["INNER BALANCE &amp; TRANSFORMATION", "A nine-day online program for sustained reflection, inner balance and behavioural awareness.", "programs/inner-balance-transformation/index.html"]
+  ];
   return `
     <section class="hero home-hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        ${eyebrow("CureSoulLife")}
-        <h1 id="hero-title">A deeper way to understand being human.</h1>
-        <p class="support">CureSoulLife is a Human Transformation Institution exploring how we can live with greater awareness, balance, meaning and possibility — through the meeting of Ancient Wisdom, Modern Science and lived human experience.</p>
+        ${eyebrow("CureSoulLife · Human Transformation")}
+        <h1 id="hero-title">Understand Yourself. Transform Your Life.</h1>
+        <p class="support">Explore a more conscious way of living through self-awareness, ancient wisdom, modern understanding and meaningful daily practices.</p>
+        <p class="statement">Heal. Grow. Awaken. Transform.</p>
         <div class="cta-row">
-          ${cta(d, "human-transformation/index.html", "Explore Human Transformation")}
-          ${cta(d, "curesoullife/index.html", "Discover CureSoulLife", "btn btn-secondary")}
+          ${cta(d, "programs/index.html", "Explore Our Programs")}
+          ${cta(d, "personal-guidance/index.html", "Discover Personal Guidance", "btn btn-secondary")}
         </div>
-        <ul class="home-pillars">
-          ${perspectives.map(([title, icon]) => `<li><span class="home-pillar-icon">${icon}</span>${title}</li>`).join("")}
-        </ul>
       </div>
       <div class="hero-media">
         ${picture("closing-horizon", 1800, 1196, "A person on a rocky ridge above misty valleys in warm light", { priority: true, lazy: false })}
-      </div>
-    </section>
-
-    <section class="section world" aria-labelledby="world-title">
-      <div class="container world-layout reveal">
-        ${eyebrow("The world we live in")}
-        <h2 id="world-title">We have never known more. Yet many of us are struggling to live well.</h2>
-        <p class="support">We live in an age of extraordinary knowledge, technology and possibility.</p>
-        <p class="support">And yet, beneath the noise, many people experience stress, disconnection, exhaustion, unhealthy patterns, relationship difficulties and a quiet loss of meaning.</p>
-        <div class="world-lines">
-          <p class="world-line">We have learned how to make life faster.</p>
-          <p class="world-line">We are still learning how to make it deeper.</p>
-        </div>
-        <div class="cta-row">${textLink(d, "human-transformation/index.html", "Explore Human Transformation")}</div>
-      </div>
-    </section>
-
-    <section class="section section-white home-question" aria-labelledby="question-title">
-      <div class="container split">
-        <div class="reveal">
-          ${eyebrow("The human question")}
-          <h2 id="question-title">What does it mean to live a more conscious human life?</h2>
-          <p class="support">Across cultures and generations, human beings have explored questions of meaning, relationships, wellbeing, responsibility and what it means to live well. CureSoulLife creates space to explore these questions through knowledge, reflection, practice and lived experience.</p>
-          <div class="cta-row">${cta(d, "human-transformation/index.html", "Explore Human Transformation")}</div>
-        </div>
-        <figure class="split-media reveal">
-          ${picture("question-forest", 1600, 1066, "A sunlit path through tall trees")}
-        </figure>
       </div>
     </section>
 
@@ -254,10 +357,10 @@ function home() {
       <div class="container">
         <div class="home-intro reveal">
           <div>
-            ${eyebrow("CureSoulLife")}
+            ${eyebrow("What is CureSoulLife?")}
             <h2 id="about-title">A Human Transformation Institution.</h2>
-            <p class="support">A living ecosystem for human transformation. CureSoulLife brings together Ancient Wisdom, Modern Science, Human Experience and Practical Application to explore how people can understand themselves more deeply and live with greater awareness, balance, meaning and possibility.</p>
-            <p class="support">Our purpose is not to tell people who to become. It is to create conditions in which deeper understanding and meaningful transformation become possible.</p>
+            <p class="support">CureSoulLife brings together Ancient Wisdom, Modern Science, Human Experience and Practical Application. The purpose is to create conditions in which people can understand themselves more deeply and live with greater awareness, balance, meaning and possibility.</p>
+            <p class="support">We have never known more. Yet many of us are struggling to live well. Our purpose is not to tell people who to become.</p>
           </div>
           <blockquote class="pull quote"><p>A modern institution born from timeless wisdom.</p></blockquote>
         </div>
@@ -270,30 +373,6 @@ function home() {
         </div>
         <p class="section-note">These perspectives are held with equal weight. Traditional understanding and scientific evidence are not treated as interchangeable.</p>
         <div class="cta-row">${cta(d, "curesoullife/index.html", "Discover CureSoulLife")}</div>
-      </div>
-    </section>
-
-    <section class="section home-journey" aria-labelledby="journey-title">
-      <div class="container home-journey-grid">
-        <div class="home-journey-main">
-          <div class="section-head section-header reveal">
-            ${eyebrow("From understanding to transformation")}
-            <h2 id="journey-title">Transformation is a lifelong journey.</h2>
-            <p class="support">Meaningful change can begin with awareness, deepen through understanding, and take shape through practice, integration and contribution.</p>
-          </div>
-          <div class="journey-block timeline diagram reveal">
-            <ol class="journey">${stageItems}</ol>
-            <svg class="journey-arc" viewBox="0 0 1000 64" preserveAspectRatio="xMidYMin meet" aria-hidden="true" focusable="false">
-              <path class="journey-return" d="M929 6C929 58 71 58 71 6" fill="none" stroke="currentColor" stroke-width="1.25"/>
-              <path d="M63 16 71 6l8 10" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <p class="journey-note">These stages are not strictly linear. People may revisit different stages throughout life. They are a conceptual framework, not a validated psychological model, a fixed ranking, or a guaranteed sequence.</p>
-          </div>
-          <div class="cta-row">${cta(d, "human-transformation/index.html", "Explore Human Transformation")}</div>
-        </div>
-        <figure class="home-journey-media reveal">
-          ${picture("institutional-hills", 1800, 1072, "A winding road through green hills at sunrise")}
-        </figure>
       </div>
     </section>
 
@@ -316,86 +395,44 @@ function home() {
       </div>
     </section>
 
-    <div class="section section-sand home-paths">
-      <div class="container home-paths-grid">
-        <section class="home-path reveal" aria-labelledby="knowledge-title">
-          <figure class="home-path-media" style="--pos:center 62%">${picture("eco-knowledge", 1200, 1800, "")}</figure>
-          <div class="home-path-body">
-            ${eyebrow("Knowledge")}
-            <h2 id="knowledge-title">Ideas for understanding human life.</h2>
-            <p class="support">Ideas, insights and practical resources for understanding human life and transformation. Knowledge is a pathway from curiosity toward a more careful understanding.</p>
-            <div class="home-path-note">
-              <h3>Published work will appear here.</h3>
-              <p>Essays, guides and learning series are not listed until they are actually published. This page does not display article counts, authors, or borrowed media.</p>
-            </div>
-            ${textLink(d, "knowledge/index.html", "Explore Knowledge")}
-          </div>
-        </section>
-        <section class="home-path reveal" aria-labelledby="research-title">
-          <figure class="home-path-media" style="--pos:72% 40%">${picture("hero-landscape", 1800, 1200, "")}</figure>
-          <div class="home-path-body">
-            ${eyebrow("Research")}
-            <h2 id="research-title">Questions held with intellectual honesty.</h2>
-            <p class="support">Explore questions, evidence, traditional perspectives and emerging understanding with intellectual honesty. Scientific research and traditional understanding are not treated as interchangeable, and neither is offered as proof of personal transformation.</p>
-            <div class="home-path-note">
-              <h3>No publication list is invented here.</h3>
-              <p>Studies, papers and reviews will be cited only when they exist and can be read. This page does not display research counts, validation badges, or partner institutions.</p>
-            </div>
-            ${textLink(d, "research/index.html", "Explore Research")}
-          </div>
-        </section>
-        <section class="home-path reveal" aria-labelledby="experiences-title">
-          <figure class="home-path-media" style="--pos:center 40%">${picture("eco-experiences", 1200, 800, "")}</figure>
-          <div class="home-path-body">
-            ${eyebrow("Experiences")}
-            <h2 id="experiences-title">Practice, programmes and immersive learning.</h2>
-            <p class="support">Experiences are where understanding can meet application: guided practices, workshops, programmes and immersive learning, alongside continued reflection.</p>
-            <ul class="format-list">
-              <li>Guided practices</li>
-              <li>Workshops</li>
-              <li>Structured programmes</li>
-              <li>Retreats and immersions</li>
-              <li>Events and shared learning</li>
-            </ul>
-            <div class="home-path-note">
-              <h3>Programmes are listed only when they are real.</h3>
-              <p>No dates, places, teachers or prices are shown until a programme is actually offered. This page does not take bookings or payments.</p>
-            </div>
-            ${textLink(d, "experiences/index.html", "Explore Experiences")}
-          </div>
-        </section>
-        <section class="home-path reveal" aria-labelledby="community-title">
-          <figure class="home-path-media" style="--pos:center 55%">${picture("eco-community", 1200, 800, "")}</figure>
-          <div class="home-path-body">
-            ${eyebrow("Community")}
-            <h2 id="community-title">Learn together. Contribute with care.</h2>
-            <p class="support">Community is where people can learn with one another and find responsible ways to contribute. The Global Network is a related vision. The two are not the same thing.</p>
-            <div class="home-path-note">
-              <h3>Community</h3>
-              <p>Learn together, share perspectives and discover meaningful ways to contribute.</p>
-              ${textLink(d, "community/index.html", "Explore Community")}
-            </div>
-            <div class="home-path-note">
-              <h3>Global Network</h3>
-              <p>Explore the vision for responsible collaboration across people, knowledge and communities.</p>
-              <p class="pair-note">The Global Network is a developing institutional vision. It does not represent active offices, centres, or partnerships.</p>
-              ${textLink(d, "community/global-network/index.html", "Explore Global Network")}
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-
-    <section class="section" aria-labelledby="stories-title">
-      <div class="container reading-block reveal">
-        ${eyebrow("Human stories")}
-        <h2 id="stories-title">Learning from lived experience.</h2>
-        <p class="support">Reflection, learning and contribution are part of how understanding develops between people. Individual stories are published only with permission.</p>
-        <div class="quiet-panel">
-          <h3>No stories are listed yet.</h3>
-          <p>Names, photographs, quotations and outcomes are not invented for this page. Nothing here is a testimonial.</p>
+    <section class="section home-paths" id="home-programs" aria-labelledby="programs-title">
+      <div class="container">
+        <div class="section-head reading-block reveal">
+          ${eyebrow("Programs &amp; Experiences")}
+          <h2 id="programs-title">Three developed programs. Registration is closed.</h2>
+          <p class="support">Each program page separates the published description, any verified past delivery, and whether registration is open. Closed registration does not show whether a program has been conducted before.</p>
         </div>
-        <div class="cta-row">${cta(d, "community/index.html", "Explore Community")}</div>
+        <div class="community-cards community-wide reveal">
+          ${programs.map(([name, copy, route]) => `<article><h3>${name}</h3><p>${copy}</p><p>Program developed. Previous delivery is not recorded here. Registration is closed.</p>${textLink(d, route, "View program")}</article>`).join("")}
+        </div>
+        <div class="cta-row">
+          ${cta(d, "programs/index.html", "Explore Our Programs")}
+          ${cta(d, "experiences/index.html", "Explore Experiences", "btn btn-secondary")}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white" id="home-guidance" aria-labelledby="guidance-title">
+      <div class="container reading-block reveal">
+        ${eyebrow("Personal Guidance")}
+        <h2 id="guidance-title">Understand your patterns. Find your direction.</h2>
+        <p class="support">Personal guidance for self-awareness, life clarity, conscious decision-making and meaningful personal growth. It is guided by Sarvesh Mishra, Founder, CureSoulLife.</p>
+        <p class="support">It is not a replacement for licensed mental health care, and selecting it here does not open a booking.</p>
+        <div class="cta-row">${cta(d, "personal-guidance/index.html", "Discover Personal Guidance")}</div>
+      </div>
+    </section>
+
+    <section class="section section-sand" id="home-stories" aria-labelledby="stories-title">
+      <div class="container">
+        <div class="section-head reading-block reveal">
+          ${eyebrow("Real experiences")}
+          <h2 id="stories-title">Individual reflections.</h2>
+          <p class="support">These are three published Google reviews. Each one is one person's account. They do not establish a typical result, a success rate, or a guarantee.</p>
+        </div>
+        <div class="community-cards community-wide reveal">
+          ${homepageReviews().map((review) => reviewCard(review)).join("")}
+        </div>
+        <div class="cta-row">${cta(d, "experiences/stories/index.html", "Read all reflections")}</div>
       </div>
     </section>
 
@@ -410,11 +447,48 @@ function home() {
           <div class="cta-row">${cta(d, "about/founder/index.html", "Meet the Founder")}</div>
         </div>
         <figure class="founder-figure reveal">
-          <div class="portrait-placeholder" role="img" aria-label="Placeholder for an approved photograph of Sarvesh Mishra. No portrait is shown.">
+          <div class="portrait-placeholder portrait-monogram" role="img" aria-label="Monogram placeholder for Sarvesh Mishra. An approved photograph is not shown.">
             <span class="portrait-mark" aria-hidden="true">SM</span>
-            <p>Approved photograph to be placed here. This space is reserved for a verified portrait.</p>
           </div>
         </figure>
+      </div>
+    </section>
+
+    <section class="section home-journey" aria-labelledby="journey-title">
+      <div class="container home-journey-grid">
+        <div class="home-journey-main">
+          <div class="section-head section-header reveal">
+            ${eyebrow("Human Transformation")}
+            <h2 id="journey-title">Transformation is a lifelong journey.</h2>
+            <p class="support">Meaningful change can begin with awareness, deepen through understanding, and take shape through practice, integration and contribution.</p>
+          </div>
+          <div class="journey-block timeline diagram reveal">
+            <ol class="journey">${stageItems}</ol>
+            <svg class="journey-arc" viewBox="0 0 1000 64" preserveAspectRatio="xMidYMin meet" aria-hidden="true" focusable="false">
+              <path class="journey-return" d="M929 6C929 58 71 58 71 6" fill="none" stroke="currentColor" stroke-width="1.25"/>
+              <path d="M63 16 71 6l8 10" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="journey-note">These stages are not strictly linear. People may revisit different stages throughout life. They are a conceptual framework, not a validated psychological model, a fixed ranking, or a guaranteed sequence.</p>
+          </div>
+          <div class="cta-row">${cta(d, "human-transformation/index.html", "Explore Human Transformation")}</div>
+        </div>
+        <figure class="home-journey-media reveal">
+          ${picture("institutional-hills", 1800, 1072, "A winding road through green hills at sunrise")}
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section-sand" id="home-vision" aria-labelledby="vision-title">
+      <div class="container reading-block reveal">
+        ${eyebrow("Global vision")}
+        <h2 id="vision-title">A world where human transformation is part of lifelong learning.</h2>
+        <p class="support">The Global Network is a developing institutional vision. It does not represent active offices, centres, or partnerships.</p>
+        <div class="cta-row">
+          ${cta(d, "knowledge/index.html", "Explore Knowledge", "btn btn-secondary")}
+          ${cta(d, "research/index.html", "Explore Research", "btn btn-secondary")}
+          ${cta(d, "community/index.html", "Explore Community", "btn btn-secondary")}
+          ${cta(d, "community/global-network/index.html", "Explore Global Network", "btn btn-secondary")}
+        </div>
       </div>
     </section>
 
@@ -423,20 +497,15 @@ function home() {
         ${picture("question-forest", 1600, 1066, "")}
       </figure>
       <div class="finale-inner">
-        <p class="eyebrow eyebrow-on-dark"><span class="eyebrow-rule" aria-hidden="true"></span>Your journey begins with a question</p>
+        <p class="eyebrow eyebrow-on-dark"><span class="eyebrow-rule" aria-hidden="true"></span>Explore your next step</p>
         <h2 id="finale-title">What would become possible if you understood yourself more deeply?</h2>
         <div class="finale-copy">
           <p>There is no single path to transformation.</p>
-          <p>Begin where you are.</p>
-          <p>Explore what speaks to you.</p>
-          <p>Learn.</p>
-          <p>Practice.</p>
-          <p>Experience.</p>
-          <p>And discover what becomes possible.</p>
+          <p>Online submission on the contact form is temporarily unavailable.</p>
         </div>
         <div class="cta-row">
-          ${cta(d, "human-transformation/index.html", "Begin Your Journey", "btn btn-light")}
-          ${cta(d, "curesoullife/index.html", "Explore CureSoulLife", "btn btn-ghost-light")}
+          ${cta(d, "contact/index.html", "Contact CureSoulLife", "btn btn-light")}
+          ${cta(d, "programs/index.html", "Explore Our Programs", "btn btn-ghost-light")}
         </div>
       </div>
     </section>`;
@@ -2187,7 +2256,7 @@ const experienceOfferings = [];
 function experiencesPage(depth) {
   const p = pfx(depth);
   const formats = [
-    ["Guided Practices", "Structured opportunities to explore practices such as meditation, reflection, yoga-based movement or other suitable activities within a clearly explained context.", ["Guided meditation", "Reflective exercises", "Yoga-based practices", "Breath-awareness practices", "Guided relaxation or Yoga Nidra, where appropriately designed"], ["knowledge/index.html", "Explore Practices"], ""],
+    ["Guided Practices", "Structured opportunities to explore practices such as meditation, reflection, yoga-based movement or other suitable activities within a clearly explained context.", ["Guided meditation", "Reflective exercises", "Yoga-based practices", "Breath-awareness practices", "Guided relaxation or Yoga Nidra, where appropriately designed"], ["guided-practices/index.html", "Explore Guided Practices"], "The library page describes the approach. Individual recordings are not available to play yet."],
     ["Workshops", "Focused sessions that bring people together to explore a specific subject, learn a concept or participate in guided activities.", ["Self-awareness", "Human behaviour", "Emotional understanding", "Relationships and communication", "Purpose and values", "Conscious living"], null, "No workshop is published, so this card has no action."],
     ["Structured Programmes", "Learning experiences organised around a defined topic, duration and sequence of activities, with opportunities for reflection and practical application.", ["Short learning programmes", "Guided practice programmes", "Multi-day learning experiences", "Longer structured personal-development journeys"], ["programs/index.html", "Explore Programs"], "Three programs are developed and described on the Programs page. Registration is closed. Closed registration does not record a past gathering."],
     ["Retreats and Immersions", "Dedicated periods of guided learning, reflection and participation, often in a shared environment that allows people to step away from ordinary routines.", ["One-day retreats", "Multi-day retreats", "Themed immersive experiences", "Group reflection and practice sessions"], ["experiences/retreats/index.html", "Explore Retreats"], ""],
@@ -2351,6 +2420,8 @@ function experiencesPage(depth) {
           <article><h3>Research</h3><p>Understand how CureSoulLife approaches evidence, traditional knowledge and responsible interpretation.</p>${textLink(depth, "research/index.html", "Explore Research")}</article>
           <article><h3>Human Transformation</h3><p>Explore the broader transformation framework.</p>${textLink(depth, "human-transformation/index.html", "Explore Human Transformation")}</article>
           <article><h3>Community</h3><p>Explore community-related information and available ways to connect.</p>${textLink(depth, "community/index.html", "Explore Community")}</article>
+          <article><h3>Stories</h3><p>Read published reflections. Each one is an individual account, not a typical result.</p>${textLink(depth, "experiences/stories/index.html", "Read reflections")}</article>
+          <article><h3>Guided Practices</h3><p>Read how the audio library is organised. Recordings are added only after the audio file is verified.</p>${textLink(depth, "guided-practices/index.html", "Explore Guided Practices")}</article>
         </div>
       </div>
     </section>
@@ -2453,8 +2524,117 @@ function personalGuidancePage(depth) {
         <p class="support"><strong>Contact:</strong> curesoullife@gmail.com</p>
         <p class="support">Whether that mailbox is receiving mail has not been confirmed on this page. Online submission on the contact form is temporarily unavailable.</p>
         <p class="support">Session availability, suitability and any professional fees will be confirmed before a session is agreed.</p>
-        <div class="cta-row">${cta(depth, "contact/index.html", "Go to Contact")}</div>
+        <div class="cta-row">
+          ${cta(depth, "contact/index.html", "Go to Contact")}
+          ${cta(depth, "experiences/stories/index.html", "Read reflections", "btn btn-secondary")}
+        </div>
         <p class="founder-close-line">Heal. Grow. Awaken. Transform.</p>
+      </div>
+    </section>`;
+}
+
+function storiesPage(depth) {
+  const visible = publishedReviews();
+  const institution = visible.filter((review) => review.group === "institution");
+  const person = visible.filter((review) => review.group === "person");
+  const cards = (reviews) => reviews.map((review) => reviewCard(review)).join("");
+  return `
+    <header class="page-hero" id="stories-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="${url(depth, "index.html")}">Home</a></li>
+            <li><a href="${url(depth, "experiences/index.html")}">Experiences</a></li>
+            <li aria-current="page">Stories</li>
+          </ol>
+        </nav>
+        <div class="reading-block">
+          ${eyebrow("CureSoulLife · Stories")}
+          <h1>Real People. Personal Journeys. Meaningful Reflections.</h1>
+          <p class="lede">Every personal journey is different. These reflections share individual experiences of guidance, self-understanding and personal growth.</p>
+        </div>
+      </div>
+    </header>
+    <section class="section section-white" id="stories-institution" aria-labelledby="stories-institution-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="stories-institution-title">Experiences with CureSoulLife</h2>
+          <p class="support">These reviews speak about CureSoulLife, its sessions, or its practices. None of them names a particular course.</p>
+        </div>
+        <div class="community-cards">${cards(institution)}</div>
+      </div>
+    </section>
+    <section class="section section-sand" id="stories-person" aria-labelledby="stories-person-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="stories-person-title">Personal appreciation of Sarvesh Mishra</h2>
+          <p class="support">These reviews speak about Sarvesh Mishra. A personal appreciation is not presented as proof of a particular program.</p>
+        </div>
+        <div class="community-cards">${cards(person)}</div>
+        <p class="section-note">These five reviews are individual Google reviews. They do not establish a typical result, a success rate, or a guarantee. The screenshots showed relative times rather than calendar dates, so no date is published here. No average rating is shown.</p>
+        <div class="cta-row">
+          ${cta(depth, "personal-guidance/index.html", "Discover Personal Guidance")}
+          ${cta(depth, "programs/index.html", "Explore Our Programs", "btn btn-secondary")}
+          ${cta(depth, "about/founder/index.html", "Meet the Founder", "btn btn-secondary")}
+          ${cta(depth, "contact/index.html", "Contact CureSoulLife", "btn btn-secondary")}
+        </div>
+      </div>
+    </section>`;
+}
+
+function guidedPracticesPage(depth) {
+  const visible = publishedPractices();
+  const cards = visible.map((practice) => `
+          <article>
+            <h3>${practice.title}</h3>
+            <p>${practice.category}. ${practice.intendedMinutes} minutes.</p>
+            <p><a href="${practice.mediaUrl}">Listen</a></p>
+          </article>`).join("");
+  const categories = [
+    ["Rest &amp; Sleep", "Practices in this area are intended for settling the body before rest."],
+    ["Calm &amp; Grounding", "Practices in this area are intended for slowing down and returning attention to the body and the breath."],
+    ["Awareness &amp; Clarity", "Practices in this area are intended for noticing thought and returning to a steadier kind of attention."]
+  ];
+  return `
+    <header class="page-hero" id="practices-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="${url(depth, "index.html")}">Home</a></li>
+            <li><a href="${url(depth, "experiences/index.html")}">Experiences</a></li>
+            <li aria-current="page">Guided Practices</li>
+          </ol>
+        </nav>
+        <div class="reading-block">
+          ${eyebrow("CureSoulLife · Guided Practices")}
+          <h1>Guided Practices</h1>
+          <p class="lede">CureSoulLife is preparing an audio-first library for rest, grounding and a quieter kind of attention. A recording is added only after its audio file has been checked. The library is being developed.</p>
+        </div>
+      </div>
+    </header>
+    <section class="section section-white" id="practice-library" aria-labelledby="practice-library-title">
+      <div class="container">
+        <div class="section-head reading-block">
+          <h2 id="practice-library-title">Three areas of practice</h2>
+          <p class="support">These categories describe how the library is organised. The planned format is audio, without a picture of the founder. Individual recordings stay unpublished until each file has a verified address.</p>
+        </div>
+        <div class="community-cards community-wide">
+          ${categories.map(([name, copy]) => `<article><h3>${name}</h3><p>${copy}</p></article>`).join("")}
+        </div>
+        ${visible.length ? `<div class="community-cards">${cards}</div>` : ""}
+      </div>
+    </section>
+    <section class="section" id="practice-care" aria-labelledby="practice-care-title">
+      <div class="container reading-block">
+        <h2 id="practice-care-title">Care and limits</h2>
+        <p class="support">These practices are educational wellness material. They are not medical treatment, a diagnosis, or a replacement for licensed mental health care, crisis support or other regulated professional services. A practice does not guarantee sleep, calm or a particular result.</p>
+        <p class="section-note">People experiencing severe psychological distress, suicidal thoughts or an immediate safety concern should seek qualified professional or emergency support. Stop a practice if it feels unsafe.</p>
+        <div class="cta-row">
+          ${cta(depth, "experiences/index.html", "Explore Experiences")}
+          ${cta(depth, "personal-guidance/index.html", "Discover Personal Guidance", "btn btn-secondary")}
+          ${cta(depth, "programs/index.html", "Explore Our Programs", "btn btn-secondary")}
+          ${cta(depth, "contact/index.html", "Contact CureSoulLife", "btn btn-secondary")}
+        </div>
       </div>
     </section>`;
 }
@@ -3964,6 +4144,7 @@ function founderPage(depth) {
           <div class="cta-row">
             ${cta(depth, "curesoullife/index.html", "Discover CureSoulLife")}
             ${cta(depth, "human-transformation/index.html", "Explore Human Transformation", "btn btn-secondary")}
+            ${cta(depth, "experiences/stories/index.html", "Read reflections", "btn btn-secondary")}
           </div>
         </div>
       </div>
@@ -4358,13 +4539,13 @@ const pages = [
     file: "index.html",
     depth: 0,
     current: "",
-    title: "CureSoulLife — A deeper way to understand being human",
-    description: "CureSoulLife is a Human Transformation Institution exploring awareness, balance, meaning and possibility through ancient wisdom, modern science and lived human experience.",
+    title: "Understand Yourself. Transform Your Life. | CureSoulLife",
+    description: "Explore a more conscious way of living through self-awareness, ancient wisdom, modern understanding and meaningful daily practices.",
     head: `  <link rel="canonical" href="https://curesoullife.org/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="CureSoulLife">
-  <meta property="og:title" content="CureSoulLife — A deeper way to understand being human">
-  <meta property="og:description" content="CureSoulLife is a Human Transformation Institution exploring awareness, balance, meaning and possibility through ancient wisdom, modern science and lived human experience.">
+  <meta property="og:title" content="Understand Yourself. Transform Your Life. | CureSoulLife">
+  <meta property="og:description" content="Explore a more conscious way of living through self-awareness, ancient wisdom, modern understanding and meaningful daily practices.">
   <meta property="og:url" content="https://curesoullife.org/">`,
     body: home()
   },
@@ -4451,6 +4632,34 @@ const pages = [
   <meta property="og:description" content="Explore CureSoulLife's approach to guided practices, workshops, learning programmes and retreats designed to connect knowledge with lived human experience.">
   <meta property="og:url" content="https://curesoullife.org/experiences">`,
     body: experiencesPage(1)
+  },
+  {
+    file: "experiences/stories/index.html",
+    depth: 2,
+    current: "experiences",
+    title: "Stories | CureSoulLife",
+    description: "Published Google reviews from people who wrote about guidance, self-understanding and personal growth. Each reflection is one person's account.",
+    head: `  <link rel="canonical" href="https://curesoullife.org/experiences/stories">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CureSoulLife">
+  <meta property="og:title" content="Stories | CureSoulLife">
+  <meta property="og:description" content="Published Google reviews from people who wrote about guidance, self-understanding and personal growth. Each reflection is one person's account.">
+  <meta property="og:url" content="https://curesoullife.org/experiences/stories">`,
+    body: storiesPage(2)
+  },
+  {
+    file: "guided-practices/index.html",
+    depth: 1,
+    current: "experiences",
+    title: "Guided Practices | CureSoulLife",
+    description: "CureSoulLife is developing an audio-first guided-practice library for rest, grounding and clarity. Individual recordings are published only after the audio file is verified.",
+    head: `  <link rel="canonical" href="https://curesoullife.org/guided-practices">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CureSoulLife">
+  <meta property="og:title" content="Guided Practices | CureSoulLife">
+  <meta property="og:description" content="CureSoulLife is developing an audio-first guided-practice library for rest, grounding and clarity. Individual recordings are published only after the audio file is verified.">
+  <meta property="og:url" content="https://curesoullife.org/guided-practices">`,
+    body: guidedPracticesPage(1)
   },
   {
     file: "community/index.html",

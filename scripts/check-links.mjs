@@ -46,7 +46,11 @@ const network = fs.readFileSync(path.join(root, "community/global-network/index.
 const about = fs.readFileSync(path.join(root, "about/index.html"), "utf8");
 const founder = fs.readFileSync(path.join(root, "about/founder/index.html"), "utf8");
 const required = [
-  "A deeper way to understand being human.",
+  "Understand Yourself. Transform Your Life.",
+  "Explore a more conscious way of living through self-awareness, ancient wisdom, modern understanding and meaningful daily practices.",
+  "Heal. Grow. Awaken. Transform.",
+  "Explore Our Programs",
+  "Discover Personal Guidance",
   "Nine interconnected dimensions of human life.",
   "Transformation is a lifelong journey.",
   "Four perspectives. A more integrated understanding.",
@@ -432,7 +436,7 @@ const missingFounder = founderRequired.filter((line) => !founder.includes(line))
 if (retreats.includes("Life Reset") || retreats.includes("LIFE RESET")) bad.push("retreats page publishes Life Reset without approval");
 if (community.includes("/community/stories") || community.includes("/community/events") || community.includes("Join our global community") || community.includes("Meet our members")) bad.push("community page publishes an unapproved claim or route");
 if (network.includes("Our Partners") || network.includes("operating worldwide")) bad.push("global network page publishes an unapproved presence claim");
-if (about.includes("practices/index.html")) bad.push("about page links to an unapproved Practices route");
+if (/(^|[^a-z-])practices\/index\.html/.test(about)) bad.push("about page links to an unapproved Practices route");
 if (founder.includes("I see human transformation as a lifelong process") || founder.includes("I do not see it as a finished answer") || founder.includes("I do not see human transformation as a single answer") || founder.includes("My work has moved through media") || founder.includes("I believe that meaningful transformation begins") || founder.includes("An approved photograph has not been supplied") || founder.includes("This monogram is not a portrait") || founder.includes("A first-person note is not published yet") || founder.includes("does not present that draft as his statement")) bad.push("founder page publishes an unapproved note or an editorial placeholder");
 const missingDecoding = decodingRequired.filter((line) => !decoding.includes(line));
 const approvedRoutes = [
@@ -444,6 +448,8 @@ const approvedRoutes = [
   ["knowledge/index.html", "https://curesoullife.org/knowledge"],
   ["research/index.html", "https://curesoullife.org/research"],
   ["experiences/index.html", "https://curesoullife.org/experiences"],
+  ["experiences/stories/index.html", "https://curesoullife.org/experiences/stories"],
+  ["guided-practices/index.html", "https://curesoullife.org/guided-practices"],
   ["personal-guidance/index.html", "https://curesoullife.org/personal-guidance"],
   ["programs/index.html", "https://curesoullife.org/programs"],
   ["programs/life-reset-7/index.html", "https://curesoullife.org/programs/life-reset-7"],
@@ -536,6 +542,60 @@ for (const [line, html] of articleRequired) {
 }
 const blogBan = "Posted on|min read|Leave a comment";
 if (new RegExp(blogBan).test(blogHtml) || new RegExp(blogBan).test(blogArticle) || new RegExp(blogBan).test(blogMindset) || new RegExp(blogBan).test(blogJourneyHtml) || new RegExp(blogBan).test(blogPeaceHtml) || new RegExp(blogBan).test(blogLetGoHtml)) bad.push("blog publishes an unapproved byline, reading time, or comment prompt");
+const storiesHtml = fs.existsSync(path.join(root, "experiences/stories/index.html")) ? fs.readFileSync(path.join(root, "experiences/stories/index.html"), "utf8") : "";
+const practicesHtml = fs.existsSync(path.join(root, "guided-practices/index.html")) ? fs.readFileSync(path.join(root, "guided-practices/index.html"), "utf8") : "";
+const homeReviewLines = [
+  "Krishna Davi",
+  "Aastha Yadav",
+  "Dharma Raj",
+  "much deeper level",
+  "Thankyou so much sir",
+  "best investments",
+  "Google review",
+  "5 out of 5 stars",
+  "experiences/stories/index.html",
+  "They do not establish a typical result"
+];
+for (const line of homeReviewLines) {
+  if (!home.includes(line)) bad.push(`homepage is missing approved review text: ${line}`);
+}
+if (home.includes("Smart Infovision") || home.includes("Satwik Mishra") || home.includes("remarkable personality") || home.includes("very holistic")) bad.push("homepage publishes a review reserved for the stories page");
+if (home.includes("No reflection is published yet.") || home.includes("No recording is published yet.") || home.includes(">Listen<") || home.includes(">Play<") || home.includes('id="home-practices"')) bad.push("homepage shows an empty stories or practices section");
+if (home.includes("months ago") || home.includes("a month ago")) bad.push("homepage publishes a relative review date");
+const storyLines = [
+  "Real People. Personal Journeys. Meaningful Reflections.",
+  "Every personal journey is different. These reflections share individual experiences of guidance, self-understanding and personal growth.",
+  "Aastha Yadav",
+  "Smart Infovision",
+  "Krishna Davi",
+  "Satwik Mishra",
+  "Dharma Raj",
+  "Thankyou so much sir",
+  "remarkable personality",
+  "much deeper level",
+  "very holistic",
+  "best investments",
+  "This is not a review of a particular program.",
+  "It is not attributed to one course.",
+  "Google review",
+  "5 out of 5 stars",
+  "They do not establish a typical result"
+];
+for (const line of storyLines) {
+  if (!storiesHtml.includes(line)) bad.push(`stories page is missing approved text: ${line}`);
+}
+if ((storiesHtml.match(/5 out of 5 stars/g) || []).length !== 5) bad.push("stories page does not show five verified ratings");
+if (storiesHtml.includes("months ago") || storiesHtml.includes("a month ago") || storiesHtml.includes("Local Guide") || storiesHtml.includes("google.com") || storiesHtml.includes("maps.app")) bad.push("stories page publishes a date, profile count, or invented review URL");
+const withheldPracticeTitles = ["Yoga Nidra", "Deep Sleep Meditation", "Sleep Body Scan", "Nervous System Reset", "Progressive Muscle Relaxation", "Overthinking Reset", "Inner Silence Meditation", "Mental Clarity", "Emotional Release"];
+for (const title of withheldPracticeTitles) {
+  if (practicesHtml.includes(title) || home.includes(title)) bad.push(`unpublished practice is public: ${title}`);
+}
+if (!practicesHtml.includes("The library is being developed.") || !practicesHtml.includes("Rest &amp; Sleep") || !practicesHtml.includes("Calm &amp; Grounding") || !practicesHtml.includes("Awareness &amp; Clarity")) bad.push("guided practices page is missing the library introduction");
+if (practicesHtml.includes(">Listen<") || practicesHtml.includes(">Play<") || practicesHtml.includes("<audio") || practicesHtml.includes(".mp3") || practicesHtml.includes("No recording is published yet.")) bad.push("guided practices page shows a player or an empty-state card");
+if (!experiences.includes("guided-practices/index.html") || !experiences.includes("experiences/stories/index.html")) bad.push("experiences page is missing a stories or guided-practices link");
+if (!founder.includes("experiences/stories/index.html")) bad.push("founder page is missing the stories link");
+if (!fs.readFileSync(path.join(root, "personal-guidance/index.html"), "utf8").includes("experiences/stories/index.html")) bad.push("personal guidance page is missing the stories link");
+if (home.includes("Approved photograph to be placed here") || home.includes("No stories are listed yet.")) bad.push("homepage still shows a development placeholder");
 const contactHtml = fs.readFileSync(path.join(root, "contact/index.html"), "utf8");
 if (contactHtml.includes("Your enquiry has been received")) bad.push("contact page shows a receipt that was not confirmed");
 if (contactHtml.includes("mailto:") || contactHtml.includes("@curesoullife.org")) bad.push("contact page publishes an unverified address");

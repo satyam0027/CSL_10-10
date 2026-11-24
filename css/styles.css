@@ -2123,6 +2123,12 @@ main header[id] { scroll-margin-top: 88px; }
 .section-forest .community-cards > li { background: var(--ivory); color: var(--charcoal); }
 .community-cards h3 { margin: 8px 0 10px; color: var(--midnight); }
 .community-cards p { margin-top: 8px; color: var(--charcoal); font-size: 16px; line-height: 1.6; }
+.review-card blockquote { margin: 14px 0 0; }
+.review-card blockquote p { margin-top: 12px; font-family: var(--font-serif); font-size: 18px; line-height: 1.55; }
+.review-card blockquote p:first-child { margin-top: 0; }
+.review-meta { margin-top: 0; }
+.review-stars { color: var(--copper); letter-spacing: 0.14em; }
+.review-kind { font-size: 14px; }
 .community-for { color: var(--earth); font-size: 15px; font-weight: 700; }
 .community-cards .link-arrow { display: flex; width: fit-content; margin-top: 16px; }
 ol.community-cards { counter-reset: community; }
