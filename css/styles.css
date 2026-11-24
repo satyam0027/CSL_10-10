@@ -2190,6 +2190,7 @@ ol.community-cards > li::before {
 .blog-hero { border-bottom: 0; padding-bottom: 12px; }
 .blog-hero h1,
 .blog-card h2,
+.blog-display,
 .blog-prose h1,
 .blog-prose h2,
 .blog-prose h3 {

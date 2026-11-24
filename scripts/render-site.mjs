@@ -4204,6 +4204,17 @@ function wellnessDisclaimerPage(depth) {
 
 const blogPosts = [
   {
+    slug: "how-to-let-go-of-the-past-and-move-forward",
+    title: "How to Let Go of the Past and Move Forward in Life: 10 Practical Ways",
+    description: "Letting go of the past does not mean forgetting what happened. It means learning to live without allowing yesterday's experiences to control today's happiness and tomorrow's possibilities.",
+    source: "let-go-of-the-past.html",
+    readLabel: "Read the article",
+    image: "blog-let-go-of-the-past.jpg",
+    width: 1024,
+    height: 576,
+    alt: "A woman sitting on a mountain ridge at sunrise beneath the words How to Let Go of the Past, with photographs and a broken chain."
+  },
+  {
     slug: "how-to-stop-overthinking-and-find-mental-peace",
     title: "How to Stop Overthinking and Find Mental Peace: 10 Effective Ways to Calm Your Mind",
     description: "Learning how to stop overthinking is not about making your mind completely empty. It is about developing awareness, managing your reactions and directing your attention towards what truly matters.",
@@ -4255,6 +4266,7 @@ const blogGuide = blogPosts.find((post) => post.slug === "how-to-understand-your
 const blogMindset = blogPosts.find((post) => post.slug === "how-to-build-an-unbreakable-mindset");
 const blogJourney = blogPosts.find((post) => post.slug === "human-transformation-journey-of-self-discovery");
 const blogPeace = blogPosts.find((post) => post.slug === "how-to-stop-overthinking-and-find-mental-peace");
+const blogLetGo = blogPosts.find((post) => post.slug === "how-to-let-go-of-the-past-and-move-forward");
 
 function blogFigure(depth, post, priority = false) {
   const p = pfx(depth);
@@ -4669,6 +4681,20 @@ const pages = [
   <meta property="og:url" content="https://curesoullife.org/blog/${blogPeace.slug}">
   <meta property="og:image" content="https://curesoullife.org/assets/images/${blogPeace.image}">`,
     body: blogArticlePage(2, blogPeace)
+  },
+  {
+    file: "blog/how-to-let-go-of-the-past-and-move-forward/index.html",
+    depth: 2,
+    current: "blog",
+    title: `${blogLetGo.title} | CureSoulLife`,
+    description: blogLetGo.description,
+    head: `  <link rel="canonical" href="https://curesoullife.org/blog/${blogLetGo.slug}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="${blogLetGo.title} | CureSoulLife">
+  <meta property="og:description" content="${blogLetGo.description}">
+  <meta property="og:url" content="https://curesoullife.org/blog/${blogLetGo.slug}">
+  <meta property="og:image" content="https://curesoullife.org/assets/images/${blogLetGo.image}">`,
+    body: blogArticlePage(2, blogLetGo)
   },
   {
     file: "privacy-policy/index.html",
