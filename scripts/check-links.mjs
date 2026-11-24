@@ -634,7 +634,7 @@ const guidanceRequired = [
   "not a replacement for licensed mental health care",
   "suicidal thoughts",
   "curesoullife@gmail.com",
-  "has not been confirmed",
+  "The owner has confirmed that this mailbox receives email",
   "temporarily unavailable",
   "Heal. Grow. Awaken. Transform."
 ];
@@ -693,7 +693,7 @@ const programRequired = {
     "not a replacement for licensed mental health care",
     "suicidal thoughts",
     "curesoullife@gmail.com",
-    "has not been confirmed",
+    "The owner has confirmed that this mailbox receives email",
     "temporarily unavailable"
   ],
   "programs/life-reset-one-day/index.html": [
@@ -713,7 +713,9 @@ const programRequired = {
     "Registration",
     "Closed.",
     "not a replacement for licensed mental health care",
-    "curesoullife@gmail.com"
+    "curesoullife@gmail.com",
+    "The owner has confirmed that this mailbox receives email",
+    "temporarily unavailable"
   ],
   "programs/inner-balance-transformation/index.html": [
     "https://curesoullife.org/programs/inner-balance-transformation",
@@ -732,7 +734,9 @@ const programRequired = {
     "Registration",
     "Closed.",
     "not a replacement for licensed mental health care",
-    "curesoullife@gmail.com"
+    "curesoullife@gmail.com",
+    "The owner has confirmed that this mailbox receives email",
+    "temporarily unavailable"
   ]
 };
 for (const [file, lines] of Object.entries(programRequired)) {

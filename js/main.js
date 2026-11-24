@@ -305,7 +305,7 @@
       event.preventDefault();
       if (status) {
         status.hidden = false;
-        status.textContent = "Online submission is temporarily unavailable. Nothing was sent. Write to curesoullife@gmail.com if you choose to. Whether that mailbox is receiving mail has not been confirmed on this page.";
+        status.textContent = "Online submission is temporarily unavailable. Nothing was sent. Write directly to curesoullife@gmail.com.";
         status.focus();
       }
     });
