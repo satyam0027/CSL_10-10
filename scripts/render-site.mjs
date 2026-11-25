@@ -4384,6 +4384,17 @@ function wellnessDisclaimerPage(depth) {
 
 const blogPosts = [
   {
+    slug: "how-to-build-a-healthy-daily-routine",
+    title: "How to Build a Healthy Daily Routine: 10 Simple Habits for a Better Life",
+    description: "Building a healthy daily routine is about creating a lifestyle that supports your physical health, mental well-being, productivity and personal growth.",
+    source: "healthy-daily-routine.html",
+    readLabel: "Read the article",
+    image: "blog-healthy-daily-routine.jpg",
+    width: 1024,
+    height: 576,
+    alt: "A woman meditating at sunrise beside a notebook titled My Daily Routine, under the words How to Build a Healthy Daily Routine."
+  },
+  {
     slug: "how-to-let-go-of-the-past-and-move-forward",
     title: "How to Let Go of the Past and Move Forward in Life: 10 Practical Ways",
     description: "Letting go of the past does not mean forgetting what happened. It means learning to live without allowing yesterday's experiences to control today's happiness and tomorrow's possibilities.",
@@ -4447,6 +4458,7 @@ const blogMindset = blogPosts.find((post) => post.slug === "how-to-build-an-unbr
 const blogJourney = blogPosts.find((post) => post.slug === "human-transformation-journey-of-self-discovery");
 const blogPeace = blogPosts.find((post) => post.slug === "how-to-stop-overthinking-and-find-mental-peace");
 const blogLetGo = blogPosts.find((post) => post.slug === "how-to-let-go-of-the-past-and-move-forward");
+const blogRoutine = blogPosts.find((post) => post.slug === "how-to-build-a-healthy-daily-routine");
 
 function blogFigure(depth, post, priority = false) {
   const p = pfx(depth);
@@ -4903,6 +4915,20 @@ const pages = [
   <meta property="og:url" content="https://curesoullife.org/blog/${blogLetGo.slug}">
   <meta property="og:image" content="https://curesoullife.org/assets/images/${blogLetGo.image}">`,
     body: blogArticlePage(2, blogLetGo)
+  },
+  {
+    file: "blog/how-to-build-a-healthy-daily-routine/index.html",
+    depth: 2,
+    current: "blog",
+    title: `${blogRoutine.title} | CureSoulLife`,
+    description: blogRoutine.description,
+    head: `  <link rel="canonical" href="https://curesoullife.org/blog/${blogRoutine.slug}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="${blogRoutine.title} | CureSoulLife">
+  <meta property="og:description" content="${blogRoutine.description}">
+  <meta property="og:url" content="https://curesoullife.org/blog/${blogRoutine.slug}">
+  <meta property="og:image" content="https://curesoullife.org/assets/images/${blogRoutine.image}">`,
+    body: blogArticlePage(2, blogRoutine)
   },
   {
     file: "privacy-policy/index.html",
