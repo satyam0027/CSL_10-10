@@ -4384,6 +4384,17 @@ function wellnessDisclaimerPage(depth) {
 
 const blogPosts = [
   {
+    slug: "understanding-conscious-living",
+    title: "Understanding Conscious Living: Meaning, Benefits and How to Practise It in Everyday Life",
+    description: "Conscious living is about becoming more aware of your thoughts, emotions, decisions, habits and surroundings, and choosing to live intentionally rather than on autopilot.",
+    source: "conscious-living.html",
+    readLabel: "Read the article",
+    image: "blog-conscious-living.jpg",
+    width: 1024,
+    height: 576,
+    alt: "A woman sitting on a mountain ridge at sunrise beneath the words Understanding Conscious Living."
+  },
+  {
     slug: "how-to-build-a-healthy-daily-routine",
     title: "How to Build a Healthy Daily Routine: 10 Simple Habits for a Better Life",
     description: "Building a healthy daily routine is about creating a lifestyle that supports your physical health, mental well-being, productivity and personal growth.",
@@ -4459,6 +4470,7 @@ const blogJourney = blogPosts.find((post) => post.slug === "human-transformation
 const blogPeace = blogPosts.find((post) => post.slug === "how-to-stop-overthinking-and-find-mental-peace");
 const blogLetGo = blogPosts.find((post) => post.slug === "how-to-let-go-of-the-past-and-move-forward");
 const blogRoutine = blogPosts.find((post) => post.slug === "how-to-build-a-healthy-daily-routine");
+const blogConscious = blogPosts.find((post) => post.slug === "understanding-conscious-living");
 
 function blogFigure(depth, post, priority = false) {
   const p = pfx(depth);
@@ -4929,6 +4941,20 @@ const pages = [
   <meta property="og:url" content="https://curesoullife.org/blog/${blogRoutine.slug}">
   <meta property="og:image" content="https://curesoullife.org/assets/images/${blogRoutine.image}">`,
     body: blogArticlePage(2, blogRoutine)
+  },
+  {
+    file: "blog/understanding-conscious-living/index.html",
+    depth: 2,
+    current: "blog",
+    title: `${blogConscious.title} | CureSoulLife`,
+    description: blogConscious.description,
+    head: `  <link rel="canonical" href="https://curesoullife.org/blog/${blogConscious.slug}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="${blogConscious.title} | CureSoulLife">
+  <meta property="og:description" content="${blogConscious.description}">
+  <meta property="og:url" content="https://curesoullife.org/blog/${blogConscious.slug}">
+  <meta property="og:image" content="https://curesoullife.org/assets/images/${blogConscious.image}">`,
+    body: blogArticlePage(2, blogConscious)
   },
   {
     file: "privacy-policy/index.html",
