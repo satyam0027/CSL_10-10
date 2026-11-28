@@ -469,6 +469,7 @@ const approvedRoutes = [
   ["blog/how-to-let-go-of-the-past-and-move-forward/index.html", "https://curesoullife.org/blog/how-to-let-go-of-the-past-and-move-forward"],
   ["blog/how-to-build-a-healthy-daily-routine/index.html", "https://curesoullife.org/blog/how-to-build-a-healthy-daily-routine"],
   ["blog/understanding-conscious-living/index.html", "https://curesoullife.org/blog/understanding-conscious-living"],
+  ["blog/how-silence-can-help-you-understand-yourself-better/index.html", "https://curesoullife.org/blog/how-silence-can-help-you-understand-yourself-better"],
   ["privacy-policy/index.html", "https://curesoullife.org/privacy-policy"],
   ["terms-of-use/index.html", "https://curesoullife.org/terms-of-use"],
   ["wellness-disclaimer/index.html", "https://curesoullife.org/wellness-disclaimer"]
@@ -500,6 +501,7 @@ const blogPeaceHtml = fs.readFileSync(path.join(root, "blog/how-to-stop-overthin
 const blogLetGoHtml = fs.readFileSync(path.join(root, "blog/how-to-let-go-of-the-past-and-move-forward/index.html"), "utf8");
 const blogRoutineHtml = fs.readFileSync(path.join(root, "blog/how-to-build-a-healthy-daily-routine/index.html"), "utf8");
 const blogConsciousHtml = fs.readFileSync(path.join(root, "blog/understanding-conscious-living/index.html"), "utf8");
+const blogSilenceHtml = fs.readFileSync(path.join(root, "blog/how-silence-can-help-you-understand-yourself-better/index.html"), "utf8");
 const blogRequired = [
   "The CureSoulLife blog",
   "how-to-understand-yourself-better",
@@ -509,6 +511,8 @@ const blogRequired = [
   "how-to-let-go-of-the-past-and-move-forward",
   "how-to-build-a-healthy-daily-routine",
   "understanding-conscious-living",
+  "how-silence-can-help-you-understand-yourself-better",
+  "assets/images/blog-silence-self-awareness.jpg",
   "assets/images/blog-conscious-living.jpg",
   "assets/images/blog-healthy-daily-routine.jpg",
   "assets/images/blog-let-go-of-the-past.jpg",
@@ -522,6 +526,7 @@ const blogRequired = [
   "How to Let Go of the Past and Move Forward in Life: 10 Practical Ways",
   "How to Build a Healthy Daily Routine: 10 Simple Habits for a Better Life",
   "Understanding Conscious Living: Meaning, Benefits and How to Practise It in Everyday Life",
+  "How Silence Can Help You Understand Yourself Better: The Power of Inner Awareness",
   "https://curesoullife.org/blog"
 ];
 const missingBlog = blogRequired.filter((line) => !blogHtml.includes(line));
@@ -553,13 +558,17 @@ const articleRequired = [
   ["becoming more aware of your thoughts, emotions, decisions, habits and surroundings", blogConsciousHtml],
   ["Understanding Conscious Living: Meaning, Benefits and How to Practise It in Everyday Life", blogConsciousHtml],
   ["assets/images/blog-conscious-living.jpg", blogConsciousHtml],
-  ["https://curesoullife.org/blog/understanding-conscious-living", blogConsciousHtml]
+  ["https://curesoullife.org/blog/understanding-conscious-living", blogConsciousHtml],
+  ["observe our thoughts, recognise our emotions and develop a deeper understanding of who we are.", blogSilenceHtml],
+  ["How Silence Can Help You Understand Yourself Better: The Power of Inner Awareness", blogSilenceHtml],
+  ["assets/images/blog-silence-self-awareness.jpg", blogSilenceHtml],
+  ["https://curesoullife.org/blog/how-silence-can-help-you-understand-yourself-better", blogSilenceHtml]
 ];
 for (const [line, html] of articleRequired) {
   if (!html.includes(line)) missingBlog.push(line);
 }
 const blogBan = "Posted on|min read|Leave a comment";
-if (new RegExp(blogBan).test(blogHtml) || new RegExp(blogBan).test(blogArticle) || new RegExp(blogBan).test(blogMindset) || new RegExp(blogBan).test(blogJourneyHtml) || new RegExp(blogBan).test(blogPeaceHtml) || new RegExp(blogBan).test(blogLetGoHtml) || new RegExp(blogBan).test(blogRoutineHtml) || new RegExp(blogBan).test(blogConsciousHtml)) bad.push("blog publishes an unapproved byline, reading time, or comment prompt");
+if (new RegExp(blogBan).test(blogHtml) || new RegExp(blogBan).test(blogArticle) || new RegExp(blogBan).test(blogMindset) || new RegExp(blogBan).test(blogJourneyHtml) || new RegExp(blogBan).test(blogPeaceHtml) || new RegExp(blogBan).test(blogLetGoHtml) || new RegExp(blogBan).test(blogRoutineHtml) || new RegExp(blogBan).test(blogConsciousHtml) || new RegExp(blogBan).test(blogSilenceHtml)) bad.push("blog publishes an unapproved byline, reading time, or comment prompt");
 const storiesHtml = fs.existsSync(path.join(root, "experiences/stories/index.html")) ? fs.readFileSync(path.join(root, "experiences/stories/index.html"), "utf8") : "";
 const practicesHtml = fs.existsSync(path.join(root, "guided-practices/index.html")) ? fs.readFileSync(path.join(root, "guided-practices/index.html"), "utf8") : "";
 const homeReviewLines = [

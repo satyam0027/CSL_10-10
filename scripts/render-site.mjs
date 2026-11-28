@@ -4384,6 +4384,17 @@ function wellnessDisclaimerPage(depth) {
 
 const blogPosts = [
   {
+    slug: "how-silence-can-help-you-understand-yourself-better",
+    title: "How Silence Can Help You Understand Yourself Better: The Power of Inner Awareness",
+    description: "Silence gives us an opportunity to observe our thoughts, recognise our emotions and develop a deeper understanding of who we are.",
+    source: "silence-self-awareness.html",
+    readLabel: "Read the article",
+    image: "blog-silence-self-awareness.jpg",
+    width: 1024,
+    height: 576,
+    alt: "A glowing figure meditating at sunrise beneath the words How Silence Can Help You Understand Yourself Better."
+  },
+  {
     slug: "understanding-conscious-living",
     title: "Understanding Conscious Living: Meaning, Benefits and How to Practise It in Everyday Life",
     description: "Conscious living is about becoming more aware of your thoughts, emotions, decisions, habits and surroundings, and choosing to live intentionally rather than on autopilot.",
@@ -4471,6 +4482,7 @@ const blogPeace = blogPosts.find((post) => post.slug === "how-to-stop-overthinki
 const blogLetGo = blogPosts.find((post) => post.slug === "how-to-let-go-of-the-past-and-move-forward");
 const blogRoutine = blogPosts.find((post) => post.slug === "how-to-build-a-healthy-daily-routine");
 const blogConscious = blogPosts.find((post) => post.slug === "understanding-conscious-living");
+const blogSilence = blogPosts.find((post) => post.slug === "how-silence-can-help-you-understand-yourself-better");
 
 function blogFigure(depth, post, priority = false) {
   const p = pfx(depth);
@@ -4478,19 +4490,35 @@ function blogFigure(depth, post, priority = false) {
   return `<img src="${p}assets/images/${post.image}" alt="${post.alt}" width="${post.width}" height="${post.height}"${load} decoding="async">`;
 }
 
-function blogPage(depth) {
-  const cards = blogPosts.map((post, index) => {
-    const href = `blog/${post.slug}/index.html`;
-    const media = post.image
-      ? `<a class="blog-card-media" href="${url(depth, href)}"><figure>${blogFigure(depth, post, index === 0)}</figure><h2>${post.title}</h2></a>`
-      : `<h2><a href="${url(depth, href)}">${post.title}</a></h2>`;
-    return `
+function blogCard(depth, post, priority = false) {
+  const href = `blog/${post.slug}/index.html`;
+  const media = post.image
+    ? `<a class="blog-card-media" href="${url(depth, href)}"><figure>${blogFigure(depth, post, priority)}</figure><h2>${post.title}</h2></a>`
+    : `<h2><a href="${url(depth, href)}">${post.title}</a></h2>`;
+  return `
         <article class="blog-card">
           ${media}
           <p>${post.description}</p>
           ${textLink(depth, href, post.readLabel)}
         </article>`;
-  }).join("");
+}
+
+function blogPage(depth) {
+  const [featured, ...rest] = blogPosts;
+  const featureHref = `blog/${featured.slug}/index.html`;
+  const feature = `
+        <article class="blog-feature">
+          <a class="blog-feature-media" href="${url(depth, featureHref)}">
+            <figure>${blogFigure(depth, featured, true)}</figure>
+          </a>
+          <div class="blog-feature-copy">
+            ${eyebrow("Latest")}
+            <h2><a href="${url(depth, featureHref)}">${featured.title}</a></h2>
+            <p>${featured.description}</p>
+            ${textLink(depth, featureHref, featured.readLabel)}
+          </div>
+        </article>`;
+  const cards = rest.map((post) => blogCard(depth, post)).join("");
   return `
     <header class="page-hero blog-hero" id="blog-hero">
       <div class="container">
@@ -4506,8 +4534,11 @@ function blogPage(depth) {
       </div>
     </header>
     <section class="section section-white" id="blog-posts" aria-label="Published notes">
-      <div class="container blog-stack">
-        ${cards}
+      <div class="container blog-index">
+        ${feature}
+        <div class="blog-grid">
+          ${cards}
+        </div>
       </div>
     </section>
     <section class="finale finale-plain cta-section cta-forest" id="blog-closing" aria-labelledby="blog-close-title">
@@ -4533,8 +4564,8 @@ function blogArticlePage(depth, post) {
   const banner = post.image ? `<figure class="blog-banner">${blogFigure(depth, post, true)}</figure>` : "";
   return `
     <article class="section blog-article" id="blog-${post.slug}">
-      <div class="container">
-        <div class="blog-sheet">
+      <header class="blog-mast">
+        <div class="container">
           <nav class="breadcrumb" aria-label="Breadcrumb">
             <ol>
               <li><a href="${url(depth, "index.html")}">Home</a></li>
@@ -4542,12 +4573,14 @@ function blogArticlePage(depth, post) {
               <li aria-current="page">${post.title}</li>
             </ol>
           </nav>
-          ${banner}
           <h1 class="${titleClass}">${post.title}</h1>
-          <div class="blog-prose">
-            ${article}
-            ${textLink(depth, "blog/index.html", "Back to the blog")}
-          </div>
+        </div>
+        ${banner}
+      </header>
+      <div class="blog-read">
+        <div class="blog-prose">
+          ${article}
+          ${textLink(depth, "blog/index.html", "Back to the blog")}
         </div>
       </div>
     </article>`;
@@ -4955,6 +4988,20 @@ const pages = [
   <meta property="og:url" content="https://curesoullife.org/blog/${blogConscious.slug}">
   <meta property="og:image" content="https://curesoullife.org/assets/images/${blogConscious.image}">`,
     body: blogArticlePage(2, blogConscious)
+  },
+  {
+    file: "blog/how-silence-can-help-you-understand-yourself-better/index.html",
+    depth: 2,
+    current: "blog",
+    title: `${blogSilence.title} | CureSoulLife`,
+    description: blogSilence.description,
+    head: `  <link rel="canonical" href="https://curesoullife.org/blog/${blogSilence.slug}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="${blogSilence.title} | CureSoulLife">
+  <meta property="og:description" content="${blogSilence.description}">
+  <meta property="og:url" content="https://curesoullife.org/blog/${blogSilence.slug}">
+  <meta property="og:image" content="https://curesoullife.org/assets/images/${blogSilence.image}">`,
+    body: blogArticlePage(2, blogSilence)
   },
   {
     file: "privacy-policy/index.html",
